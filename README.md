@@ -1,13 +1,13 @@
-# Music Visualiser Project
+# PawGo Project
 
 Team 6: Friend5
 
 Team Members:
 
-Yushun Zeng
-Daniel Waldron
-Chak Ngai Wan
-Panagiotis Bampilis
+Yushun Zeng,
+Daniel Waldron,
+Chak Ngai Wan,
+Panagiotis Bampilis,
 Kim Thai
 
 # Description of the project
