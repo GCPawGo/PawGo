@@ -1,4 +1,5 @@
 # PawGo Project
+![An image](lib/assets/app_logo.png)
 
 Team 6: Friend5
 
