@@ -1,5 +1,5 @@
 # PawGo Project
-![An image](lib/assets/app_icon.png =50x50)
+[<img src="lib/assets/app_icon.png" width="50"/>](app_icon.png)
 
 Team 6: Friend5
 
