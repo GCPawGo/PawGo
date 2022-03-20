@@ -1,5 +1,5 @@
 # PawGo Project
-[<img src="lib/assets/app_icon.png" width="50"/>](app_icon.png)
+[<img src="lib/assets/app_icon.png" width="150"/>](app_icon.png)
 
 Team 6: Friend5
 
