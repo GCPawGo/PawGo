@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "346160342899",
+    "project_id": "pawgo-228ff",
+    "storage_bucket": "pawgo-228ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346160342899:android:cde63b4900c0a701560706",
+        "android_client_info": {
+          "package_name": "com.example.PawGo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346160342899-tog9jkoeknlfdhdfo4a1vn1mc9og7h09.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.PawGo",
+            "certificate_hash": "65db99f483e4e1408f13b707e13109d5765c47c3"
+          }
+        },
+        {
+          "client_id": "346160342899-vved5usv4shvuiji4bqsotcvbl657p4l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANZVOxn0HOpR4CG7wv2XFV_skp3e1JoDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346160342899-vved5usv4shvuiji4bqsotcvbl657p4l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
