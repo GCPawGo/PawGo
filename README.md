@@ -1,5 +1,5 @@
 # PawGo Project
-![An image](lib/assets/app_icon.png)
+![An image](lib/assets/app_icon.png =50x50)
 
 Team 6: Friend5
 
