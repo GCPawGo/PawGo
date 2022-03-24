@@ -156,7 +156,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 Column(
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () { },
+                      onTap: () {
+                      },
                       child: Container(
                         /*width: 15 * SizeConfig.heightMultiplier!,*/
                         decoration: BoxDecoration(
@@ -181,7 +182,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       onTap: () async {
                         await Authentication.signOut(context: context);
                         setState(() {
-                          Navigator.of(context, rootNavigator: true);
+                          Navigator.of(context, rootNavigator: true)
+                              .pushAndRemoveUntil(
+                              _routeToSignInScreen(), (_) => false);
                         });
                       },
                       child: Container(
@@ -284,4 +287,21 @@ class _ProfilePageState extends State<ProfilePage> {
     return str ?? "";
   }
 
+  Route _routeToSignInScreen() {
+    return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => SignInScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            var begin = Offset(-1.0, 0.0);
+            var end = Offset.zero;
+            var curve = Curves.ease;
+
+            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+            );
+         },
+    );
+  }
 }
