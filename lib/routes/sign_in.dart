@@ -51,7 +51,7 @@ class _GoogleSignInState extends State<GoogleSignIn> {
           FirebaseService service = new FirebaseService();
           try {
             await service.signInwithGoogle();
-            Navigator.pushNamedAndRemoveUntil(context, '/start', (route) => false);
+            Navigator.pushNamedAndRemoveUntil(context, '/profile', (route) => false);
           } catch(e){
             if(e is FirebaseAuthException){
               showMessage(e.message!);

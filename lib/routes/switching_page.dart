@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:location/location.dart';
+import 'package:flutter/material.dart';
+import 'package:pawgo/assets/custom_colors.dart';
+import 'package:pawgo/routes/profile_page.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class SwitchPage extends StatefulWidget {
@@ -26,10 +32,12 @@ class _SwitchPageState extends State<SwitchPage> {
         colorBehindNavBar: Colors.white
       ),
       screens: [
-        // TODO later add features
+        ProfilePage(),
       ],
       items: [
-        // TODO later add features
+        PersistentBottomNavBarItem(
+            activeColorPrimary: CustomColors.pawrange,
+            icon: FaIcon(FontAwesomeIcons.user), title: 'Profile'),
       ],
     );
   }

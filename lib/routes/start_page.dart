@@ -34,7 +34,7 @@ class StartPage extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                pedalaLogo(context, size),
+                pawgoz(context, size),
                 signUpButton(context, result),
                 SizedBox(
                   height: 20,
@@ -48,7 +48,7 @@ class StartPage extends StatelessWidget {
   }
 }
 
-Widget pedalaLogo(context, size) {
+Widget pawgoz(context, size) {
   return Padding(
     padding: EdgeInsets.only(top: MediaQuery.of(context).size.height) / 8,
     child: Container(
