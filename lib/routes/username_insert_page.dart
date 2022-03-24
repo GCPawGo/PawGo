@@ -101,7 +101,7 @@ class _InsertUsernameScreenState extends State<InsertUsernameScreen> {
                               Padding(
                                 padding: EdgeInsets.only(top: width * (0.05)),
                                 child: TextField(
-                                  cursorColor: CustomColors.green,
+                                  cursorColor: CustomColors.pawrange,
                                   decoration: InputDecoration(
                                       counterStyle:
                                           TextStyle(color: CustomColors.silver),
@@ -111,9 +111,9 @@ class _InsertUsernameScreenState extends State<InsertUsernameScreen> {
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: CustomColors.green),
+                                            BorderSide(color: CustomColors.pawrange),
                                       ),
-                                      hintText: "Insert here your username",
+                                      hintText: "Please insert your username",
                                       hintStyle: TextStyle(
                                           color: CustomColors.silver)),
                                   controller: usernameController,
@@ -134,7 +134,7 @@ class _InsertUsernameScreenState extends State<InsertUsernameScreen> {
                                     ? CircularProgressIndicator(
                                         valueColor:
                                             AlwaysStoppedAnimation<Color>(
-                                                CustomColors.green),
+                                                CustomColors.pawrange),
                                       )
                                     : SizedBox(
                                         width: width * (0.75),
@@ -143,7 +143,7 @@ class _InsertUsernameScreenState extends State<InsertUsernameScreen> {
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all(
-                                                    CustomColors.green),
+                                                    CustomColors.pawrange),
                                             shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                 borderRadius:

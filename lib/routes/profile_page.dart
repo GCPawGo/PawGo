@@ -13,6 +13,7 @@ import 'package:pawgo/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:pawgo/assets/custom_colors.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -237,7 +238,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[600],
+      backgroundColor: CustomColors.pawrange,
       body: Column(
         children: <Widget>[
           header(),

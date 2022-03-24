@@ -24,7 +24,7 @@ class _SwitchPageState extends State<SwitchPage> {
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
-      navBarStyle: NavBarStyle.style9,
+      navBarStyle: NavBarStyle.style1,
       resizeToAvoidBottomInset: true,
       hideNavigationBarWhenKeyboardShows: true,
       decoration: NavBarDecoration(
@@ -33,8 +33,24 @@ class _SwitchPageState extends State<SwitchPage> {
       ),
       screens: [
         ProfilePage(),
+        ProfilePage(),
+        ProfilePage(),
+        ProfilePage(),
+        ProfilePage(),
       ],
       items: [
+        PersistentBottomNavBarItem(
+            activeColorPrimary: CustomColors.pawrange,
+            icon: FaIcon(FontAwesomeIcons.home), title: 'Home'),
+        PersistentBottomNavBarItem(
+            activeColorPrimary: CustomColors.pawrange,
+            icon: FaIcon(FontAwesomeIcons.search), title: 'Search'),
+        PersistentBottomNavBarItem(
+            activeColorPrimary: CustomColors.pawrange,
+            icon: FaIcon(FontAwesomeIcons.dog), title: 'Dog'),
+        PersistentBottomNavBarItem(
+            activeColorPrimary: CustomColors.pawrange,
+            icon: FaIcon(FontAwesomeIcons.cat), title: 'Cat'),
         PersistentBottomNavBarItem(
             activeColorPrimary: CustomColors.pawrange,
             icon: FaIcon(FontAwesomeIcons.user), title: 'Profile'),

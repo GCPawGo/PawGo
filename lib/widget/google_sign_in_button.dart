@@ -78,8 +78,6 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                             LoggedUser.initInstance(user.uid, imageUrl ?? "", user.email!, username);
                             await MongoDB.instance.initUser(user.uid);
 
-
-
                             Navigator.pushNamedAndRemoveUntil(
                                 context, '/switch_page', (route) => false);
                           } else {
