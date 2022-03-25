@@ -156,7 +156,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 Column(
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        await MongoDB.instance.initUser("123");
                       },
                       child: Container(
                         /*width: 15 * SizeConfig.heightMultiplier!,*/

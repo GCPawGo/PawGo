@@ -41,12 +41,15 @@ class MongoDB {
 
   //Returns true if everything went fine, false otherwise
   Future<bool> initUser(String userId) async {
+    print("in");
     var url = Uri.parse(baseUri + '/users/initUser');
     var response = await _serverClient.post(url,
         headers: _headers, body: json.encode({'userId': userId}));
     if (response.statusCode == 200) {
+      print("1");
       return true;
     } else
+      print("0");
       return false;
   }
 
