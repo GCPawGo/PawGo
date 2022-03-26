@@ -5,10 +5,13 @@ const Date = mongoose.Schema.Types.Date;
 
 // Schemas
 const UserSchema = new Schema({
-    userId: { type: String, required: true }
+    userId: { type: String, required: true },
+    data: {type: Date, default: Date.now}
 });
 
-exports.User = mongoose.model("User", UserSchema);
+const UserModel = mongoose.model("User", UserSchema);
+
+module.exports = UserModel
 
 exports.connection = mongoose.connection;
 exports.ObjectId = ObjectId;

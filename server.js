@@ -1,15 +1,17 @@
-require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 app.use(express.json())
+require('dotenv').config()
+
+process.env.authURI
 
 // cross origin
 var cors = require('cors')
 // client port
-const PORT = process.env.PORT || '8000'
+const PORT = '8000'
 // mongoDB location
-const MONGO_URI = process.env.MONGO_URI ||'mongodb://localhost/PawGo'
+const MONGO_URI = process.env.authURI ||'mongodb://localhost/PawGo'
 
 // connect to the MongoDB
 mongoose.connect(MONGO_URI, {useNewUrlParser: true})
