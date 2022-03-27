@@ -13,13 +13,13 @@ class MongoDB {
   static final MongoDB instance = new MongoDB();
 
   http.Client _serverClient = http.Client();
-  String baseUri = "https://pedalami.herokuapp.com";
+  String baseUri = "http://10.0.2.2:8000";
   static var _dateFormatter = DateFormat("yyyy-MM-ddTHH:mm:ss");
 
   Map<String, String> _headers = {
     'Content-type': 'application/json; charset=utf-8',
     'Accept': 'application/json',
-    'Host': 'pedalami.herokuapp.com'
+    'Host': '10.0.2.2:8000'
   };
 
   //Use to convert Dart DateTime object to a string whose format matches the one of the backend
@@ -39,17 +39,15 @@ class MongoDB {
     LoggedUser.initInstance('testUser', 'imageUrl', 'mail', 'testUser');
   }
 
-  //Returns true if everything went fine, false otherwise
   Future<bool> initUser(String userId) async {
-    print("in");
     var url = Uri.parse(baseUri + '/users/initUser');
-    var response = await _serverClient.post(url,
-        headers: _headers, body: json.encode({'userId': userId}));
+    var response = await _serverClient.post(url, headers: _headers, body: json.encode({'userId': userId}));
     if (response.statusCode == 200) {
-      print("1");
+      var decodedBody = json.decode(response.body);
+      print("Received events json from the initUser");
+      print(decodedBody["joinedEvents"]);
       return true;
     } else
-      print("0");
       return false;
   }
 

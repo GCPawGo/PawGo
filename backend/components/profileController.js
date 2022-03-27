@@ -9,10 +9,10 @@ const UserModel = require('../models/User');
 
 app.post('/initUser', async (req, res) => {
   console.log('Received initUser POST request:');
-  console.log(req.query.userId);
+  console.log(req.body);
 
   const newUser = new UserModel({
-    userId: req.query.userId
+    userId: req.body.userId
   })
 
   await newUser.save()
