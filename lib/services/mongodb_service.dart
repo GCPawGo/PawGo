@@ -13,13 +13,13 @@ class MongoDB {
   static final MongoDB instance = new MongoDB();
 
   http.Client _serverClient = http.Client();
-  String baseUri = "";
+  String baseUri = "https://pedalami.herokuapp.com";
   static var _dateFormatter = DateFormat("yyyy-MM-ddTHH:mm:ss");
 
   Map<String, String> _headers = {
     'Content-type': 'application/json; charset=utf-8',
     'Accept': 'application/json',
-    'Host': ''
+    'Host': 'https://pedalami.herokuapp.com'
   };
 
   //Use to convert Dart DateTime object to a string whose format matches the one of the backend
