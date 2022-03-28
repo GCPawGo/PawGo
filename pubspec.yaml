@@ -83,6 +83,7 @@ flutter:
     - lib/assets/google_logo.png
     - lib/assets/app_logo.png
     - lib/assets/app_icon.png
+    - lib/assets/Smokey.jpg
 
   fonts:
     - family: pawfont
