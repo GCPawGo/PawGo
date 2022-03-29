@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:tuple/tuple.dart';
 
+import '../models/user.dart';
+
 class MongoDB {
   //Backend developers make the functions for the mongo api calls here,
   //Frontend developers can then use these functions in the flutter project
@@ -64,17 +66,18 @@ class MongoDB {
     return querySnapshot.docs.first.get("Username");
   }
 
-  Future<bool> getUser(String userId) async {
+  Future<User?> getUser(String userId) async {
     var url = Uri.parse(baseUri + '/users/getUser').replace(queryParameters: {'userId': userId});
     var response = await _serverClient.get(url, headers: _headers);
     if (response.statusCode == 200) {
       var decodedBody = json.decode(response.body);
       print("Received events json from the getUser");
       print(decodedBody);
-
-      return true;
+      User user = User.fromJson(decodedBody);
+      print(user);
+      return user;
     } else
-      return false;
+      return null;
   }
 
   Future<bool> updateUserAge(String userId, String userAge) async {

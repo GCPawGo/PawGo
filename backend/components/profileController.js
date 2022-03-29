@@ -30,7 +30,7 @@ app.get('/getUser', async (req, res) => {
   const user = req.query
   UserModel.findOne({userId: user.userId})
     .then(user => {
-      res.send({status: 200, data: user})
+      res.send(user)
     })
 });
 
