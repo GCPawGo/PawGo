@@ -13,6 +13,7 @@ import 'package:pawgo/routes/start_page.dart';
 import 'package:pawgo/routes/switching_page.dart';
 import 'package:pawgo/routes/splashscreen_page.dart';
 import 'package:pawgo/routes/profile_page.dart';
+import 'package:pawgo/routes/profile_editing.dart';
 import 'package:flutter/material.dart';
 
 class Conditional {
@@ -30,5 +31,6 @@ class Conditional {
     '/switch_page': (context) => SwitchPage(),
     '/splash_page': (context) => SplashScreen(),
     '/profile': (context) => ProfilePage(),
+    '/profile_editing': (context) => ProfileEditing(),
   };
 }
