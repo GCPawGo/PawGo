@@ -13,6 +13,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 
 import '../services/mongodb_service.dart';
+import '../models/currentUser.dart';
 
 class ProfileEditing extends StatefulWidget {
   ProfileEditing({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
     this.getUser();
     setState(() {
       usernameController.value = usernameController.value.copyWith(text: username);
-      userAgeController.value = userAgeController.value.copyWith(text: userAge);
+      // userAgeController.value = userAgeController.value.copyWith(text: userAge);
     });
     super.initState();
   }
@@ -374,11 +375,16 @@ class _ProfileEditingState extends State<ProfileEditing> {
       check = true;
     });
     try {
-      await MongoDB.instance.getUser(userId);
+      CurrentUser? currentUser = await MongoDB.instance.getUser(userId);
+      if(currentUser != null) {
+        userAge = currentUser.getUserAge();
+        print(userAge);
+      }
     }
     finally
     {
       setState(() {
+        userAgeController.value = userAgeController.value.copyWith(text: userAge);
         check = false;
       });
     }

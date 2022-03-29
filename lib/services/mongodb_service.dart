@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:tuple/tuple.dart';
 
-import '../models/user.dart';
+import '../models/currentUser.dart';
 
 class MongoDB {
   //Backend developers make the functions for the mongo api calls here,
@@ -66,16 +66,15 @@ class MongoDB {
     return querySnapshot.docs.first.get("Username");
   }
 
-  Future<User?> getUser(String userId) async {
+  Future<CurrentUser?> getUser(String userId) async {
     var url = Uri.parse(baseUri + '/users/getUser').replace(queryParameters: {'userId': userId});
     var response = await _serverClient.get(url, headers: _headers);
     if (response.statusCode == 200) {
       var decodedBody = json.decode(response.body);
       print("Received events json from the getUser");
       print(decodedBody);
-      User user = User.fromJson(decodedBody);
-      print(user);
-      return user;
+      CurrentUser currentUser = CurrentUser.fromJson(decodedBody);
+      return currentUser;
     } else
       return null;
   }
