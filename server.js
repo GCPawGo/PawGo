@@ -9,7 +9,7 @@ process.env.authURI
 // cross origin
 var cors = require('cors')
 // client port
-const PORT = '8000'
+const PORT = process.env.PORT || '8000'
 // mongoDB location
 const MONGO_URI = process.env.authURI ||'mongodb://localhost/PawGo'
 
