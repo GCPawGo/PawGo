@@ -13,16 +13,16 @@ class MongoDB {
   static final MongoDB instance = new MongoDB();
 
   http.Client _serverClient = http.Client();
-  String baseUri = "https://pedalami.herokuapp.com";
-  // local-host
+  String baseUri = "https://pawgo.herokuapp.com";
+  // local connection
   // String baseUri = "http://10.0.2.2:8000";
   static var _dateFormatter = DateFormat("yyyy-MM-ddTHH:mm:ss");
 
   Map<String, String> _headers = {
     'Content-type': 'application/json; charset=utf-8',
     'Accept': 'application/json',
-    'Host': 'https://pedalami.herokuapp.com'
-    // local-host
+    'Host': 'pawgo.herokuapp.com'
+    // local connection
     // 'Host': '10.0.2.2:8000'
   };
 
