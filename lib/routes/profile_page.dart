@@ -305,7 +305,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Padding(
               padding: EdgeInsets.only(top: 3 * SizeConfig.heightMultiplier!),
               child: Text(
-                "User Profile",
+                "User's Profile",
                 style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
