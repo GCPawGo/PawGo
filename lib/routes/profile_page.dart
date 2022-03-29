@@ -216,8 +216,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        await MongoDB.instance.initUser("123");
-
                         // TODO: To be implemented after DogEditing page is created
                         /*pushNewScreen(context,
                             screen: DogEditing(),

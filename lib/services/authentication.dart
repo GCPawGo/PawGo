@@ -24,7 +24,6 @@ class Authentication {
           String? imageUrl= querySnapshot.docs[0].get("Image");
           if (username != null) {
             LoggedUser.initInstance(user.uid, imageUrl ?? "", user.email!, username);
-            await MongoDB.instance.initUser(user.uid);
             Navigator.pushNamedAndRemoveUntil(context, '/switch_page', (route) => false);
           } else {
             Navigator.pushReplacement(

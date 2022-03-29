@@ -64,4 +64,28 @@ class MongoDB {
     return querySnapshot.docs.first.get("Username");
   }
 
+  Future<bool> getUser(String userId) async {
+    var url = Uri.parse(baseUri + '/users/getUser').replace(queryParameters: {'userId': userId});
+    var response = await _serverClient.get(url, headers: _headers);
+    if (response.statusCode == 200) {
+      var decodedBody = json.decode(response.body);
+      print("Received events json from the getUser");
+      print(decodedBody);
+
+      return true;
+    } else
+      return false;
+  }
+
+  Future<bool> updateUserAge(String userId, String userAge) async {
+    var url = Uri.parse(baseUri + '/users/updateUserAge');
+    var response = await _serverClient.post(url, headers: _headers, body: json.encode({'userId': userId, 'userAge': userAge}));
+    if (response.statusCode == 200) {
+      var decodedBody = json.decode(response.body);
+      print("Received events json from the updateUserAge");
+      print(decodedBody["joinedEvents"]);
+      return true;
+    } else
+      return false;
+  }
 }

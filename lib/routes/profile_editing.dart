@@ -12,6 +12,8 @@ import 'package:pawgo/utils/username_check.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 
+import '../services/mongodb_service.dart';
+
 class ProfileEditing extends StatefulWidget {
   ProfileEditing({Key? key}) : super(key: key);
 
@@ -23,15 +25,20 @@ class _ProfileEditingState extends State<ProfileEditing> {
   User? user = FirebaseAuth.instance.currentUser;
   bool check = false;
   final usernameController = TextEditingController();
+  final userAgeController = TextEditingController();
   String username = LoggedUser.instance!.username;
+  String userId = LoggedUser.instance!.userId;
+  String userAge = "30";
   String imageUrl = LoggedUser.instance!.image.url;
   bool imgInserted = false;
   File? f;
 
   @override
   void initState() {
+    this.getUser();
     setState(() {
       usernameController.value = usernameController.value.copyWith(text: username);
+      userAgeController.value = userAgeController.value.copyWith(text: userAge);
     });
     super.initState();
   }
@@ -186,7 +193,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                   onPressed: () async{
                                     if(!check)
                                       {
-                                        await checkName();
+                                        await updateUserName();
                                       }
                                   },
                                   child: Text("Change username"),
@@ -226,6 +233,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                   hintText: "Insert new age",
                                   hintStyle:
                                   TextStyle(color: CustomColors.silver)),
+                              controller: userAgeController,
                               maxLength: 20,
                               style: TextStyle(color: Colors.black),
                             ),
@@ -241,7 +249,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                     onPressed: () async{
                                       if(!check)
                                       {
-                                        await checkAge();
+                                        await updateUserAge();
                                       }
                                     },
                                     child: Text("Change Age"),
@@ -328,7 +336,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
     return str ?? "";
   }
 
-  Future<void> checkName() async {
+  Future<void> updateUserName() async {
     setState(() {
       check = true;
     });
@@ -344,14 +352,29 @@ class _ProfileEditingState extends State<ProfileEditing> {
     }
   }
 
-  Future<void> checkAge() async {
+  Future<void> updateUserAge() async {
     setState(() {
       check = true;
     });
     try
     {
       // TODO: to add controller from MongoDB
-      // await updateUsername(usernameController.text, context);
+      await MongoDB.instance.updateUserAge(userId, userAgeController.text);
+    }
+    finally
+    {
+      setState(() {
+        check = false;
+      });
+    }
+  }
+
+  Future<void> getUser() async {
+    setState(() {
+      check = true;
+    });
+    try {
+      await MongoDB.instance.getUser(userId);
     }
     finally
     {
