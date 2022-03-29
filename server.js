@@ -14,7 +14,7 @@ const PORT = process.env.PORT || '8000'
 const MONGO_URI = process.env.authURI
 
 // connect to the MongoDB
-mongoose.connect(MONGO_URI, {useNewUrlParser: true})
+mongoose.connect("mongodb+srv://PawGo:globalclass-PawGo-2022@pawgo0.s9yqz.mongodb.net/PawGo0?retryWrites=true&w=majority", {useNewUrlParser: true})
     .then((response) => {
         console.log('Connected to database!')
     })
