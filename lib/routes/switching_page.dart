@@ -36,7 +36,6 @@ class _SwitchPageState extends State<SwitchPage> {
         ProfilePage(),
         ProfilePage(),
         ProfilePage(),
-        ProfilePage(),
       ],
       items: [
         PersistentBottomNavBarItem(
@@ -48,9 +47,6 @@ class _SwitchPageState extends State<SwitchPage> {
         PersistentBottomNavBarItem(
             activeColorPrimary: CustomColors.pawrange,
             icon: FaIcon(FontAwesomeIcons.dog), title: 'Dog'),
-        PersistentBottomNavBarItem(
-            activeColorPrimary: CustomColors.pawrange,
-            icon: FaIcon(FontAwesomeIcons.cat), title: 'Cat'),
         PersistentBottomNavBarItem(
             activeColorPrimary: CustomColors.pawrange,
             icon: FaIcon(FontAwesomeIcons.user), title: 'Profile'),

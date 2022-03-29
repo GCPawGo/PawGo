@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:pawgo/models/loggedUser.dart';
+import 'package:pawgo/routes/profile_editing.dart';
 import 'package:pawgo/routes/sign_in_page.dart';
 import 'package:pawgo/services/authentication.dart';
 import 'package:pawgo/services/mongodb_service.dart';
@@ -186,14 +187,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 Column(
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () async {
-                        await MongoDB.instance.initUser("123");
-
-                        // TODO: To be implemented after ProfileEditing page is created
-                        /*pushNewScreen(context,
+                      onTap: () {
+                        pushNewScreen(context,
                             screen: ProfileEditing(),
                             pageTransitionAnimation:
-                            PageTransitionAnimation.cupertino);*/
+                            PageTransitionAnimation.cupertino);
                       },
                       child: Container(
                         /*width: 15 * SizeConfig.heightMultiplier!,*/
