@@ -4,14 +4,12 @@ const app = express()
 app.use(express.json())
 require('dotenv').config()
 
-process.env.MONGO_URI
-
 // cross origin
 var cors = require('cors')
 // client port
 const PORT = process.env.PORT || '8000'
 // mongoDB location
-const MONGO_URI = process.env.MONGO_URI ||'mongodb://localhost/PawGo'
+const MONGO_URI = process.env.MONGO_URI
 
 // connect to the MongoDB
 mongoose.connect(MONGO_URI, {useNewUrlParser: true})
