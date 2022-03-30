@@ -253,11 +253,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                     onPressed: () async{
                                       if(!check)
                                       {
-                                        if(!(username == usernameController.text)) {
-                                          await updateUserName();
-                                        } else {
                                           await updateUserInfo();
-                                        }
                                       }
                                     },
                                     child: Text("Update"),
@@ -289,33 +285,16 @@ class _ProfileEditingState extends State<ProfileEditing> {
     return str ?? "";
   }
 
-  Future<void> updateUserName() async {
-    setState(() {
-      check = true;
-    });
-    try
-    {
-      await updateUsername(userId, usernameController.text, userAgeController.text, userDescController.text, context);
-    }
-    finally
-    {}
-  }
-
   Future<void> updateUserInfo() async {
     setState(() {
       check = true;
     });
     try
     {
-      await MongoDB.instance.updateUserInfo(userId, userAgeController.text, userDescController.text);
-      Navigator.pop(context);
-      return showDialog<void>(
-          context: context,
-          barrierDismissible: false, // user must tap button!
-          builder: (BuildContext context) {
-            return buildCustomAlertOKDialog(
-                context, "", "User Information changed successfully.");
-          });
+      setState(() {
+        check = false;
+      });
+      await updateUserinfo(userId, usernameController.text, userAgeController.text, userDescController.text, context);
     }
     finally
     {}

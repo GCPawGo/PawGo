@@ -11,6 +11,8 @@ import 'package:pawgo/services/mongodb_service.dart';
 import 'package:pawgo/widget/custom_alert_dialog.dart';
 import 'package:uuid/uuid.dart';
 
+import '../models/currentUser.dart';
+
 
 Future<void> checkUsername(String newUsername, BuildContext context,
     User actualUser, String imageData) async {
@@ -56,6 +58,10 @@ Future<void> checkUsername(String newUsername, BuildContext context,
               .then((value) async {
             LoggedUser.initInstance(actualUser.uid, actualUser.photoURL ?? "", actualUser.email!, newUsername.trim());
             await MongoDB.instance.initUser(actualUser.uid);
+            CurrentUser? currentUser = await MongoDB.instance.getUser(actualUser.uid);
+            if(currentUser != null) {
+              CurrentUser.initInstance(currentUser.getUserAge(), currentUser.getUserDesc());
+            }
             Navigator.pushNamedAndRemoveUntil(context, '/switch_page', (route) => false);
           }).catchError((error) {});
         }).catchError((error) {});
@@ -65,7 +71,7 @@ Future<void> checkUsername(String newUsername, BuildContext context,
 
 }
 
-Future<void>updateUsername(String userId, String newUsername, String userAge, String userDesc, BuildContext context) async {
+Future<void>updateUserinfo(String userId, String newUsername, String userAge, String userDesc, BuildContext context) async {
   if (newUsername.trim().length < 5) {
     return showDialog<void>(
       context: context,
@@ -82,16 +88,6 @@ Future<void>updateUsername(String userId, String newUsername, String userAge, St
         .where("Username", isEqualTo: trimmedUsername)
         .get()
         .then((QuerySnapshot querySnapshot) async {
-      if (querySnapshot.docs.isNotEmpty) {
-        return showDialog<void>(
-          context: context,
-          barrierDismissible: false, // user must tap button!
-          builder: (BuildContext context) {
-            return buildCustomAlertOKDialog(
-                context, "Warning", "This username is already taken.");
-          },
-        );
-      } else {
         String docID="";
         await usersCollection
             .where("Mail", isEqualTo: FirebaseAuth.instance.currentUser!.email)
@@ -104,8 +100,11 @@ Future<void>updateUsername(String userId, String newUsername, String userAge, St
             .doc(docID)
             .update({'Username': trimmedUsername}).then((value) async {
           LoggedUser.instance!.updateUsername(trimmedUsername);
-          // update MongoDB data
+          // update MongoDB data -------------
           updateUserInfo(userId, userAge, userDesc);
+          CurrentUser.instance!.updateUserAge(userAge);
+          CurrentUser.instance!.updateUserDesc(userDesc);
+          // ---------------------------------
           Navigator.pop(context);
           return showDialog<void>(
               context: context,
@@ -115,8 +114,7 @@ Future<void>updateUsername(String userId, String newUsername, String userAge, St
                     context, "", "User Information changed successfully.");
               });
         });
-      }
-    });
+      });
   }
 }
 

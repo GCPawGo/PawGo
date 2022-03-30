@@ -38,8 +38,8 @@ class _ProfilePageState extends State<ProfilePage> {
   final userDescController = TextEditingController();
   String username = LoggedUser.instance!.username;
   String userId = LoggedUser.instance!.userId;
-  String userAge = "";
-  String userDesc = "";
+  String userAge = CurrentUser.instance!.userAge;
+  String userDesc = CurrentUser.instance!.userDesc;
   String imageUrl = LoggedUser.instance!.image.url;
   bool imgInserted = false;
   File? f;
@@ -418,7 +418,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             Text(
-                              userAge,
+                              CurrentUser.instance!.userAge,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -467,7 +467,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ? Padding(
                                 padding: EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
                                 child: Text(
-                                  userDesc.toString(),
+                                  CurrentUser.instance!.userDesc,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,

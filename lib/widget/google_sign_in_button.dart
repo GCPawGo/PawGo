@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/assets/custom_colors.dart';
+import 'package:pawgo/models/currentUser.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/routes/username_insert_page.dart';
 import 'package:pawgo/services/authentication.dart';
@@ -76,6 +77,12 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                           String? imageUrl= querySnapshot.docs[0].get("Image");
                           if (username != null) {
                             LoggedUser.initInstance(user.uid, imageUrl ?? "", user.email!, username);
+
+                            CurrentUser? currentUser = await MongoDB.instance.getUser(user.uid);
+                            if(currentUser != null) {
+                              CurrentUser.initInstance(currentUser.getUserAge(), currentUser.getUserDesc());
+                            }
+
                             await (user.uid);
 
                             Navigator.pushNamedAndRemoveUntil(

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/routes/username_insert_page.dart';
+import '../models/currentUser.dart';
 import 'mongodb_service.dart';
 
 
@@ -24,6 +25,10 @@ class Authentication {
           String? imageUrl= querySnapshot.docs[0].get("Image");
           if (username != null) {
             LoggedUser.initInstance(user.uid, imageUrl ?? "", user.email!, username);
+            CurrentUser? currentUser = await MongoDB.instance.getUser(user.uid);
+            if(currentUser != null) {
+              CurrentUser.initInstance(currentUser.getUserAge(), currentUser.getUserDesc());
+            }
             Navigator.pushNamedAndRemoveUntil(context, '/switch_page', (route) => false);
           } else {
             Navigator.pushReplacement(
