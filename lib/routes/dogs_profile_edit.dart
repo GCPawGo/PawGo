@@ -75,11 +75,10 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
               SizedBox(
                 height: 1,
               ),
-              Row(
+              Column(
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
-                        left: 24 * SizeConfig.widthMultiplier!,
                         top: 1 * SizeConfig.heightMultiplier!),
                     child: AnimatedSwitcher(
                       duration: Duration(milliseconds: 250),
@@ -104,6 +103,36 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                                         borderRadius: BorderRadius.circular(18.0))))),
                       ),
                     ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 1 * SizeConfig.heightMultiplier!),
+                    child: AnimatedSwitcher(
+                      duration: Duration(milliseconds: 250),
+                      child: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 250),
+                        child: check?CircularProgressIndicator():ElevatedButton(
+                            onPressed: () async{
+                              if(!check)
+                              {
+                                // TODO: To add dog's data grab from MongoDB
+
+                              }
+                            },
+                            child: Text("Upload Dog Photos"),
+                            style: ButtonStyle(
+                                fixedSize: MaterialStateProperty.all(
+                                    Size(200, 35)),
+                                backgroundColor: MaterialStateProperty.all(
+                                    CustomColors.pawrange),
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18.0))))),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 3 * SizeConfig.heightMultiplier!,
                   ),
                 ]
               )

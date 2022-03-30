@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
               height: 1 * SizeConfig.heightMultiplier!,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GestureDetector(
                   onTap: () async {
@@ -177,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 SizedBox(
-                  height: 5 * SizeConfig.widthMultiplier!,
+                  width: 4 * SizeConfig.widthMultiplier!,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -203,35 +203,40 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 1 * SizeConfig.heightMultiplier!,
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    pushNewScreen(context,
-                        screen: DogsProfilePage(),
-                        pageTransitionAnimation:
-                        PageTransitionAnimation.cupertino);
-                  },
-                  child: Container(
-                    /*width: 15 * SizeConfig.heightMultiplier!,*/
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white60),
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: Colors.lightGreen,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text(
-                        "ADD NEW DOG",
-                        style: TextStyle(
-                            color: Colors.white60,
-                            fontSize: 1.8 * SizeConfig.textMultiplier!),
-                      ),
+              ],
+            ),
+            Column(
+              children: [
+
+              SizedBox(
+                height: 1 * SizeConfig.heightMultiplier!,
+              ),
+              GestureDetector(
+                onTap: () async {
+                  pushNewScreen(context,
+                      screen: DogsProfilePage(),
+                      pageTransitionAnimation:
+                      PageTransitionAnimation.cupertino);
+                },
+                child: Container(
+                  /*width: 15 * SizeConfig.heightMultiplier!,*/
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white60),
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.lightGreen,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(
+                      "ADD NEW DOG",
+                      style: TextStyle(
+                          color: Colors.white60,
+                          fontSize: 1.8 * SizeConfig.textMultiplier!),
                     ),
                   ),
                 ),
-              ],
+              ),
+             ],
             ),
           ],
         ),
