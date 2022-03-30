@@ -17,6 +17,8 @@ import 'package:pawgo/routes/profile_editing.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/routes/dogs_profile_edit.dart';
 
+import '../routes/homepage.dart';
+
 class Conditional {
   Future<void> initFireBase() async {
     await Firebase.initializeApp();
@@ -34,5 +36,6 @@ class Conditional {
     '/profile': (context) => ProfilePage(),
     '/profile_editing': (context) => ProfileEditing(),
     '/dogs_profile_edit': (context) => DogsProfilePage(),
+    '/homepage': (context) => HomePage()
   };
 }

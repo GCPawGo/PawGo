@@ -326,7 +326,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget userinfo() {
-    return Container(
+    return
+      Container(
       child: SingleChildScrollView(
         child: Column(
           children: [
