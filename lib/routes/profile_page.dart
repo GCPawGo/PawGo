@@ -372,11 +372,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             Text(
-<<<<<<< HEAD
                               CurrentUser.instance!.userAge,
-=======
-                              userAge.toString(),
->>>>>>> f754847e382523881a2d1d3790836ba1c1ef7ac8
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 2.2 * SizeConfig.textMultiplier!,
