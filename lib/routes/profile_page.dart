@@ -146,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 1 * SizeConfig.heightMultiplier!,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GestureDetector(
                   onTap: () async {
@@ -176,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 SizedBox(
-                  height: 5 * SizeConfig.widthMultiplier!,
+                  width: 4 * SizeConfig.widthMultiplier!,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -202,6 +202,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
+              ],
+            ),
+            Column(
+              children: [
+
                 SizedBox(
                   height: 1 * SizeConfig.heightMultiplier!,
                 ),
@@ -213,6 +218,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         PageTransitionAnimation.cupertino);
                   },
                   child: Container(
+                    /*width: 15 * SizeConfig.heightMultiplier!,*/
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white60),
                       borderRadius: BorderRadius.circular(5.0),
