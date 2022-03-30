@@ -30,7 +30,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   LoggedUser _miUser = LoggedUser.instance!;
-  late String userAge;
+  String userAge = "";
 
   @override
   void initState() {

@@ -27,9 +27,11 @@ class _ProfileEditingState extends State<ProfileEditing> {
   bool check = false;
   final usernameController = TextEditingController();
   final userAgeController = TextEditingController();
+  final userDescController = TextEditingController();
   String username = LoggedUser.instance!.username;
   String userId = LoggedUser.instance!.userId;
-  late String userAge;
+  String userAge = "";
+  String userDesc = "";
   String imageUrl = LoggedUser.instance!.image.url;
   bool imgInserted = false;
   File? f;
@@ -39,7 +41,6 @@ class _ProfileEditingState extends State<ProfileEditing> {
     this.getUser();
     setState(() {
       usernameController.value = usernameController.value.copyWith(text: username);
-      // userAgeController.value = userAgeController.value.copyWith(text: userAge);
     });
     super.initState();
   }
@@ -235,6 +236,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                       labelText: "Description",
                                       hintStyle:
                                       TextStyle(color: CustomColors.silver)),
+                                  controller: userDescController,
                                   maxLength: 150,
                                   style: TextStyle(color: Colors.black),
                                 ),
@@ -251,7 +253,8 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                       if(!check)
                                       {
                                         // TODO: To add data grab from MongoDB
-                                        // await MongoDB something
+                                        await updateUserName();
+                                        await updateUserInfo();
                                       }
                                     },
                                     child: Text("Update"),
@@ -299,13 +302,13 @@ class _ProfileEditingState extends State<ProfileEditing> {
     }
   }
 
-  Future<void> updateUserAge() async {
+  Future<void> updateUserInfo() async {
     setState(() {
       check = true;
     });
     try
     {
-      await MongoDB.instance.updateUserAge(userId, userAgeController.text);
+      await MongoDB.instance.updateUserInfo(userId, userAgeController.text, userDescController.text);
     }
     finally
     {
@@ -323,13 +326,14 @@ class _ProfileEditingState extends State<ProfileEditing> {
       CurrentUser? currentUser = await MongoDB.instance.getUser(userId);
       if(currentUser != null) {
         userAge = currentUser.getUserAge();
-        print(userAge);
+        userDesc = currentUser.getUserDesc();
       }
     }
     finally
     {
       setState(() {
         userAgeController.value = userAgeController.value.copyWith(text: userAge);
+        userDescController.value = userDescController.value.copyWith(text: userDesc);
         check = false;
       });
     }

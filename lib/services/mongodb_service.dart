@@ -79,12 +79,12 @@ class MongoDB {
       return null;
   }
 
-  Future<bool> updateUserAge(String userId, String userAge) async {
-    var url = Uri.parse(baseUri + '/users/updateUserAge');
-    var response = await _serverClient.post(url, headers: _headers, body: json.encode({'userId': userId, 'userAge': userAge}));
+  Future<bool> updateUserInfo(String userId, String userAge, String userDesc) async {
+    var url = Uri.parse(baseUri + '/users/updateUserInfo');
+    var response = await _serverClient.post(url, headers: _headers, body: json.encode({'userId': userId, 'userAge': userAge, 'userDesc': userDesc}));
     if (response.statusCode == 200) {
       var decodedBody = json.decode(response.body);
-      print("Received events json from the updateUserAge");
+      print("Received events json from the updateUserInfo");
       print(decodedBody["joinedEvents"]);
       return true;
     } else

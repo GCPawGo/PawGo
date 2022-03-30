@@ -15,14 +15,14 @@ app.post('/initUser', async (req, res) => {
 
   await newUser.save()
 
-  res.send({status: 200, msg: 'Successfully initialize the user'})
+  res.send({msg: 'Successfully initialize the user'})
 });
 
-app.post('/updateUserAge', async (req, res) => {
+app.post('/updateUserInfo', async (req, res) => {
   const user = req.body
-  UserModel.findOneAndUpdate({userId: user.userId}, {userAge: user.userAge})
+  UserModel.findOneAndUpdate({userId: user.userId}, {userAge: user.userAge}, {userDesc: user.userDesc})
     .then(oldUser => {
-      res.send({status: 200, msg: 'Successfully update the user age'})
+      res.send({msg: 'Successfully update the user Infomation'})
     })
 });
 

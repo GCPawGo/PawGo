@@ -13,6 +13,10 @@ class CurrentUser {
     return userAge ?? "";
   }
 
+  String getUserDesc() {
+    return userDesc ?? "";
+  }
+
   @override
   String toString() {
     return 'CurrentUser{userAge: $userAge, userDesc: $userDesc}';
