@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pawgo/assets/custom_colors.dart';
+import 'package:pawgo/routes/dogs_profile_edit.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -217,10 +218,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     GestureDetector(
                       onTap: () async {
                         // TODO: To be implemented after DogEditing page is created
-                        /*pushNewScreen(context,
-                            screen: DogEditing(),
+                        pushNewScreen(context,
+                            screen: DogsProfilePage(),
                             pageTransitionAnimation:
-                            PageTransitionAnimation.cupertino);*/
+                            PageTransitionAnimation.cupertino);
                       },
                       child: Container(
                         /*width: 15 * SizeConfig.heightMultiplier!,*/

@@ -1,31 +1,29 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+import 'package:pawgo/models/loggedUser.dart';
+import 'package:pawgo/services/authentication.dart';
+import 'package:pawgo/services/mongodb_service.dart';
+import 'package:pawgo/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:pawgo/utils/mobile_library.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:pawgo/assets/custom_colors.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+class DogsProfilePage extends StatefulWidget {
+  DogsProfilePage({Key? key}) : super(key: key);
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Edit Dog',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-    );
-  }
+  _DogsProfilePageState createState() => _DogsProfilePageState();
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+class _DogsProfilePageState extends State<DogsProfilePage> {
 
-class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 5,
-                            color: Colors.amber,
+                            color: CustomColors.pawrange,
                           ),
                           image: DecorationImage (
                             fit: BoxFit.cover,
@@ -82,12 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){
+
+                      },
                       child: Text('Update'),
                       style: ElevatedButton.styleFrom(
                           shape: StadiumBorder(),
-                        primary: Colors.amber,
-                        minimumSize: Size(295,40),
+                        primary: CustomColors.pawrange,
+                        minimumSize: Size(280, 40),
                       ),
                     ),
                   )
@@ -110,11 +110,11 @@ class _MyHomePageState extends State<MyHomePage> {
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4)),
-                borderSide: BorderSide(width: 2,color: Colors.amber),
+                borderSide: BorderSide(width: 2,color: CustomColors.pawrange),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4)),
-                borderSide: BorderSide(width: 2,color: Colors.amber),
+                borderSide: BorderSide(width: 2,color: CustomColors.pawrange),
               ),
               contentPadding: EdgeInsets.symmetric(horizontal: 20),
               labelText: labelText,
@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               labelStyle: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.amber,
+                color: CustomColors.pawrange,
               ),
 
             ),

@@ -15,6 +15,7 @@ import 'package:pawgo/routes/splashscreen_page.dart';
 import 'package:pawgo/routes/profile_page.dart';
 import 'package:pawgo/routes/profile_editing.dart';
 import 'package:flutter/material.dart';
+import 'package:pawgo/routes/dogs_profile_edit.dart';
 
 class Conditional {
   Future<void> initFireBase() async {
@@ -32,5 +33,6 @@ class Conditional {
     '/splash_page': (context) => SplashScreen(),
     '/profile': (context) => ProfilePage(),
     '/profile_editing': (context) => ProfileEditing(),
+    '/dogs_profile_edit': (context) => DogsProfilePage(),
   };
 }
