@@ -26,14 +26,6 @@ class DogsProfilePage extends StatefulWidget {
 class _DogsProfilePageState extends State<DogsProfilePage> {
   User? user = FirebaseAuth.instance.currentUser;
   bool check = false;
-  final usernameController = TextEditingController();
-  final userAgeController = TextEditingController();
-  String username = LoggedUser.instance!.username;
-  String userId = LoggedUser.instance!.userId;
-  late String userAge;
-  String imageUrl = LoggedUser.instance!.image.url;
-  bool imgInserted = false;
-  File? f;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +93,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
 
                               }
                             },
-                            child: Text("Create Profile"),
+                            child: Text("Create Dog Profile"),
                             style: ButtonStyle(
                                 fixedSize: MaterialStateProperty.all(
                                     Size(200, 35)),
@@ -160,25 +152,5 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
         ),
       ),
     );
-  }
-
-  Future<void> getUser() async {
-    setState(() {
-      check = true;
-    });
-    try {
-      CurrentUser? currentUser = await MongoDB.instance.getUser(userId);
-      if(currentUser != null) {
-        userAge = currentUser.getUserAge();
-        print(userAge);
-      }
-    }
-    finally
-    {
-      setState(() {
-        userAgeController.value = userAgeController.value.copyWith(text: userAge);
-        check = false;
-      });
-    }
   }
 }
