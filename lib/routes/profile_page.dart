@@ -18,6 +18,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/routes/dogs_profile_edit.dart';
 
+import '../services/mongodb_service.dart';
 import '../models/currentUser.dart';
 
 
@@ -30,7 +31,33 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   LoggedUser _miUser = LoggedUser.instance!;
+  User? user = FirebaseAuth.instance.currentUser;
+  bool check = false;
+  final usernameController = TextEditingController();
+  final userAgeController = TextEditingController();
+  final userDescController = TextEditingController();
+  String username = LoggedUser.instance!.username;
+  String userId = LoggedUser.instance!.userId;
   String userAge = "";
+  String userDesc = "";
+  String imageUrl = LoggedUser.instance!.image.url;
+  bool imgInserted = false;
+  File? f;
+  //List<Dog>? dogs;
+
+  // Use to get user information
+  Future<void> getUser() async {
+    setState(() {
+      check = true;
+    });
+    {
+      CurrentUser? currentUser = await MongoDB.instance.getUser(userId);
+      if(currentUser != null) {
+        userAge = currentUser.getUserAge();
+        userDesc = currentUser.getUserDesc();
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -45,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Container(
       child: Padding(
         padding: EdgeInsets.only(
-            left: 30.0, right: 30.0, top: 10 * SizeConfig.heightMultiplier!, bottom: 2.5*SizeConfig.heightMultiplier!),
+            left: 30.0, right: 30.0, top: 10 * SizeConfig.heightMultiplier!, bottom: 2.5 * SizeConfig.heightMultiplier!),
         child: Column(
           children: <Widget>[
             Row(
@@ -120,6 +147,7 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 1 * SizeConfig.heightMultiplier!,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
                   onTap: () async {
@@ -148,12 +176,68 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 5 * SizeConfig.widthMultiplier!,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    pushNewScreen(context,
+                        screen: ProfileEditing(),
+                        pageTransitionAnimation:
+                        PageTransitionAnimation.cupertino);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white60),
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Colors.lightGreen,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(
+                        "EDIT USER PROFILE",
+                        style: TextStyle(
+                            color: Colors.white60,
+                            fontSize: 1.8 * SizeConfig.textMultiplier!),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 1 * SizeConfig.heightMultiplier!,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    pushNewScreen(context,
+                        screen: DogsProfilePage(),
+                        pageTransitionAnimation:
+                        PageTransitionAnimation.cupertino);
+                  },
+                  child: Container(
+                    /*width: 15 * SizeConfig.heightMultiplier!,*/
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white60),
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Colors.lightGreen,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(
+                        "ADD NEW DOG",
+                        style: TextStyle(
+                            color: Colors.white60,
+                            fontSize: 1.8 * SizeConfig.textMultiplier!),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
-            Row(
+
+            /*Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
+              children: <Widget>[*/
+                /*Column(
                   children: <Widget>[
                     Text(
                       LoggedUser.instance!.username,
@@ -188,65 +272,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ],
-                ),
-                Column(
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        pushNewScreen(context,
-                            screen: ProfileEditing(),
-                            pageTransitionAnimation:
-                            PageTransitionAnimation.cupertino);
-                      },
-                        child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white60),
-                          borderRadius: BorderRadius.circular(5.0),
-                          color: Colors.lightGreen,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                            "EDIT USER PROFILE",
-                            style: TextStyle(
-                                color: Colors.white60,
-                                fontSize: 1.8 * SizeConfig.textMultiplier!),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 1 * SizeConfig.heightMultiplier!,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        pushNewScreen(context,
-                            screen: DogsProfilePage(),
-                            pageTransitionAnimation:
-                            PageTransitionAnimation.cupertino);
-                      },
-                      child: Container(
-                        /*width: 15 * SizeConfig.heightMultiplier!,*/
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white60),
-                          borderRadius: BorderRadius.circular(5.0),
-                          color: Colors.lightGreen,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(
-                            "ADD NEW DOG",
-                            style: TextStyle(
-                                color: Colors.white60,
-                                fontSize: 1.8 * SizeConfig.textMultiplier!),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
+                ),*/
+              /*],
+            ),*/
           ],
         ),
       ),
@@ -434,10 +462,21 @@ class _ProfilePageState extends State<ProfilePage> {
                               border: Border.all(
                               color: Colors.black26.withOpacity(0.1),),
                               ),
-                              child: Padding(
+                              child: (userDesc.toString() != null)
+                                  ? Padding(
+                                padding: EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
+                                child: Text(
+                                  userDesc.toString(),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                  ),
+                                ),
+                              ) :
+                              Padding(
                                 padding: EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
                               child: Text(
-                                "I am a cheerfull person",
+                                "Update your description",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -466,143 +505,224 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             children: [
               // TODO: Read dog's data from MongoDB <---------------------------------
-              Padding(
-                padding: EdgeInsets.only(top: 3 * SizeConfig.heightMultiplier!),
-                child: Text(
-                  "Dog's Profile",
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 3 * SizeConfig.textMultiplier!),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                    color: Colors.grey.shade200,
-                    border: Border.all(
-                      color: Colors.black26.withOpacity(0.1),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 30 * SizeConfig.heightMultiplier!,
-                                  width: 30 * SizeConfig.heightMultiplier!,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image(
-                                      image: AssetImage('lib/assets/Smokey.jpg'),
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  "Dog's name:",
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 2.5 * SizeConfig.textMultiplier!,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                                Text(
-                                  "Smokey",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 2.2 * SizeConfig.textMultiplier!,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 3 * SizeConfig.heightMultiplier!,
-                                ),
-                                Text(
-                                  "Bread:",
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 2.5 * SizeConfig.textMultiplier!,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                                Text(
-                                  "Brussels Griffon",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 2.2 * SizeConfig.textMultiplier!,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 3 * SizeConfig.heightMultiplier!,
-                                ),
-                                Text(
-                                  "Age:",
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 2.5 * SizeConfig.textMultiplier!,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                                Text(
-                                  "3",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 2.2 * SizeConfig.textMultiplier!,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 3 * SizeConfig.heightMultiplier!,
-                                ),
-                                Text(
-                                  "Favorite Food:",
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 2.5 * SizeConfig.textMultiplier!,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                                Text(
-                                  "Cooked food!",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 2.2 * SizeConfig.textMultiplier!,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              displayDog(),
             ],
           )
       ),
     );
   }
 
-  // use to get user information
-  Future<void> getUser() async {
-    CurrentUser? currentUser;
-    try {
-      currentUser = await MongoDB.instance.getUser(LoggedUser.instance!.userId);
+  Widget displayDog() {
+    return ListView.builder(
+        // itemCount: MongoDB.instance!.dog?.length ?? 0,
+        itemCount: 1,
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          // Dog selectedDog = MongoDB.instance!.dogs![index];
+          return Column(
+            children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
+              child: Text(
+                "Dog's Profile",
+                style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 3 * SizeConfig.textMultiplier!),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  color: Colors.grey.shade200,
+                  border: Border.all(
+                    color: Colors.black26.withOpacity(0.1),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: 5 * SizeConfig.heightMultiplier!,
+                            left: 10 * SizeConfig.widthMultiplier!,
+                            right: 10 * SizeConfig.widthMultiplier!,
+                            bottom: 5 * SizeConfig.heightMultiplier!,
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 30 * SizeConfig.heightMultiplier!,
+                                width: 30 * SizeConfig.heightMultiplier!,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.asset("lib/assets/Smokey.jpg",
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (BuildContext context, Object object,
+                                        StackTrace? stacktrace) {
+                                      return Image.asset("lib/assets/app_icon.png");
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                "Name:",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 2.5 * SizeConfig.textMultiplier!,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              Text(
+                                "Smokey",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1 * SizeConfig.heightMultiplier!,
+                              ),
+                              Text(
+                                "Age:",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 2.5 * SizeConfig.textMultiplier!,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              Text(
+                                "3",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1 * SizeConfig.heightMultiplier!,
+                              ),
+                              Text(
+                                "Bread:",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 2.5 * SizeConfig.textMultiplier!,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              Text(
+                                "Brussels Griffon",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1 * SizeConfig.heightMultiplier!,
+                              ),
+                              Text(
+                                "Color:",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 2.5 * SizeConfig.textMultiplier!,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              Text(
+                                "Silver",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1 * SizeConfig.heightMultiplier!,
+                              ),
+                              Text(
+                                "Hobbies:",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 2.5 * SizeConfig.textMultiplier!,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              Text(
+                                "Frisbee!",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: 1 * SizeConfig.heightMultiplier!),
+                                child: AnimatedSwitcher(
+                                  duration: Duration(milliseconds: 250),
+                                  child: AnimatedSwitcher(
+                                    duration: Duration(milliseconds: 250),
+                                    child: ElevatedButton(
+                                        onPressed: () async{
+                                          if(!check)
+                                          {
+                                            // TODO: To add dog's data grab from MongoDB
+
+                                          }
+                                        },
+                                        child: Text("Update Dog's Profile"),
+                                        style: ButtonStyle(
+                                            fixedSize: MaterialStateProperty.all(
+                                                Size(200, 35)),
+                                            backgroundColor: MaterialStateProperty.all(
+                                                CustomColors.pawrange),
+                                            shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(18.0))))),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: 1 * SizeConfig.heightMultiplier!),
+                                child: AnimatedSwitcher(
+                                  duration: Duration(milliseconds: 250),
+                                  child: AnimatedSwitcher(
+                                    duration: Duration(milliseconds: 250),
+                                    child: ElevatedButton(
+                                        onPressed: () async{
+                                          if(!check)
+                                          {
+                                            // TODO: To add dog's data grab from MongoDB
+
+                                          }
+                                        },
+                                        child: Text("Remove Profile"),
+                                        style: ButtonStyle(
+                                            fixedSize: MaterialStateProperty.all(
+                                                Size(200, 35)),
+                                            backgroundColor: MaterialStateProperty.all(
+                                                CustomColors.pawrange),
+                                            shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(18.0))))),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+           ],
+          );
+        });
     }
-    finally
-    {
-      setState(() {
-        if(currentUser != null) {
-          userAge = currentUser.getUserAge();
-        }
-      });
-    }
-  }
 
   String nStringToNNString(String? str) {
     return str ?? "";
