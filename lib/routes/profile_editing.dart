@@ -178,7 +178,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                         BorderSide(color: CustomColors.pawrange),
                                   ),
                                   hintText: "Insert new name",
-                                  labelText: "Name",
+                                  labelText: "Username",
                                   hintStyle:
                                       TextStyle(color: CustomColors.silver)),
                               controller: usernameController,
