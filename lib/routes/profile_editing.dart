@@ -29,7 +29,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
   final userAgeController = TextEditingController();
   String username = LoggedUser.instance!.username;
   String userId = LoggedUser.instance!.userId;
-  String userAge = "30";
+  late String userAge;
   String imageUrl = LoggedUser.instance!.image.url;
   bool imgInserted = false;
   File? f;

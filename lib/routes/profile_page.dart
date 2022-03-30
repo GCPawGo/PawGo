@@ -17,6 +17,8 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/routes/dogs_profile_edit.dart';
 
+import '../models/currentUser.dart';
+
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -27,12 +29,13 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   LoggedUser _miUser = LoggedUser.instance!;
-
+  late String userAge;
 
   @override
   void initState() {
     _miUser.addListener(() => setState(() {}));
     print("userId of the logged user is: " + _miUser.userId);
+    this.getUser();
     //MongoDB.instance.initUser(_miUser.userId).then((value) => getRideHistory());
     super.initState();
   }
@@ -233,7 +236,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Text(
-                            "EDIT DOG PROFILE",
+                            "ADD DOG PROFILE",
                             style: TextStyle(
                                 color: Colors.white60,
                                 fontSize: 1.8 * SizeConfig.textMultiplier!),
@@ -384,7 +387,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             Text(
-                              "31",
+                              userAge,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -567,6 +570,22 @@ class _ProfilePageState extends State<ProfilePage> {
           )
       ),
     );
+  }
+
+  // use to get user information
+  Future<void> getUser() async {
+    CurrentUser? currentUser;
+    try {
+      currentUser = await MongoDB.instance.getUser(LoggedUser.instance!.userId);
+    }
+    finally
+    {
+      setState(() {
+        if(currentUser != null) {
+          userAge = currentUser.getUserAge();
+        }
+      });
+    }
   }
 
   String nStringToNNString(String? str) {
