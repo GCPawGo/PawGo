@@ -10,11 +10,11 @@ class CurrentUser {
   }
 
   String getUserAge() {
-    return userAge ?? "";
+    return userAge;
   }
 
   String getUserDesc() {
-    return userDesc ?? "";
+    return userDesc;
   }
 
   @override

@@ -14,6 +14,7 @@ import 'package:uuid/uuid.dart';
 
 import '../services/mongodb_service.dart';
 import '../models/currentUser.dart';
+import '../widget/custom_alert_dialog.dart';
 
 class ProfileEditing extends StatefulWidget {
   ProfileEditing({Key? key}) : super(key: key);
@@ -252,9 +253,11 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                     onPressed: () async{
                                       if(!check)
                                       {
-                                        // TODO: To add data grab from MongoDB
-                                        await updateUserName();
-                                        await updateUserInfo();
+                                        if(!(username == usernameController.text)) {
+                                          await updateUserName();
+                                        } else {
+                                          await updateUserInfo();
+                                        }
                                       }
                                     },
                                     child: Text("Update"),
@@ -292,14 +295,10 @@ class _ProfileEditingState extends State<ProfileEditing> {
     });
     try
     {
-      await updateUsername(usernameController.text, context);
+      await updateUsername(userId, usernameController.text, userAgeController.text, userDescController.text, context);
     }
     finally
-    {
-      setState(() {
-        check = false;
-      });
-    }
+    {}
   }
 
   Future<void> updateUserInfo() async {
@@ -309,13 +308,17 @@ class _ProfileEditingState extends State<ProfileEditing> {
     try
     {
       await MongoDB.instance.updateUserInfo(userId, userAgeController.text, userDescController.text);
+      Navigator.pop(context);
+      return showDialog<void>(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return buildCustomAlertOKDialog(
+                context, "", "User Information changed successfully.");
+          });
     }
     finally
-    {
-      setState(() {
-        check = false;
-      });
-    }
+    {}
   }
 
   Future<void> getUser() async {

@@ -65,7 +65,7 @@ Future<void> checkUsername(String newUsername, BuildContext context,
 
 }
 
-Future<void>updateUsername(String newUsername, BuildContext context) async {
+Future<void>updateUsername(String userId, String newUsername, String userAge, String userDesc, BuildContext context) async {
   if (newUsername.trim().length < 5) {
     return showDialog<void>(
       context: context,
@@ -104,16 +104,27 @@ Future<void>updateUsername(String newUsername, BuildContext context) async {
             .doc(docID)
             .update({'Username': trimmedUsername}).then((value) async {
           LoggedUser.instance!.updateUsername(trimmedUsername);
+          // update MongoDB data
+          updateUserInfo(userId, userAge, userDesc);
           Navigator.pop(context);
           return showDialog<void>(
               context: context,
               barrierDismissible: false, // user must tap button!
               builder: (BuildContext context) {
                 return buildCustomAlertOKDialog(
-                    context, "", "Username changed correctly.");
+                    context, "", "User Information changed successfully.");
               });
         });
       }
     });
   }
+}
+
+Future<void> updateUserInfo(String userId, String userAge, String userName) async {
+  try
+  {
+    await MongoDB.instance.updateUserInfo(userId, userAge, userName);
+  }
+  finally
+  {}
 }

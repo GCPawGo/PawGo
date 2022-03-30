@@ -20,7 +20,8 @@ app.post('/initUser', async (req, res) => {
 
 app.post('/updateUserInfo', async (req, res) => {
   const user = req.body
-  UserModel.findOneAndUpdate({userId: user.userId}, {userAge: user.userAge}, {userDesc: user.userDesc})
+  console.log(user)
+  UserModel.findOneAndUpdate({userId: user.userId}, user)
     .then(oldUser => {
       res.send({msg: 'Successfully update the user Infomation'})
     })

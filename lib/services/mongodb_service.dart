@@ -85,7 +85,6 @@ class MongoDB {
     if (response.statusCode == 200) {
       var decodedBody = json.decode(response.body);
       print("Received events json from the updateUserInfo");
-      print(decodedBody["joinedEvents"]);
       return true;
     } else
       return false;
