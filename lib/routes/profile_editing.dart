@@ -175,42 +175,14 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                     borderSide:
                                         BorderSide(color: CustomColors.pawrange),
                                   ),
-                                  hintText: "Insert new username",
+                                  hintText: "Insert new name",
+                                  labelText: "Name",
                                   hintStyle:
                                       TextStyle(color: CustomColors.silver)),
                               controller: usernameController,
                               maxLength: 20,
                               style: TextStyle(color: Colors.black),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                bottom: 1 * SizeConfig.heightMultiplier!,),
-                            child: AnimatedSwitcher(
-                              duration: Duration(milliseconds: 250),
-                              child: AnimatedSwitcher(
-                                duration: Duration(milliseconds: 250),
-                                child: check?CircularProgressIndicator():ElevatedButton(
-                                  onPressed: () async{
-                                    if(!check)
-                                      {
-                                        await updateUserName();
-                                      }
-                                  },
-                                  child: Text("Change username"),
-                                  style: ButtonStyle(
-                                      fixedSize: MaterialStateProperty.all(
-                                          Size(200, 35)),
-                                      backgroundColor: MaterialStateProperty.all(
-                                          CustomColors.pawrange),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(18.0))))),
-                              ),
-                            ),
-                          ),
-                          Divider(
-                            color: Colors.grey,
                           ),
                           Padding(
                             padding: EdgeInsets.only(
@@ -232,41 +204,13 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                     BorderSide(color: CustomColors.pawrange),
                                   ),
                                   hintText: "Insert new age",
+                                  labelText: "Age",
                                   hintStyle:
                                   TextStyle(color: CustomColors.silver)),
                               controller: userAgeController,
                               maxLength: 20,
                               style: TextStyle(color: Colors.black),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              bottom: 1 * SizeConfig.heightMultiplier!,),
-                            child: AnimatedSwitcher(
-                              duration: Duration(milliseconds: 250),
-                              child: AnimatedSwitcher(
-                                duration: Duration(milliseconds: 250),
-                                child: check?CircularProgressIndicator():ElevatedButton(
-                                    onPressed: () async{
-                                      if(!check)
-                                      {
-                                        await updateUserAge();
-                                      }
-                                    },
-                                    child: Text("Change Age"),
-                                    style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
-                                            Size(200, 35)),
-                                        backgroundColor: MaterialStateProperty.all(
-                                            CustomColors.pawrange),
-                                        shape: MaterialStateProperty.all(
-                                            RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(18.0))))),
-                              ),
-                            ),
-                          ),
-                          Divider(
-                            color: Colors.grey,
                           ),
                           Padding(
                             padding: EdgeInsets.only(
@@ -287,10 +231,12 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                     borderSide:
                                     BorderSide(color: CustomColors.pawrange),
                                   ),
-                                  hintText: "Insert new color",
+                                  hintText: "About Me",
+                                  labelText: "Description",
+
                                   hintStyle:
                                   TextStyle(color: CustomColors.silver)),
-                              maxLength: 20,
+                              maxLength: 100,
                               style: TextStyle(color: Colors.black),
                             ),
                           ),
@@ -308,7 +254,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                         await checkColor();
                                       }
                                     },
-                                    child: Text("Change Favorite Color"),
+                                    child: Text("Update"),
                                     style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(
                                             Size(200, 35)),

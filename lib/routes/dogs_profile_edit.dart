@@ -14,6 +14,8 @@ import 'package:pawgo/utils/mobile_library.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 
+import '../models/currentUser.dart';
+
 class DogsProfilePage extends StatefulWidget {
   DogsProfilePage({Key? key}) : super(key: key);
 
@@ -22,7 +24,16 @@ class DogsProfilePage extends StatefulWidget {
 }
 
 class _DogsProfilePageState extends State<DogsProfilePage> {
-
+  User? user = FirebaseAuth.instance.currentUser;
+  bool check = false;
+  final usernameController = TextEditingController();
+  final userAgeController = TextEditingController();
+  String username = LoggedUser.instance!.username;
+  String userId = LoggedUser.instance!.userId;
+  late String userAge;
+  String imageUrl = LoggedUser.instance!.image.url;
+  bool imgInserted = false;
+  File? f;
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +78,11 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
               SizedBox(
                 height: 35,
               ),
-              buildTextField("Dog's Name","Sparky"),
-              buildTextField("Age","1"),
-              buildTextField("Color","Brown"),
-              buildTextField("Breed","Jack Russel"),
-              buildTextField("Hobby","Smelling Feet"),
+              buildTextField("Dog's Name", "Enter dog's name"),
+              buildTextField("Age","Enter dog's age"),
+              buildTextField("Color","Enter dog's color"),
+              buildTextField("Breed","Enter dog's breed"),
+              buildTextField("Hobby","Enter dog's hobby"),
               SizedBox(
                 height: 30,
               ),
@@ -110,16 +121,17 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4)),
-                borderSide: BorderSide(width: 2,color: CustomColors.pawrange),
+                borderSide: BorderSide(width: 1,color: CustomColors.pawrange),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4)),
-                borderSide: BorderSide(width: 2,color: CustomColors.pawrange),
+                borderSide: BorderSide(width: 1,color: CustomColors.pawrange),
               ),
               contentPadding: EdgeInsets.symmetric(horizontal: 20),
               labelText: labelText,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               hintText: placeholder,
+
 
               //Text Styles
               hintStyle: TextStyle(
@@ -137,5 +149,25 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
         ),
       ),
     );
+  }
+
+  Future<void> getUser() async {
+    setState(() {
+      check = true;
+    });
+    try {
+      CurrentUser? currentUser = await MongoDB.instance.getUser(userId);
+      if(currentUser != null) {
+        userAge = currentUser.getUserAge();
+        print(userAge);
+      }
+    }
+    finally
+    {
+      setState(() {
+        userAgeController.value = userAgeController.value.copyWith(text: userAge);
+        check = false;
+      });
+    }
   }
 }
