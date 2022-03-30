@@ -64,7 +64,6 @@ class _ProfilePageState extends State<ProfilePage> {
     _miUser.addListener(() => setState(() {}));
     print("userId of the logged user is: " + _miUser.userId);
     this.getUser();
-    //MongoDB.instance.initUser(_miUser.userId).then((value) => getRideHistory());
     super.initState();
   }
 
@@ -214,7 +213,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         PageTransitionAnimation.cupertino);
                   },
                   child: Container(
-                    /*width: 15 * SizeConfig.heightMultiplier!,*/
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white60),
                       borderRadius: BorderRadius.circular(5.0),
@@ -233,48 +231,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ],
             ),
-
-            /*Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[*/
-                /*Column(
-                  children: <Widget>[
-                    Text(
-                      LoggedUser.instance!.username,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 3 * SizeConfig.textMultiplier!,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "Username",
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 1.9 * SizeConfig.textMultiplier!,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Text(
-                      "Smokey", // TODO Add dog's name from dog's instance
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 3 * SizeConfig.textMultiplier!,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "Dog's name",
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 1.9 * SizeConfig.textMultiplier!,
-                      ),
-                    ),
-                  ],
-                ),*/
-              /*],
-            ),*/
           ],
         ),
       ),
@@ -344,14 +300,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Padding(
               padding: EdgeInsets.all(15.0),
-              /*child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  color: Colors.grey.shade200,
-                  border: Border.all(
-                    color: Colors.black26.withOpacity(0.1),
-                  ),
-                ),*/
                   child: Column(
                     children: [
                       Column(
@@ -418,7 +366,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             Text(
-                              userAge,
+                              userAge.toString(),
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -515,11 +463,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget displayDog() {
     return ListView.builder(
+        // TODO: To be implemented later from backend
         // itemCount: MongoDB.instance!.dog?.length ?? 0,
-        itemCount: 1,
+        itemCount: 1, // to be replaced with the above code
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
+          // TODO: To be implemented later from backend
           // Dog selectedDog = MongoDB.instance!.dogs![index];
           return Column(
             children: <Widget>[

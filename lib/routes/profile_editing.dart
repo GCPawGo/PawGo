@@ -14,7 +14,6 @@ import 'package:uuid/uuid.dart';
 
 import '../services/mongodb_service.dart';
 import '../models/currentUser.dart';
-import '../widget/custom_alert_dialog.dart';
 
 class ProfileEditing extends StatefulWidget {
   ProfileEditing({Key? key}) : super(key: key);
@@ -178,7 +177,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                         BorderSide(color: CustomColors.pawrange),
                                   ),
                                   hintText: "Insert new name",
-                                  labelText: "Name",
+                                  labelText: "Userame",
                                   hintStyle:
                                       TextStyle(color: CustomColors.silver)),
                               controller: usernameController,
@@ -253,11 +252,9 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                     onPressed: () async{
                                       if(!check)
                                       {
-                                        if(!(username == usernameController.text)) {
-                                          await updateUserName();
-                                        } else {
-                                          await updateUserInfo();
-                                        }
+                                        // TODO: To add data grab from MongoDB
+                                        await updateUserName();
+                                        await updateUserInfo();
                                       }
                                     },
                                     child: Text("Update"),
@@ -295,10 +292,14 @@ class _ProfileEditingState extends State<ProfileEditing> {
     });
     try
     {
-      await updateUsername(userId, usernameController.text, userAgeController.text, userDescController.text, context);
+      await updateUsername(usernameController.text, context);
     }
     finally
-    {}
+    {
+      setState(() {
+        check = false;
+      });
+    }
   }
 
   Future<void> updateUserInfo() async {
@@ -308,17 +309,13 @@ class _ProfileEditingState extends State<ProfileEditing> {
     try
     {
       await MongoDB.instance.updateUserInfo(userId, userAgeController.text, userDescController.text);
-      Navigator.pop(context);
-      return showDialog<void>(
-          context: context,
-          barrierDismissible: false, // user must tap button!
-          builder: (BuildContext context) {
-            return buildCustomAlertOKDialog(
-                context, "", "User Information changed successfully.");
-          });
     }
     finally
-    {}
+    {
+      setState(() {
+        check = false;
+      });
+    }
   }
 
   Future<void> getUser() async {
