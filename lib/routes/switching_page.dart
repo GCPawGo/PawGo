@@ -7,6 +7,8 @@ import 'package:pawgo/routes/profile_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
+import 'homepage.dart';
+
 class SwitchPage extends StatefulWidget {
   const SwitchPage({Key? key}) : super(key: key);
 
@@ -32,9 +34,9 @@ class _SwitchPageState extends State<SwitchPage> {
         colorBehindNavBar: Colors.white
       ),
       screens: [
-        ProfilePage(),
-        ProfilePage(),
-        ProfilePage(),
+        HomePage(),
+        HomePage(),
+        HomePage(),
         ProfilePage(),
       ],
       items: [
