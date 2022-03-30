@@ -86,6 +86,7 @@ flutter:
     - lib/assets/app_logo.png
     - lib/assets/app_icon.png
     - lib/assets/Smokey.jpg
+    - lib/assets/default_dog.jpg
 
   fonts:
     - family: pawfont

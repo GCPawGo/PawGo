@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/routes/profile_editing.dart';
@@ -197,8 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             pageTransitionAnimation:
                             PageTransitionAnimation.cupertino);
                       },
-                      child: Container(
-                        /*width: 15 * SizeConfig.heightMultiplier!,*/
+                        child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.white60),
                           borderRadius: BorderRadius.circular(5.0),
@@ -206,7 +206,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Text(
+                            child: Text(
                             "EDIT USER PROFILE",
                             style: TextStyle(
                                 color: Colors.white60,
@@ -220,7 +220,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        // TODO: To be implemented after DogEditing page is created
                         pushNewScreen(context,
                             screen: DogsProfilePage(),
                             pageTransitionAnimation:
@@ -236,7 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Text(
-                            "ADD DOG PROFILE",
+                            "ADD NEW DOG",
                             style: TextStyle(
                                 color: Colors.white60,
                                 fontSize: 1.8 * SizeConfig.textMultiplier!),
@@ -316,20 +315,20 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Padding(
               padding: EdgeInsets.all(15.0),
-              child: Container(
+              /*child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(15.0)),
                   color: Colors.grey.shade200,
                   border: Border.all(
                     color: Colors.black26.withOpacity(0.1),
                   ),
-                ),
+                ),*/
                   child: Column(
                     children: [
                       Column(
                         children: [
                         Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: EdgeInsets.all(0),
                           child: Column(
                             children: [
                               Container(
@@ -360,6 +359,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                 ),
                               ),
+                              SizedBox(
+                                height: 1 * SizeConfig.heightMultiplier!,
+                              ),
                             Text(
                               "Username:",
                               style: TextStyle(
@@ -376,7 +378,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             SizedBox(
-                              height: 3 * SizeConfig.heightMultiplier!,
+                              height: 1 * SizeConfig.heightMultiplier!,
                             ),
                             Text(
                               "Age:",
@@ -394,7 +396,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             SizedBox(
-                              height: 3 * SizeConfig.heightMultiplier!,
+                              height: 1 * SizeConfig.heightMultiplier!,
                             ),
                             Text(
                               "Email:",
@@ -412,23 +414,37 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             SizedBox(
-                              height: 3 * SizeConfig.heightMultiplier!,
+                              height: 1 * SizeConfig.heightMultiplier!,
                             ),
                             Text(
-                              "Favorite Color:",
+                              "About Me:",
                               style: TextStyle(
                                 color: Colors.black54,
                                 fontSize: 2.5 * SizeConfig.textMultiplier!,
                                 decoration: TextDecoration.underline,
                               ),
                             ),
-                            Text(
-                              "Pawrange",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 2.2 * SizeConfig.textMultiplier!,
+                              SizedBox(
+                                height: 1 * SizeConfig.heightMultiplier!,
                               ),
-                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                              color: Colors.grey.shade200,
+                              border: Border.all(
+                              color: Colors.black26.withOpacity(0.1),),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
+                              child: Text(
+                                "I am a cheerfull person",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                ),
+                               ),
+                              ),
+                             ),
                            ],
                           ),
                          ),
@@ -436,7 +452,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-              ),
+              //),
             ),
           ],
         )

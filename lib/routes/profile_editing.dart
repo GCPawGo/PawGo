@@ -208,7 +208,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                   hintStyle:
                                   TextStyle(color: CustomColors.silver)),
                               controller: userAgeController,
-                              maxLength: 20,
+                              maxLength: 2,
                               style: TextStyle(color: Colors.black),
                             ),
                           ),
@@ -217,28 +217,27 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                 left: 15,
                                 top: 2 * SizeConfig.heightMultiplier!,
                                 right: 15.0),
-                            child: TextField(
-                              cursorColor: CustomColors.pawrange,
-                              decoration: InputDecoration(
-                                  counterStyle: TextStyle(
-                                    color: CustomColors.silver,
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                    BorderSide(color: CustomColors.silver),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                    BorderSide(color: CustomColors.pawrange),
-                                  ),
-                                  hintText: "About Me",
-                                  labelText: "Description",
-
-                                  hintStyle:
-                                  TextStyle(color: CustomColors.silver)),
-                              maxLength: 100,
-                              style: TextStyle(color: Colors.black),
-                            ),
+                                child: TextField(
+                                  cursorColor: CustomColors.pawrange,
+                                  decoration: InputDecoration(
+                                      counterStyle: TextStyle(
+                                        color: CustomColors.silver,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide:
+                                        BorderSide(color: CustomColors.silver),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide:
+                                        BorderSide(color: CustomColors.pawrange),
+                                      ),
+                                      hintText: "About Me",
+                                      labelText: "Description",
+                                      hintStyle:
+                                      TextStyle(color: CustomColors.silver)),
+                                  maxLength: 150,
+                                  style: TextStyle(color: Colors.black),
+                                ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(
@@ -251,7 +250,8 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                     onPressed: () async{
                                       if(!check)
                                       {
-                                        await checkColor();
+                                        // TODO: To add data grab from MongoDB
+                                        // await MongoDB something
                                       }
                                     },
                                     child: Text("Update"),
@@ -305,7 +305,6 @@ class _ProfileEditingState extends State<ProfileEditing> {
     });
     try
     {
-      // TODO: to add controller from MongoDB
       await MongoDB.instance.updateUserAge(userId, userAgeController.text);
     }
     finally
@@ -331,23 +330,6 @@ class _ProfileEditingState extends State<ProfileEditing> {
     {
       setState(() {
         userAgeController.value = userAgeController.value.copyWith(text: userAge);
-        check = false;
-      });
-    }
-  }
-
-  Future<void> checkColor() async {
-    setState(() {
-      check = true;
-    });
-    try
-    {
-      // TODO: to add controller from MongoDB
-      // await updateUsername(usernameController.text, context);
-    }
-    finally
-    {
-      setState(() {
         check = false;
       });
     }

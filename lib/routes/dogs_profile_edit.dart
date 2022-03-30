@@ -39,7 +39,8 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(left: 16, top:25, right: 16),
+      child: Transform.translate(
+          offset: const Offset(0, 0),
         child: GestureDetector(
           onTap:() {
             FocusScope.of(context).unfocus();
@@ -48,8 +49,8 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
             children: [
               Center(
                 child: Text(
-                  "Edit Dog Profile",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                  "New Dog Profile",
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500, color: Colors.black54),
                 ),
               ),
               SizedBox(
@@ -58,20 +59,16 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
               Center(
                   child: Stack(
                     children: [
-                      Container(
-                        width: 140,
-                        height: 140,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 5,
-                            color: CustomColors.pawrange,
-                          ),
-                          image: DecorationImage (
-                            fit: BoxFit.cover,
-                            image: NetworkImage("https://media.4-paws.org/e/1/d/f/e1df04c51084bb30646f01f4203e72fb561b68a7/VIER%20PFOTEN_2020-06-15_006-1920x1004-1200x628.jpg"),
-                          ),
-                        ),
+                  Container(
+                  height: 20 * SizeConfig.heightMultiplier!,
+                    width: 20 * SizeConfig.heightMultiplier!,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image(
+                        image: AssetImage('lib/assets/default_dog.jpg'),
                       ),
+                     ),
+                    ),
                     ],
                   ),
               ),
@@ -84,29 +81,44 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
               buildTextField("Breed","Enter dog's breed"),
               buildTextField("Hobby","Enter dog's hobby"),
               SizedBox(
-                height: 30,
+                height: 1,
               ),
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: ElevatedButton(
-                      onPressed: (){
+                    padding: EdgeInsets.only(
+                        left: 24 * SizeConfig.widthMultiplier!,
+                        top: 1 * SizeConfig.heightMultiplier!),
+                    child: AnimatedSwitcher(
+                      duration: Duration(milliseconds: 250),
+                      child: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 250),
+                        child: check?CircularProgressIndicator():ElevatedButton(
+                            onPressed: () async{
+                              if(!check)
+                              {
+                                // TODO: To add dog's data grab from MongoDB
 
-                      },
-                      child: Text('Update'),
-                      style: ElevatedButton.styleFrom(
-                          shape: StadiumBorder(),
-                        primary: CustomColors.pawrange,
-                        minimumSize: Size(280, 40),
+                              }
+                            },
+                            child: Text("Create Profile"),
+                            style: ButtonStyle(
+                                fixedSize: MaterialStateProperty.all(
+                                    Size(200, 35)),
+                                backgroundColor: MaterialStateProperty.all(
+                                    CustomColors.pawrange),
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18.0))))),
                       ),
                     ),
-                  )
+                  ),
                 ]
               )
             ],
           ),
         )
+       ),
       ),
     );
   }
@@ -136,7 +148,6 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
               //Text Styles
               hintStyle: TextStyle(
                 fontSize: 16,
-                fontWeight: FontWeight.bold,
                 color: Colors.grey,
               ),
               labelStyle: TextStyle(
