@@ -581,24 +581,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 height: 1 * SizeConfig.heightMultiplier!,
                               ),
                               Text(
-                                "Color:",
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 2.5 * SizeConfig.textMultiplier!,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                              Text(
-                                "Silver",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 1 * SizeConfig.heightMultiplier!,
-                              ),
-                              Text(
                                 "Hobbies:",
                                 style: TextStyle(
                                   color: Colors.black54,
@@ -608,6 +590,24 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               Text(
                                 "Frisbee!",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1 * SizeConfig.heightMultiplier!,
+                              ),
+                              Text(
+                                "Personality:",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 2.5 * SizeConfig.textMultiplier!,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              Text(
+                                "I like running around!",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,

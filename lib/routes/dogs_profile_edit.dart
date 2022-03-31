@@ -69,9 +69,9 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
               ),
               buildTextField("Dog's Name", "Enter dog's name"),
               buildTextField("Age","Enter dog's age"),
-              buildTextField("Color","Enter dog's color"),
               buildTextField("Breed","Enter dog's breed"),
               buildTextField("Hobby","Enter dog's hobby"),
+              buildTextField("Personality","Say a few things about the dog"),
               SizedBox(
                 height: 1,
               ),
