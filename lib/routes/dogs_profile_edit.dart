@@ -15,6 +15,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 
 import '../models/currentUser.dart';
+import '../utils/dogInfo_check.dart';
 import '../widget/custom_alert_dialog.dart';
 
 class DogsProfilePage extends StatefulWidget {
@@ -102,46 +103,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                               if(!check)
                               {
                                 // TODO: To add dog's data grab from MongoDB
-                                if(dogNameController.text.isEmpty) {
-                                  return showDialog<void>(
-                                    context: context,
-                                    barrierDismissible: false, // user must tap button!
-                                    builder: (BuildContext context) {
-                                      return buildCustomAlertOKDialog(context, "Warning",
-                                          "Please input your Dog's name!");
-                                    },
-                                  );
-                                }else if(dogAgeController.text.isEmpty) {
-                                  return showDialog<void>(
-                                    context: context,
-                                    barrierDismissible: false, // user must tap button!
-                                    builder: (BuildContext context) {
-                                      return buildCustomAlertOKDialog(context, "Warning",
-                                          "Please input your Dog's Age!");
-                                    },
-                                  );
-                                }else if(dogBreedController.text.isEmpty) {
-                                  return showDialog<void>(
-                                    context: context,
-                                    barrierDismissible: false, // user must tap button!
-                                    builder: (BuildContext context) {
-                                      return buildCustomAlertOKDialog(context, "Warning",
-                                          "Please input your Dog's Breed!");
-                                    },
-                                  );
-                                }else {
-                                  // TODO call the MongoDB API
-
-                                  // back to the main profile
-                                  Navigator.pop(context);
-                                  return showDialog<void>(
-                                      context: context,
-                                      barrierDismissible: false, // user must tap button!
-                                      builder: (BuildContext context) {
-                                        return buildCustomAlertOKDialog(
-                                            context, "", "Dog added successfully.");
-                                      });
-                                }
+                                await addDog();
                               }
                             },
                             child: Text("Create Dog Profile"),
@@ -384,5 +346,27 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
         ),
       ),
     );
+  }
+
+  Future<void> addDog() async {
+    setState(() {
+      check = true;
+    });
+    try
+    {
+      await addDoginfo(userId,
+          dogNameController.text,
+          dogAgeController.text,
+          dogBreedController.text,
+          dogHobbyController.text,
+          dogPersonalityController.text,
+          context);
+    }
+    finally
+    {
+      setState(() {
+        check = false;
+      });
+    }
   }
 }

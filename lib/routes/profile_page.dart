@@ -212,10 +212,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    pushNewScreen(context,
-                        screen: DogsProfilePage(),
-                        pageTransitionAnimation:
-                        PageTransitionAnimation.cupertino);
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(builder: (context) => DogsProfilePage(),),).then(
+                            (data) {
+                              getUser();
+                            });
                   },
                   child: Container(
                     /*width: 15 * SizeConfig.heightMultiplier!,*/

@@ -291,13 +291,14 @@ class _ProfileEditingState extends State<ProfileEditing> {
     });
     try
     {
-      setState(() {
-        check = false;
-      });
       await updateUserinfo(userId, usernameController.text, userAgeController.text, userDescController.text, context);
     }
     finally
-    {}
+    {
+      setState(() {
+        check = false;
+      });
+    }
   }
 
   Future<void> getUser() async {
