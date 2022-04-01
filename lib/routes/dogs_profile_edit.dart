@@ -15,6 +15,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 
 import '../models/currentUser.dart';
+import '../widget/custom_alert_dialog.dart';
 
 class DogsProfilePage extends StatefulWidget {
   DogsProfilePage({Key? key}) : super(key: key);
@@ -26,6 +27,18 @@ class DogsProfilePage extends StatefulWidget {
 class _DogsProfilePageState extends State<DogsProfilePage> {
   User? user = FirebaseAuth.instance.currentUser;
   bool check = false;
+  String userId = LoggedUser.instance!.userId;
+  final dogNameController = TextEditingController();
+  final dogAgeController = TextEditingController();
+  final dogBreedController = TextEditingController();
+  final dogHobbyController = TextEditingController();
+  final dogPersonalityController = TextEditingController();
+
+  @override
+  void initState() {
+    print(userId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +80,11 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
               SizedBox(
                 height: 35,
               ),
-              buildTextField("Dog's Name", "Enter dog's name"),
-              buildTextField("Age","Enter dog's age"),
-              buildTextField("Breed","Enter dog's breed"),
-              buildTextField("Hobby","Enter dog's hobby"),
-              buildTextField("Personality","Say a few things about the dog"),
+              dogNameTextField("Dog's Name", "Enter dog's name"),
+              dogAgeTextField("Dog's Age","Enter dog's age"),
+              dogBreedTextField("Dog's Breed","Enter dog's breed"),
+              dogHobbyTextField("Dog's Hobby","Enter dog's hobby (optional)"),
+              dogPersonalityTextField("Dog's Personality","Enter dog's Personality (optional)"),
               SizedBox(
                 height: 1,
               ),
@@ -89,7 +102,46 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                               if(!check)
                               {
                                 // TODO: To add dog's data grab from MongoDB
+                                if(dogNameController.text.isEmpty) {
+                                  return showDialog<void>(
+                                    context: context,
+                                    barrierDismissible: false, // user must tap button!
+                                    builder: (BuildContext context) {
+                                      return buildCustomAlertOKDialog(context, "Warning",
+                                          "Please input your Dog's name!");
+                                    },
+                                  );
+                                }else if(dogAgeController.text.isEmpty) {
+                                  return showDialog<void>(
+                                    context: context,
+                                    barrierDismissible: false, // user must tap button!
+                                    builder: (BuildContext context) {
+                                      return buildCustomAlertOKDialog(context, "Warning",
+                                          "Please input your Dog's Age!");
+                                    },
+                                  );
+                                }else if(dogBreedController.text.isEmpty) {
+                                  return showDialog<void>(
+                                    context: context,
+                                    barrierDismissible: false, // user must tap button!
+                                    builder: (BuildContext context) {
+                                      return buildCustomAlertOKDialog(context, "Warning",
+                                          "Please input your Dog's Breed!");
+                                    },
+                                  );
+                                }else {
+                                  // TODO call the MongoDB API
 
+                                  // back to the main profile
+                                  Navigator.pop(context);
+                                  return showDialog<void>(
+                                      context: context,
+                                      barrierDismissible: false, // user must tap button!
+                                      builder: (BuildContext context) {
+                                        return buildCustomAlertOKDialog(
+                                            context, "", "Dog added successfully.");
+                                      });
+                                }
                               }
                             },
                             child: Text("Create Dog Profile"),
@@ -144,13 +196,14 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
     );
   }
 
-  Widget buildTextField(String labelText, String placeholder) {
+  Widget dogNameTextField(String labelText, String placeholder) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Center(
         child: SizedBox(
           width: 280,
           child: TextField(
+            cursorColor: CustomColors.pawrange,
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -164,8 +217,6 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
               labelText: labelText,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               hintText: placeholder,
-
-
               //Text Styles
               hintStyle: TextStyle(
                 fontSize: 16,
@@ -175,8 +226,160 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                 fontWeight: FontWeight.bold,
                 color: CustomColors.pawrange,
               ),
-
             ),
+            controller: dogNameController,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget dogAgeTextField(String labelText, String placeholder) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Center(
+        child: SizedBox(
+          width: 280,
+          child: TextField(
+            cursorColor: CustomColors.pawrange,
+            decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4)),
+                borderSide: BorderSide(width: 1,color: CustomColors.pawrange),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4)),
+                borderSide: BorderSide(width: 1,color: CustomColors.pawrange),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20),
+              labelText: labelText,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              hintText: placeholder,
+              //Text Styles
+              hintStyle: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+              labelStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: CustomColors.pawrange,
+              ),
+            ),
+            controller: dogAgeController,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget dogBreedTextField(String labelText, String placeholder) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Center(
+        child: SizedBox(
+          width: 280,
+          child: TextField(
+            cursorColor: CustomColors.pawrange,
+            decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4)),
+                borderSide: BorderSide(width: 1,color: CustomColors.pawrange),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4)),
+                borderSide: BorderSide(width: 1,color: CustomColors.pawrange),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20),
+              labelText: labelText,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              hintText: placeholder,
+              //Text Styles
+              hintStyle: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+              labelStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: CustomColors.pawrange,
+              ),
+            ),
+            controller: dogBreedController,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget dogHobbyTextField(String labelText, String placeholder) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Center(
+        child: SizedBox(
+          width: 280,
+          child: TextField(
+            cursorColor: CustomColors.pawrange,
+            decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4)),
+                borderSide: BorderSide(width: 1,color: CustomColors.pawrange),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4)),
+                borderSide: BorderSide(width: 1,color: CustomColors.pawrange),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20),
+              labelText: labelText,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              hintText: placeholder,
+              //Text Styles
+              hintStyle: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+              labelStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: CustomColors.pawrange,
+              ),
+            ),
+            controller: dogHobbyController,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget dogPersonalityTextField(String labelText, String placeholder) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Center(
+        child: SizedBox(
+          width: 280,
+          child: TextField(
+            cursorColor: CustomColors.pawrange,
+            decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4)),
+                borderSide: BorderSide(width: 1,color: CustomColors.pawrange),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4)),
+                borderSide: BorderSide(width: 1,color: CustomColors.pawrange),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20),
+              labelText: labelText,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              hintText: placeholder,
+              //Text Styles
+              hintStyle: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+              labelStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: CustomColors.pawrange,
+              ),
+            ),
+            controller: dogPersonalityController,
           ),
         ),
       ),
