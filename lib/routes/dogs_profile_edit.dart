@@ -354,7 +354,11 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
     });
     try
     {
-      await addDoginfo(userId,
+      // TODO loading icon problem
+      setState(() {
+        check = false;
+      });
+      await addDogInfo(userId,
           dogNameController.text,
           dogAgeController.text,
           dogBreedController.text,
@@ -364,9 +368,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
     }
     finally
     {
-      setState(() {
-        check = false;
-      });
+
     }
   }
 }

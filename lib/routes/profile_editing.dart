@@ -14,7 +14,6 @@ import 'package:uuid/uuid.dart';
 
 import '../services/mongodb_service.dart';
 import '../models/currentUser.dart';
-import '../widget/custom_alert_dialog.dart';
 
 class ProfileEditing extends StatefulWidget {
   ProfileEditing({Key? key}) : super(key: key);
@@ -291,13 +290,15 @@ class _ProfileEditingState extends State<ProfileEditing> {
     });
     try
     {
+      // TODO loading icon problem
+      setState(() {
+        check = false;
+      });
       await updateUserinfo(userId, usernameController.text, userAgeController.text, userDescController.text, context);
     }
     finally
     {
-      setState(() {
-        check = false;
-      });
+
     }
   }
 
