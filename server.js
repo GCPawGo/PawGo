@@ -36,8 +36,10 @@ var listener = app.listen(PORT, () => {
 });
 
 var usersRouter = require('./backend/components/profileController').router;
+var dogsRouter = require('./backend/components/dogController');
 
 app.use('/users', usersRouter);
+app.use('/dogs', dogsRouter);
 
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to PawGo!<h1>');
