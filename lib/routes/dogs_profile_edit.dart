@@ -267,10 +267,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
     try
     {
       if (image != null) {
-        FirebaseStorage storage = FirebaseStorage.instance;
-        Reference storageRef = storage.ref();
-        Reference imageRef = storageRef.child(uuid.toString() + ".jpg");
-        await imageRef.putFile(image);
+        MongoDB storage = MongoDB.instance;
 
             setState(() {
 
