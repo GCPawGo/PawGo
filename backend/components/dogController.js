@@ -15,7 +15,9 @@ app.post('/addDog', async (req, res) => {
         userId: req.body.userId,
         dogName: req.body.dogName,
         dogAge: req.body.dogAge,
-        dogBreed: req.body.dogBreed
+        dogBreed: req.body.dogBreed,
+        dogHobby: req.body.dogHobby,
+        dogPersonality: req.body.Personality
     })
   
     const user = await UserModel.findOne({ userId: dog.userId })
