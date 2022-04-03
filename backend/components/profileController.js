@@ -20,8 +20,7 @@ app.post('/initUser', async (req, res) => {
 
 app.post('/updateUserInfo', async (req, res) => {
   const user = req.body
-  console.log(user)
-  UserModel.findOneAndUpdate({userId: user.userId}, user)
+  await UserModel.findOneAndUpdate({userId: user.userId}, user)
     .then(user => {
       console.log(user)
       res.send(user)
@@ -30,7 +29,7 @@ app.post('/updateUserInfo', async (req, res) => {
 
 app.get('/getUser', async (req, res) => {
   const user = req.query
-  UserModel.findOne({userId: user.userId})
+  await UserModel.findOne({userId: user.userId})
     .then(user => {
       res.send(user)
     })

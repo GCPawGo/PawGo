@@ -9,7 +9,7 @@ const UserModel = require('../models/User');
 const DogModel = require('../models/Dog');
 
 app.post('/addDog', async (req, res) => {
-    console.log(req.body)
+    const dog = req.body
 
     const newDog = new DogModel({
         userId: req.body.userId,
@@ -18,17 +18,16 @@ app.post('/addDog', async (req, res) => {
         dogBreed: req.body.dogBreed
     })
   
-    const user = UserModel.findOne({ userId: req.body.userId })
+    const user = await UserModel.findOne({ userId: dog.userId })
 
     if (!user) {
         console.log('Cannot find the user!\n');
     }else {
-        // user.userDogs.push(newDog._id);
-        newDog.save()
-        // user.save()
+        await UserModel.findOneAndUpdate({ userId: dog.userId }, { $push: { userDogs: newDog._id }})
+        await newDog.save()
         res.send({msg: 'Successfully add the dog!'})
     }
-  });
+});
 
-  module.exports = app;
+module.exports = app;
   
