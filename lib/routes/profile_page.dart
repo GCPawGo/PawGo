@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:pawgo/models/dogsList.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/routes/profile_editing.dart';
 import 'package:pawgo/routes/sign_in_page.dart';
@@ -18,6 +19,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/routes/dogs_profile_edit.dart';
 
+import '../models/dog.dart';
 import '../services/mongodb_service.dart';
 import '../models/currentUser.dart';
 
@@ -43,7 +45,8 @@ class _ProfilePageState extends State<ProfilePage> {
   String imageUrl = LoggedUser.instance!.image.url;
   bool imgInserted = false;
   File? f;
-  //List<Dog>? dogs;
+
+  List<Dog>? dogsList = DogsList.instance!.dogsList;
 
   // Use to get user information
   Future<void> getUser() async {
@@ -59,11 +62,22 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  Future<void> getDogs() async {
+    setState(() {
+      check = true;
+    });
+    {
+      dogsList = await MongoDB.instance.getDogsByUserId(userId);
+    }
+  }
+
   @override
   void initState() {
     _miUser.addListener(() => setState(() {}));
     print("userId of the logged user is: " + _miUser.userId);
+    this.getDogs();
     this.getUser();
+    print(dogsList?.length);
     super.initState();
   }
 
@@ -269,11 +283,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        userinfo(),
+                        userInfo(),
                         Divider(
                           color: Colors.grey,
                         ),
-                        dogsinfo(),
+                        dogsInfo(),
                         SizedBox(
                           height: 3 * SizeConfig.heightMultiplier!,
                         ),
@@ -289,7 +303,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget userinfo() {
+  Widget userInfo() {
     return
       Container(
       child: SingleChildScrollView(
@@ -433,7 +447,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Padding(
                                 padding: EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
                               child: Text(
-                                "Update your description",
+                                CurrentUser.instance!.userDesc,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -456,12 +470,21 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget dogsinfo() {
+  Widget dogsInfo() {
     return Container(
       child: SingleChildScrollView(
           child: Column(
             children: [
-              // TODO: Read dog's data from MongoDB <---------------------------------
+              Padding(
+                padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
+                child: Text(
+                  "Dog's Profile",
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 3 * SizeConfig.textMultiplier!),
+                ),
+              ),
               displayDog(),
             ],
           )
@@ -471,9 +494,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget displayDog() {
     return ListView.builder(
+        // TODO: Read dog's data from MongoDB <---------------------------------
         // TODO: To be implemented later from backend
         // itemCount: MongoDB.instance!.dog?.length ?? 0,
-        itemCount: 1, // to be replaced with the above code
+        itemCount: dogsList?.length, // to be replaced with the above code
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
@@ -481,16 +505,6 @@ class _ProfilePageState extends State<ProfilePage> {
           // Dog selectedDog = MongoDB.instance!.dogs![index];
           return Column(
             children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
-              child: Text(
-                "Dog's Profile",
-                style: TextStyle(
-                    color: Colors.black54,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 3 * SizeConfig.textMultiplier!),
-              ),
-            ),
             Padding(
               padding: EdgeInsets.all(15.0),
               child: Container(
@@ -537,7 +551,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                "Smokey",
+                                dogsList![index].dogName,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -555,7 +569,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                "3",
+                                dogsList![index].dogAge,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -573,7 +587,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                "Brussels Griffon",
+                                dogsList![index].dogBreed,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -591,7 +605,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                "Frisbee!",
+                                dogsList![index].dogHobby,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -609,7 +623,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                "I like running around!",
+                                dogsList![index].dogPersonality,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,

@@ -31,5 +31,22 @@ app.post('/addDog', async (req, res) => {
     }
 });
 
+app.get('/getDogsByUserId', async (req, res) => {
+    const userId = req.query.userId;
+    if (userId) {
+        const user = await UserModel.findOne({ userId: userId })
+        res.send(user.userDogs)
+    }
+});
+
+app.get('/getDogsByDogId', async (req, res) => {
+    const _id = req.query._id;
+    if (_id) {
+        const dog = await DogModel.findOne({ _id: _id })
+        console.log(dog)
+        res.send(dog)
+    }
+});
+
 module.exports = app;
   

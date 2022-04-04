@@ -3,12 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/models/currentUser.dart';
+import 'package:pawgo/models/dogsList.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/routes/username_insert_page.dart';
 import 'package:pawgo/services/authentication.dart';
 import 'package:pawgo/services/mongodb_service.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/dog.dart';
 
 class GoogleSignInButton extends StatefulWidget {
   @override
@@ -77,13 +80,16 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                           String? imageUrl= querySnapshot.docs[0].get("Image");
                           if (username != null) {
                             LoggedUser.initInstance(user.uid, imageUrl ?? "", user.email!, username);
-
+                            //-------------------------init data----------------------------------------------------------------------------
                             CurrentUser? currentUser = await MongoDB.instance.getUser(user.uid);
                             if(currentUser != null) {
                               CurrentUser.initInstance(currentUser.getUserAge(), currentUser.getUserDesc());
                             }
-
-                            await (user.uid);
+                            List<Dog>? dogsList = await MongoDB.instance.getDogsByUserId(user.uid);
+                            if(dogsList != null) {
+                              DogsList.initInstance(dogsList);
+                            }
+                            //--------------------------------------------------------------------------------------------------------------
 
                             Navigator.pushNamedAndRemoveUntil(
                                 context, '/switch_page', (route) => false);

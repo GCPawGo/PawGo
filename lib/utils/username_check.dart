@@ -12,6 +12,8 @@ import 'package:pawgo/widget/custom_alert_dialog.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/currentUser.dart';
+import '../models/dog.dart';
+import '../models/dogsList.dart';
 
 
 Future<void> checkUsername(String newUsername, BuildContext context,
@@ -58,10 +60,17 @@ Future<void> checkUsername(String newUsername, BuildContext context,
               .then((value) async {
             LoggedUser.initInstance(actualUser.uid, actualUser.photoURL ?? "", actualUser.email!, newUsername.trim());
             await MongoDB.instance.initUser(actualUser.uid);
+            //-------------------------init data----------------------------------------------------------------------------
             CurrentUser? currentUser = await MongoDB.instance.getUser(actualUser.uid);
             if(currentUser != null) {
               CurrentUser.initInstance(currentUser.getUserAge(), currentUser.getUserDesc());
             }
+            List<Dog>? dogsList = await MongoDB.instance.getDogsByUserId(actualUser.uid);
+            if(dogsList != null) {
+              DogsList.initInstance(dogsList);
+            }
+            //--------------------------------------------------------------------------------------------------------------
+
             Navigator.pushNamedAndRemoveUntil(context, '/switch_page', (route) => false);
           }).catchError((error) {});
         }).catchError((error) {});

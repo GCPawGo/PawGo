@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:pawgo/models/dog.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:tuple/tuple.dart';
 
@@ -92,7 +93,7 @@ class MongoDB {
 
   Future<bool> addDogInfo(String userId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality) async {
     var url = Uri.parse(baseUri + '/dogs/addDog');
-    print(dogName + " " + dogAge + " " + dogBreed + "" + dogHobby + "" + dogPersonality);
+    print(dogName + " " + dogAge + " " + dogBreed + " " + dogHobby + " " + dogPersonality);
 
     var response = await _serverClient.post(
         url,
@@ -112,5 +113,43 @@ class MongoDB {
     } else {
       return false;
     }
+  }
+
+  Future<List<Dog>?> getDogsByUserId(String userId) async {
+    var url = Uri.parse(baseUri + '/dogs/getDogsByUserId').replace(queryParameters: {'userId': userId});
+    var response = await _serverClient.get(url, headers: _headers);
+    print("Received events json from the getDogsByUserId");
+    if (response.statusCode == 200) {
+      var decodedBody = json.decode(response.body) as List;
+
+      List<String> dogIdList = [];
+      List<Dog> dogsList = [];
+
+      decodedBody.forEach((dogId) async => (
+        dogIdList.add(dogId)
+      ));
+
+      for(int i = 0; i < dogIdList.length; i ++) {
+        Dog dog = await MongoDB.instance.getDogsByDogId(dogIdList[i]);
+        dogsList.add(dog);
+      }
+
+      // print(dogIdList);
+      // print(dogsList);
+      return dogsList;
+    } else {
+      return null;
+    }
+  }
+
+  Future<Dog> getDogsByDogId(String dogId) async {
+    var url = Uri.parse(baseUri + '/dogs/getDogsByDogId').replace(queryParameters: {'_id': dogId});
+    var response = await _serverClient.get(url, headers: _headers);
+    if (response.statusCode == 200) {
+      var decodedBody = json.decode(response.body);
+      Dog dog = Dog.fromJson(decodedBody);
+      return dog;
+    }
+    return Dog("123", "123", "123", "123", "123", "123");
   }
 }
