@@ -22,6 +22,7 @@ import 'package:pawgo/routes/dogs_profile_edit.dart';
 import '../models/dog.dart';
 import '../services/mongodb_service.dart';
 import '../models/currentUser.dart';
+import '../widget/custom_alert_dialog.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -50,6 +51,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // Use to get user information
   Future<void> getUser() async {
+    setState(() {
+    });
     CurrentUser? currentUser = await MongoDB.instance.getUser(userId);
     if(currentUser != null) {
       userAge = currentUser.getUserAge();
@@ -58,11 +61,12 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> getDogs() async {
+    setState(() {
+    });
     List<Dog>? list = await MongoDB.instance.getDogsByUserId(userId);
     if(list != null) {
       dogsList = list;
     }
-    print(dogsList?.length);
   }
 
   Future<void> removeDogByDogId(String dogId, String userId) async {
@@ -72,15 +76,38 @@ class _ProfilePageState extends State<ProfilePage> {
     try
     {
       // TODO loading icon problem
-      setState(() {
-        check = false;
-      });
       await MongoDB.instance.removeDogByDogId(dogId, userId);
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return buildCustomAlertOKDialog(context, "",
+              "Successfully removed this dog!");
+        },
+      );
+      List<Dog>? dogsList = await updateDogList(userId);
+      if(dogsList != null) {
+        DogsList.instance!.updateDogsList(dogsList);
+      }
+      // List<Dog> doss = [Dog("123", "123", "123", "123", "213", "123", "213")];
+      // DogsList.instance!.updateDogsList(doss);
     }
     finally
     {
-
+      setState(() {
+        check = false;
+      });
     }
+  }
+
+  Future<List<Dog>?> updateDogList(String userId) async {
+    try
+    {
+      List<Dog>? dogsList = await MongoDB.instance.getDogsByUserId(userId);
+      return dogsList;
+    }
+    finally
+    {}
   }
 
   @override
@@ -679,7 +706,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                         onPressed: () async{
                                           if(!check)
                                           {
-                                            // TODO: To add dog's data grab from MongoDB
                                             await removeDogByDogId(DogsList.instance!.dogsList[index].id, LoggedUser.instance!.userId);
                                           }
                                         },
