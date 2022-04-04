@@ -50,28 +50,36 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // Use to get user information
   Future<void> getUser() async {
-    setState(() {
-      check = true;
-    });
-    {
-      CurrentUser? currentUser = await MongoDB.instance.getUser(userId);
-      if(currentUser != null) {
-        userAge = currentUser.getUserAge();
-        userDesc = currentUser.getUserDesc();
-      }
+    CurrentUser? currentUser = await MongoDB.instance.getUser(userId);
+    if(currentUser != null) {
+      userAge = currentUser.getUserAge();
+      userDesc = currentUser.getUserDesc();
     }
   }
 
   Future<void> getDogs() async {
+    List<Dog>? list = await MongoDB.instance.getDogsByUserId(userId);
+    if(list != null) {
+      dogsList = list;
+    }
+    print(dogsList?.length);
+  }
+
+  Future<void> removeDogByDogId(String dogId, String userId) async {
     setState(() {
       check = true;
     });
+    try
     {
-      List<Dog>? list = await MongoDB.instance.getDogsByUserId(userId);
-      if(list != null) {
-        dogsList = list;
-      }
-      print(dogsList?.length);
+      // TODO loading icon problem
+      setState(() {
+        check = false;
+      });
+      await MongoDB.instance.removeDogByDogId(dogId, userId);
+    }
+    finally
+    {
+
     }
   }
 
@@ -672,7 +680,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           if(!check)
                                           {
                                             // TODO: To add dog's data grab from MongoDB
-
+                                            await removeDogByDogId(DogsList.instance!.dogsList[index].id, LoggedUser.instance!.userId);
                                           }
                                         },
                                         child: Text("Remove Profile"),

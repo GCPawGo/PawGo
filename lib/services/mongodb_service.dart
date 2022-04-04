@@ -132,10 +132,7 @@ class MongoDB {
       for(int i = 0; i < dogIdList.length; i ++) {
         Dog dog = await MongoDB.instance.getDogsByDogId(dogIdList[i]);
         dogsList.add(dog);
-      }
-
-      // print(dogIdList);
-      // print(dogsList);
+      };
       return dogsList;
     } else {
       return null;
@@ -150,6 +147,16 @@ class MongoDB {
       Dog dog = Dog.fromJson(decodedBody);
       return dog;
     }
-    return Dog("123", "123", "123", "123", "123", "123");
+    return Dog("123", "123", "123", "123", "123", "123", "123");
+  }
+
+  Future<bool> removeDogByDogId(String dogId, String userId) async {
+    var url = Uri.parse(baseUri + '/dogs/removeDogByDogId');
+    var response = await _serverClient.post(url, headers: _headers, body: json.encode({'_id': dogId, 'userId': userId}));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -48,5 +48,15 @@ app.get('/getDogsByDogId', async (req, res) => {
     }
 });
 
+app.post('/removeDogByDogId', async (req, res) => {
+    const dogId = req.body._id;
+    const userId = req.body.userId
+    if (dogId && userId) {
+        await UserModel.findOneAndUpdate({ userId: userId }, { $pull: { userDogs: dogId }})
+        await DogModel.findByIdAndRemove({ _id: dogId })
+        res.send("Successfully remove the dog")
+    }
+});
+
 module.exports = app;
   
