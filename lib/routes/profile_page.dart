@@ -509,23 +509,27 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget dogsInfo() {
     return Container(
-      child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
-                child: Text(
-                  "Dog's Profile",
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 3 * SizeConfig.textMultiplier!),
-                ),
-              ),
-              displayDog(),
-            ],
-          )
-      ),
+        child: DogsList.instance!.dogsList.isEmpty
+            ? SizedBox()
+            : Container(
+          child: SingleChildScrollView(
+
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
+                    child: Text(
+                      "Dog's Profile",
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 3 * SizeConfig.textMultiplier!),
+                    ),
+                  ),
+                  displayDog(),
+                ],
+              )
+          ),)
     );
   }
 
@@ -570,7 +574,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 width: 30 * SizeConfig.heightMultiplier!,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset("lib/assets/Smokey.jpg",
+                                  child: Image.asset("lib/assets/default_dog.jpg",
                                     fit: BoxFit.cover,
                                     errorBuilder: (BuildContext context, Object object,
                                         StackTrace? stacktrace) {
