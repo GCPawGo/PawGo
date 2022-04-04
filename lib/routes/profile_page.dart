@@ -67,7 +67,11 @@ class _ProfilePageState extends State<ProfilePage> {
       check = true;
     });
     {
-      dogsList = await MongoDB.instance.getDogsByUserId(userId);
+      List<Dog>? list = await MongoDB.instance.getDogsByUserId(userId);
+      if(list != null) {
+        dogsList = list;
+      }
+      print(dogsList?.length);
     }
   }
 
@@ -77,7 +81,6 @@ class _ProfilePageState extends State<ProfilePage> {
     print("userId of the logged user is: " + _miUser.userId);
     this.getDogs();
     this.getUser();
-    print(dogsList?.length);
     super.initState();
   }
 
@@ -230,7 +233,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       context,
                       CupertinoPageRoute(builder: (context) => DogsProfilePage(),),).then(
                             (data) {
-                              getUser();
+                              this.getUser();
+                              this.getDogs();
                             });
                   },
                   child: Container(
@@ -497,7 +501,7 @@ class _ProfilePageState extends State<ProfilePage> {
         // TODO: Read dog's data from MongoDB <---------------------------------
         // TODO: To be implemented later from backend
         // itemCount: MongoDB.instance!.dog?.length ?? 0,
-        itemCount: dogsList?.length, // to be replaced with the above code
+        itemCount: DogsList.instance!.dogsList.length, // to be replaced with the above code
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
@@ -551,7 +555,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                dogsList![index].dogName,
+                                DogsList.instance!.dogsList[index].dogName,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -569,7 +573,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                dogsList![index].dogAge,
+                                DogsList.instance!.dogsList[index].dogAge,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -587,7 +591,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                dogsList![index].dogBreed,
+                                DogsList.instance!.dogsList[index].dogBreed,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -605,7 +609,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                dogsList![index].dogHobby,
+                                DogsList.instance!.dogsList[index].dogHobby,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -623,7 +627,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                dogsList![index].dogPersonality,
+                                DogsList.instance!.dogsList[index].dogPersonality,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,

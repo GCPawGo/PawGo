@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pawgo/models/currentUser.dart';
+import 'package:pawgo/models/dogsList.dart';
 import 'package:pawgo/widget/custom_alert_dialog.dart';
 import 'package:pawgo/services/mongodb_service.dart';
+
+import '../models/dog.dart';
 
 Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality, BuildContext context) async {
   if (dogName.isEmpty) {
@@ -34,6 +38,12 @@ Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogB
   } else {
     // call add dog function to add the new dog
     await addDog(userId, dogName, dogAge, dogBreed, dogHobby, dogPersonality);
+
+    List<Dog>? dogsList = await updateDogList(userId);
+    if(dogsList != null) {
+      DogsList.instance!.updateDogsList(dogsList);
+    }
+
     // back to the main profile
     Navigator.of(context).pop("");
     return showDialog<void>(
@@ -49,8 +59,17 @@ Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogB
 Future<void> addDog(String userId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality) async {
   try
   {
-    // TODO call MongoDB API
     await MongoDB.instance.addDogInfo(userId, dogName, dogAge, dogBreed, dogHobby, dogPersonality);
+  }
+  finally
+  {}
+}
+
+Future<List<Dog>?> updateDogList(String userId) async {
+  try
+  {
+    List<Dog>? dogsList = await MongoDB.instance.getDogsByUserId(userId);
+    return dogsList;
   }
   finally
   {}

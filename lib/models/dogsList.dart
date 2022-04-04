@@ -12,4 +12,9 @@ class DogsList extends ChangeNotifier {
   static initInstance(List<Dog> dogsList) {
     instance = DogsList(dogsList);
   }
+
+  void updateDogsList(List<Dog> un) {
+    instance!.dogsList = un;
+    notifyListeners();
+  }
 }
