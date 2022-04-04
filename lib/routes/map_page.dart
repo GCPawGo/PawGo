@@ -1,14 +1,12 @@
 import 'package:background_location/background_location.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-//import 'package:pawgo/models/ride.dart' as m_ride;
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pawgo/services/mongodb_service.dart';
 import 'package:location/location.dart' as loc;
-import 'package:pawgo/widget/custom_alert_dialog.dart';
 
 import '../assets/custom_colors.dart';
 
@@ -46,16 +44,13 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage>
     with OSMMixinObserver, WidgetsBindingObserver {
   final MapController controller = MapController(initMapWithUserPosition: true);
-  double totalElevation = 0;
   bool _hasPermissions = false;
   bool _isRecording = false;
   bool _shouldInitialize = true;
   Color _currentButtonColor = CustomColors.pawrange;
-  FaIcon _currentButtonIcon = FaIcon(FontAwesomeIcons.play);
+  FaIcon _currentButtonIcon = FaIcon(FontAwesomeIcons.dog);
   List<GeoPoint> path = [];
   RoadInfo? _roadInfo;
-  LoggedUser _miUser = LoggedUser.instance!;
-  List<double> elevations = [];
   OSMFlutter? map;
   Location? currentLocation;
   Stopwatch _stopwatch = Stopwatch();
@@ -86,7 +81,7 @@ class _MapPageState extends State<MapPage>
                   roadType: RoadType.foot,
                   roadOption: RoadOption(
                     roadWidth: 10,
-                    roadColor: Colors.green,
+                    roadColor: CustomColors.pawrange,
                   ));
             }
           }
@@ -136,10 +131,6 @@ class _MapPageState extends State<MapPage>
         path.add(GeoPoint(
             latitude: location.latitude!, longitude: location.longitude!));
         double newAltitude = location.altitude!;
-        if (newAltitude > elevations.last) {
-          totalElevation = (totalElevation + (newAltitude - elevations.last));
-          elevations.add(newAltitude);
-        }
         setState(() {});
       }
     }
