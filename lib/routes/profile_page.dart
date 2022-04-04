@@ -89,8 +89,6 @@ class _ProfilePageState extends State<ProfilePage> {
       if(dogsList != null) {
         DogsList.instance!.updateDogsList(dogsList);
       }
-      // List<Dog> doss = [Dog("123", "123", "123", "123", "213", "123", "213")];
-      // DogsList.instance!.updateDogsList(doss);
     }
     finally
     {
