@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:pawgo/models/dog.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/services/authentication.dart';
 import 'package:pawgo/services/mongodb_service.dart';
@@ -48,11 +49,19 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
   final dogBreedController = TextEditingController();
   final dogHobbyController = TextEditingController();
   final dogPersonalityController = TextEditingController();
+  String dogName = "";
+  String dogAge = "";
+  String dogBreed = "";
+  String dogHobby = "";
+  String dogPersonality = "";
 
   @override
   void initState() {
     print("UserId" + userId);
-    if(data != null) print("DogId" + data!);
+    if(data != null) {
+      this.getDog();
+      print("DogId" + data!);
+    }
     super.initState();
   }
 
@@ -523,6 +532,31 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
     finally
     {
 
+    }
+  }
+
+  Future<void> getDog() async {
+    setState(() {
+      check = true;
+    });
+    try {
+      Dog dog = await MongoDB.instance.getDogsByDogId(this.data!);
+      dogName = dog.dogName;
+      dogAge = dog.dogAge;
+      dogBreed = dog.dogBreed;
+      dogHobby = dog.dogHobby;
+      dogPersonality = dog.dogPersonality;
+    }
+    finally
+    {
+      setState(() {
+        dogNameController.value = dogNameController.value.copyWith(text: dogName);
+        dogAgeController.value = dogAgeController.value.copyWith(text: dogAge);
+        dogBreedController.value = dogBreedController.value.copyWith(text: dogBreed);
+        dogHobbyController.value = dogHobbyController.value.copyWith(text: dogHobby);
+        dogPersonalityController.value = dogPersonalityController.value.copyWith(text: dogPersonality);
+        check = false;
+      });
     }
   }
 }
