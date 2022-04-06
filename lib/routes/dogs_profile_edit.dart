@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 //import 'dart:html';
 import 'dart:io';
@@ -54,6 +55,8 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
   String dogBreed = "";
   String dogHobby = "";
   String dogPersonality = "";
+  String dogUrl = "";
+  String docID = "";
 
   @override
   void initState() {
@@ -152,8 +155,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                           child: !imgInserted
                               ? ElevatedButton(
                               onPressed: () async {
-                                Map<Permission,
-                                    PermissionStatus> statuses = await [
+                                Map<Permission, PermissionStatus> statuses = await [
                                   Permission.camera,
                                   Permission.storage,
                                 ].request();
@@ -280,12 +282,39 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
     try
     {
       if (image != null) {
-        MongoDB storage = MongoDB.instance;
+        // create dog image or update dog image
+        CollectionReference dogsCollection = FirebaseFirestore.instance.collection("Dogs");
+        if(data != null) {
+          // TODO update app dog image
+          await dogsCollection
+              .where("dogId", isEqualTo: data!)
+              .get()
+              .then((QuerySnapshot querySnapshot) async {
 
-            setState(() {
-
-            });
-      }
+          });
+        }else {
+          // add dog image to Firebase (dogId with default timestamp)
+          Map<String, Object> dog = new HashMap();
+          dog["dogId"] = DateTime.now().millisecondsSinceEpoch;
+          dog["userId"] = LoggedUser.instance!.userId;
+          // upload image to Firebase
+          FirebaseStorage storage = FirebaseStorage.instance;
+          Reference storageRef = storage.ref();
+          Reference imageRef = storageRef.child(uuid.toString() + ".jpg");
+          await imageRef.putFile(image);
+          await imageRef.getDownloadURL().then((url) async {
+            dog["Image"] = url;
+            await FirebaseFirestore.instance
+                .collection("Dogs")
+                .add(dog)
+                .then((value) async {
+              // TODO get and update app image for display
+              docID = value.id;
+              print(docID);
+            }).catchError((error) {});
+          }).catchError((error) {});
+        }
+      };
     }
     finally
     {
@@ -492,17 +521,20 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
     });
     try
     {
-      // TODO loading icon problem
       setState(() {
         check = false;
       });
+
+      // TODO loading icon problem
+
       await addDogInfo(userId,
           dogNameController.text,
           dogAgeController.text,
           dogBreedController.text,
           dogHobbyController.text,
           dogPersonalityController.text,
-          context);
+          context,
+          docID);
     }
     finally
     {

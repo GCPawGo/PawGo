@@ -7,7 +7,7 @@ import 'package:pawgo/services/mongodb_service.dart';
 
 import '../models/dog.dart';
 
-Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality, BuildContext context) async {
+Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality, BuildContext context, String docID) async {
   if (dogName.isEmpty) {
     return showDialog<void>(
       context: context,
