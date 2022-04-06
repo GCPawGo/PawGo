@@ -526,7 +526,6 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
       });
 
       // TODO loading icon problem
-
       await addDogInfo(userId,
           dogNameController.text,
           dogAgeController.text,

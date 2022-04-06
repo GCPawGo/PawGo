@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/models/currentUser.dart';
@@ -8,7 +9,16 @@ import 'package:pawgo/services/mongodb_service.dart';
 import '../models/dog.dart';
 
 Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality, BuildContext context, String docID) async {
-  if (dogName.isEmpty) {
+  if (docID.isEmpty) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return buildCustomAlertOKDialog(context, "Warning",
+            "Please upload your Dog's image!");
+      },
+    );
+  }else if (dogName.isEmpty) {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -38,6 +48,15 @@ Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogB
   } else {
     // call add dog function to add the new dog
     await addDog(userId, dogName, dogAge, dogBreed, dogHobby, dogPersonality);
+
+    // TODO update firebase dogID
+    CollectionReference dogsCollection = FirebaseFirestore.instance.collection("Dogs");
+    await dogsCollection
+        .where(FieldPath.documentId, isEqualTo: docID)
+        .get()
+        .then((QuerySnapshot querySnapshot) async {
+      print(querySnapshot.docs[0].get("dogId"));
+    });
 
     List<Dog>? dogsList = await updateDogList(userId);
     if(dogsList != null) {
