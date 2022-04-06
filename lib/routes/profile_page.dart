@@ -683,7 +683,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                           if(!check)
                                           {
                                             // TODO: To add dog's data grab from MongoDB
+                                            Navigator.push(
+                                              context,
+                                              CupertinoPageRoute(
+                                                builder: (context) => DogsProfilePage(
+                                                  data: DogsList.instance!.dogsList[index].id,
+                                                ),
+                                              ),
+                                            ).then((data) {
 
+                                            });
                                           }
                                         },
                                         child: Text("Update Dog's Profile"),

@@ -24,13 +24,19 @@ import '../utils/get_image.dart';
 import '../widget/custom_alert_dialog.dart';
 
 class DogsProfilePage extends StatefulWidget {
-  DogsProfilePage({Key? key}) : super(key: key);
+  String? data;
+  DogsProfilePage({Key? key, this.data}) : super(key: key);
+
+
 
   @override
-  _DogsProfilePageState createState() => _DogsProfilePageState();
+  _DogsProfilePageState createState() => _DogsProfilePageState(data: data);
 }
 
 class _DogsProfilePageState extends State<DogsProfilePage> {
+  String? data;
+  _DogsProfilePageState({this.data});
+
   User? user = FirebaseAuth.instance.currentUser;
   bool check = false;
   String userId = LoggedUser.instance!.userId;
@@ -45,7 +51,8 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
 
   @override
   void initState() {
-    print(userId);
+    print("UserId" + userId);
+    if(data != null) print("DogId" + data!);
     super.initState();
   }
 
@@ -94,10 +101,8 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                   dogNameTextField("Dog's Name", "Enter dog's name"),
                   dogAgeTextField("Dog's Age", "Enter dog's age"),
                   dogBreedTextField("Dog's Breed", "Enter dog's breed"),
-                  dogHobbyTextField(
-                      "Dog's Hobby", "Enter dog's hobby (optional)"),
-                  dogPersonalityTextField("Dog's Personality",
-                      "Enter dog's Personality (optional)"),
+                  dogHobbyTextField("Dog's Hobby", "Enter dog's hobby (optional)"),
+                  dogPersonalityTextField("Dog's Personality", "Enter dog's Personality (optional)"),
                   SizedBox(
                     height: 1,
                   ),
@@ -119,7 +124,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                                       await addDog();
                                     }
                                   },
-                                  child: Text("Create Dog Profile"),
+                                  child: data == null? Text("Create Dog Profile") : Text("Update Dog Profile"),
                                   style: ButtonStyle(
                                       fixedSize: MaterialStateProperty.all(
                                           Size(200, 35)),
