@@ -591,12 +591,22 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
       check = true;
     });
     try {
+      // get dog information from MongoDB
       Dog dog = await MongoDB.instance.getDogsByDogId(this.data!);
       dogName = dog.dogName;
       dogAge = dog.dogAge;
       dogBreed = dog.dogBreed;
       dogHobby = dog.dogHobby;
       dogPersonality = dog.dogPersonality;
+
+      // get dog image from Firebase
+      CollectionReference dogsCollection = FirebaseFirestore.instance.collection("Dogs");
+      QuerySnapshot querySnapshot = await dogsCollection
+          .where("dogId", isEqualTo: data)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        dogImageUrl = querySnapshot.docs[0].get("Image");
+      }
     }
     finally
     {
