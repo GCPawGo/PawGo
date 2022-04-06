@@ -51,7 +51,7 @@ Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogB
     // call add dog function to add the new dog
     await addDog(userId, dogName, dogAge, dogBreed, dogHobby, dogPersonality);
 
-    // TODO update firebase dogID
+    // update firebase dogID
     CollectionReference dogsCollection = FirebaseFirestore.instance.collection("Dogs");
     await dogsCollection
         .where(FieldPath.documentId, isEqualTo: docID)

@@ -57,6 +57,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
   String dogPersonality = "";
   String dogUrl = "";
   String docID = "";
+  String dogImageUrl = "";
 
   @override
   void initState() {
@@ -99,8 +100,26 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                           width: 20 * SizeConfig.heightMultiplier!,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image(
-                              image: AssetImage('lib/assets/default_dog.jpg'),
+                            child: Image.network(
+                              dogImageUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (BuildContext context, Object object,
+                                  StackTrace? stacktrace) {
+                                return Image.asset("lib/assets/default_dog.jpg");
+                              },
+                              loadingBuilder: (BuildContext context, Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    value: loadingProgress.expectedTotalBytes != null
+                                        ? loadingProgress.cumulativeBytesLoaded /
+                                        (loadingProgress.expectedTotalBytes as num)
+                                        : null,
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -206,7 +225,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                             setState(() {
                               imgInserted = true;
                             });
-                            loadImageToMongodb(f!);
+                            loadImageToFirebase(f!);
                           }
                         } else {
                           var storageAccessStatus =
@@ -244,7 +263,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                           setState(() {
                             imgInserted = true;
                           });
-                          loadImageToMongodb(f!);
+                          loadImageToFirebase(f!);
                         }
                       } else {
                         var cameraAccessStatus = await Permission.camera.status;
@@ -277,7 +296,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
           );
         });
   }
-  void loadImageToMongodb(File? image) async {
+  void loadImageToFirebase(File? image) async {
     var uuid = Uuid().v4();
     try
     {
@@ -309,6 +328,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                 .add(dog)
                 .then((value) async {
               // TODO get and update app image for display
+              dogImageUrl = url;
               docID = value.id;
               print(docID);
             }).catchError((error) {});
