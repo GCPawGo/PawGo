@@ -56,10 +56,68 @@ Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogB
   }
 }
 
+Future<void>updateDogInfo(String dogId, String userId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality, BuildContext context) async {
+  if (dogName.isEmpty) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return buildCustomAlertOKDialog(context, "Warning",
+            "Please input your Dog's name!");
+      },
+    );
+  } else if (dogAge.isEmpty) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return buildCustomAlertOKDialog(context, "Warning",
+            "Please input your Dog's Age!");
+      },
+    );
+  } else if (dogBreed.isEmpty) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return buildCustomAlertOKDialog(context, "Warning",
+            "Please input your Dog's Breed!");
+      },
+    );
+  } else {
+    // call update dog function to update the dog
+    await updateDog(dogId, dogName, dogAge, dogBreed, dogHobby, dogPersonality);
+
+    List<Dog>? dogsList = await updateDogList(userId);
+    if(dogsList != null) {
+      DogsList.instance!.updateDogsList(dogsList);
+    }
+
+    // back to the main profile
+    Navigator.of(context).pop("");
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return buildCustomAlertOKDialog(
+              context, "", "Dog updated successfully.");
+        });
+  }
+}
+
 Future<void> addDog(String userId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality) async {
   try
   {
     await MongoDB.instance.addDogInfo(userId, dogName, dogAge, dogBreed, dogHobby, dogPersonality);
+  }
+  finally
+  {}
+}
+
+Future<void> updateDog(String dogId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality) async {
+  try
+  {
+    await MongoDB.instance.updateDogInfo(dogId, dogName, dogAge, dogBreed, dogHobby, dogPersonality);
   }
   finally
   {}

@@ -120,8 +120,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                                   : ElevatedButton(
                                   onPressed: () async {
                                     if (!check) {
-                                      // TODO: To add dog's data grab from MongoDB
-                                      await addDog();
+                                      data == null? await addDog() : await updateDog();
                                     }
                                   },
                                   child: data == null? Text("Create Dog Profile") : Text("Update Dog Profile"),
@@ -489,6 +488,31 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
         check = false;
       });
       await addDogInfo(userId,
+          dogNameController.text,
+          dogAgeController.text,
+          dogBreedController.text,
+          dogHobbyController.text,
+          dogPersonalityController.text,
+          context);
+    }
+    finally
+    {
+
+    }
+  }
+
+  Future<void> updateDog() async {
+    setState(() {
+      check = true;
+    });
+    try
+    {
+      // TODO loading icon problem
+      setState(() {
+        check = false;
+      });
+      await updateDogInfo(data!,
+          userId,
           dogNameController.text,
           dogAgeController.text,
           dogBreedController.text,

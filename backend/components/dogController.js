@@ -39,6 +39,29 @@ app.post('/addDog', async (req, res) => {
     }
 });
 
+app.post('/updateDogByDogId', async (req, res) => {
+    const dog = req.body
+
+    console.log(dog.dogHobby)
+    
+    if(dog.dogHobby == "") {
+        dog.dogHobby = "What's your dog's hobbies?"
+    }
+
+    if(dog.dogPersonality == "") {
+        dog.dogPersonality = "What's your dog's personality?"
+    }
+
+    const oldDog = await DogModel.findOne({ _id: dog._id })
+
+    if (!oldDog) {
+        console.log('Cannot find the dog!\n');
+    }else {
+        await DogModel.findByIdAndUpdate({_id: dog._id}, dog)
+        res.send({msg: 'Successfully update the dog!'})
+    }
+});
+
 app.get('/getDogsByUserId', async (req, res) => {
     const userId = req.query.userId;
     if (userId) {
@@ -51,7 +74,6 @@ app.get('/getDogsByDogId', async (req, res) => {
     const _id = req.query._id;
     if (_id) {
         const dog = await DogModel.findOne({ _id: _id })
-        console.log(dog)
         res.send(dog)
     }
 });

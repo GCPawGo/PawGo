@@ -691,7 +691,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 ),
                                               ),
                                             ).then((data) {
-
+                                              this.getUser();
+                                              this.getDogs();
                                             });
                                           }
                                         },

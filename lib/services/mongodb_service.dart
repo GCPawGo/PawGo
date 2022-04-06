@@ -93,7 +93,6 @@ class MongoDB {
 
   Future<bool> addDogInfo(String userId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality) async {
     var url = Uri.parse(baseUri + '/dogs/addDog');
-    print(dogName + " " + dogAge + " " + dogBreed + " " + dogHobby + " " + dogPersonality);
 
     var response = await _serverClient.post(
         url,
@@ -107,8 +106,30 @@ class MongoDB {
           'dogPersonality': dogPersonality}));
 
     if (response.statusCode == 200) {
-      var decodedBody = json.decode(response.body);
       print("Received events json from the addDog");
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> updateDogInfo(String dogId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality) async {
+    var url = Uri.parse(baseUri + '/dogs/updateDogByDogId');
+    print(dogId + " " + dogName + " " + dogAge + " " + dogBreed + " " + dogHobby + " " + dogPersonality);
+
+    var response = await _serverClient.post(
+        url,
+        headers: _headers,
+        body: json.encode({
+          '_id': dogId,
+          'dogName': dogName,
+          'dogAge': dogAge,
+          'dogBreed': dogBreed,
+          'dogHobby': dogHobby,
+          'dogPersonality': dogPersonality}));
+
+    if (response.statusCode == 200) {
+      print("Received events json from the updateDog");
       return true;
     } else {
       return false;
