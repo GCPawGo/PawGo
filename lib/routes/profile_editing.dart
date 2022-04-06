@@ -191,6 +191,7 @@ class _ProfileEditingState extends State<ProfileEditing> {
                                 top: 2 * SizeConfig.heightMultiplier!,
                                 right: 15.0),
                             child: TextField(
+                              keyboardType: TextInputType.number,
                               cursorColor: CustomColors.pawrange,
                               decoration: InputDecoration(
                                   counterStyle: TextStyle(
