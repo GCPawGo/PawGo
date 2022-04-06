@@ -45,6 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String userDesc = CurrentUser.instance!.userDesc;
   String imageUrl = LoggedUser.instance!.image.url;
   bool imgInserted = false;
+  bool _alreadyClicked = false;
   File? f;
 
   List<Dog>? dogsList = DogsList.instance!.dogsList;
@@ -705,21 +706,68 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: AnimatedSwitcher(
                                     duration: Duration(milliseconds: 250),
                                     child: ElevatedButton(
+                                      child: Text("Remove Profile"),
+                                      style: ButtonStyle(
+                                      fixedSize: MaterialStateProperty.all(
+                                      Size(200, 35)),
+                                      backgroundColor: MaterialStateProperty.all(
+                                      CustomColors.pawrange),
+                                          shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(18.0))),
+                                      ),
                                         onPressed: () async{
-                                          if(!check)
-                                          {
-                                            await removeDogByDogId(DogsList.instance!.dogsList[index].id, LoggedUser.instance!.userId);
-                                          }
-                                        },
-                                        child: Text("Remove Profile"),
-                                        style: ButtonStyle(
-                                            fixedSize: MaterialStateProperty.all(
-                                                Size(200, 35)),
-                                            backgroundColor: MaterialStateProperty.all(
-                                                CustomColors.pawrange),
-                                            shape: MaterialStateProperty.all(
-                                                RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(18.0))))),
+                                          if(!_alreadyClicked)
+                                                {
+                                                  showDialog<bool>(
+                                                    context: context,
+                                                    barrierDismissible: false, // user must tap button!
+                                                    builder: (BuildContext context) {
+                                                      return AlertDialog(
+                                                        backgroundColor: Colors.white,
+                                                        title: Text(
+                                                          "",
+                                                          style: TextStyle(color: Colors.black),
+                                                        ),
+                                                        content: SingleChildScrollView(
+                                                          child: ListBody(
+                                                            children: <Widget>[
+                                                              Text(
+                                                                "Are you sure you want to remove\n" + DogsList.instance!.dogsList[index].dogName + "?",
+                                                                textAlign: TextAlign.center,
+                                                                style: TextStyle(color: Colors.black),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        actions: <Widget>[
+                                                          TextButton(
+                                                            child: Text(
+                                                              'YES',
+                                                              style: TextStyle(color: CustomColors.pawrange),
+                                                            ),
+                                                            onPressed: () async {
+                                                              buttonUpdate(context);
+                                                              await removeDogByDogId(DogsList.instance!.dogsList[index].id, LoggedUser.instance!.userId);
+                                                            },
+                                                          ),
+                                                          TextButton(
+                                                              onPressed: () {
+                                                                buttonUpdate(context);
+                                                              },
+                                                              child: Text('NO',
+                                                                  style: TextStyle(color: CustomColors.pawrange))),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                } else {
+                                                  setState(() {
+                                                    _alreadyClicked = true;
+                                                  });
+                                                }
+                                              }),
+
                                   ),
                                 ),
                               ),
@@ -736,6 +784,13 @@ class _ProfilePageState extends State<ProfilePage> {
           );
         });
     }
+
+void buttonUpdate(BuildContext context) {
+  Navigator.of(context).pop();
+  setState(() {
+    _alreadyClicked = false;
+  });
+}
 
   String nStringToNNString(String? str) {
     return str ?? "";
