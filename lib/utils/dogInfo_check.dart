@@ -8,6 +8,8 @@ import 'package:pawgo/services/mongodb_service.dart';
 
 import '../models/dog.dart';
 
+String newDogId = "";
+
 Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality, BuildContext context, String docID) async {
   if (docID.isEmpty) {
     return showDialog<void>(
@@ -55,7 +57,10 @@ Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogB
         .where(FieldPath.documentId, isEqualTo: docID)
         .get()
         .then((QuerySnapshot querySnapshot) async {
-      print(querySnapshot.docs[0].get("dogId"));
+          await FirebaseFirestore.instance
+            .collection("Dogs")
+            .doc(docID)
+            .update({"dogId": newDogId});
     });
 
     List<Dog>? dogsList = await updateDogList(userId);
@@ -127,7 +132,7 @@ Future<void>updateDogInfo(String dogId, String userId, String dogName, String do
 Future<void> addDog(String userId, String dogName, String dogAge, String dogBreed, String dogHobby, String dogPersonality) async {
   try
   {
-    await MongoDB.instance.addDogInfo(userId, dogName, dogAge, dogBreed, dogHobby, dogPersonality);
+    newDogId = await MongoDB.instance.addDogInfo(userId, dogName, dogAge, dogBreed, dogHobby, dogPersonality);
   }
   finally
   {}

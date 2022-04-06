@@ -35,7 +35,7 @@ app.post('/addDog', async (req, res) => {
     }else {
         await UserModel.findOneAndUpdate({ userId: dog.userId }, { $push: { userDogs: newDog._id }})
         await newDog.save()
-        res.send({msg: 'Successfully add the dog!'})
+        res.send(newDog)
     }
 });
 
