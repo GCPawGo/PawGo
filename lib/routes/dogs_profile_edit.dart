@@ -126,8 +126,39 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                       ],
                     ),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                      padding: EdgeInsets.only(
+                        top: 1 * SizeConfig.heightMultiplier!,),
+                      child: !imgInserted
+                          ? ElevatedButton(
+                          onPressed: () async {
+                            Map<Permission, PermissionStatus> statuses = await [
+                              Permission.camera,
+                              Permission.storage,
+                            ].request();
+                            _showPicker(context);
+                          },
+                          child: Text("Upload dog's picture"),
+                          style: ButtonStyle(
+                              fixedSize: MaterialStateProperty.all(
+                                  Size(200, 35)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  CustomColors.pawrange),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          18.0)))))
+                          : CircularProgressIndicator(
+                        color: CustomColors.pawrange,
+                      ),
+                    ),
+                   ],
+                  ),
                   SizedBox(
-                    height: 35,
+                    height: 25,
                   ),
                   dogNameTextField("Dog's Name", "Enter dog's name"),
                   dogAgeTextField("Dog's Age", "Enter dog's age"),
@@ -168,7 +199,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                             ),
                           ),
                         ),
-                        Padding(
+                        /*Padding(
                           padding: EdgeInsets.only(
                             top: 3 * SizeConfig.heightMultiplier!,),
                           child: !imgInserted
@@ -193,7 +224,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                               : CircularProgressIndicator(
                             color: CustomColors.pawrange,
                           ),
-                        ),
+                        ),*/
                         SizedBox(
                           height: 3 * SizeConfig.heightMultiplier!,
                         ),
