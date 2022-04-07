@@ -197,7 +197,6 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 1 * SizeConfig.heightMultiplier!,
             ),
             Row(
-              //mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GestureDetector(
                   onTap: () async {
@@ -272,7 +271,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             });
                   },
                   child: Container(
-                    /*width: 15 * SizeConfig.heightMultiplier!,*/
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white60),
                       borderRadius: BorderRadius.circular(5.0),
@@ -347,7 +345,6 @@ class _ProfilePageState extends State<ProfilePage> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // TODO: Read User's data from MongoDB <------------------------------
             Padding(
               padding: EdgeInsets.only(top: 3 * SizeConfig.heightMultiplier!),
               child: Text(
@@ -536,15 +533,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget displayDog() {
     return ListView.builder(
-        // TODO: Read dog's data from MongoDB <---------------------------------
-        // TODO: To be implemented later from backend
-        // itemCount: MongoDB.instance!.dog?.length ?? 0,
-        itemCount: DogsList.instance!.dogsList.length, // to be replaced with the above code
+        itemCount: DogsList.instance!.dogsList.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          // TODO: To be implemented later from backend
-          // Dog selectedDog = MongoDB.instance!.dogs![index];
           return Column(
             children: <Widget>[
             Padding(
@@ -575,11 +567,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 width: 30 * SizeConfig.heightMultiplier!,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset("lib/assets/default_dog.jpg",
+                                  child: Image.asset("lib/assets/default_dog.jpg", //TODO: To be replaced with the getdog's image
                                     fit: BoxFit.cover,
                                     errorBuilder: (BuildContext context, Object object,
                                         StackTrace? stacktrace) {
-                                      return Image.asset("lib/assets/app_icon.png");
+                                      return Image.asset("lib/assets/default_dog.jpg");
                                     },
                                   ),
                                 ),
