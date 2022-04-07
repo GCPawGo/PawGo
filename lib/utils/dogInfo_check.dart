@@ -63,6 +63,7 @@ Future<void>addDogInfo(String userId, String dogName, String dogAge, String dogB
             .update({"dogId": newDogId});
     });
 
+    // update dog list
     List<Dog>? dogsList = await updateDogList(userId);
     if(dogsList != null) {
       DogsList.instance!.updateDogsList(dogsList);

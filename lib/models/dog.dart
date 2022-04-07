@@ -8,8 +8,9 @@ class Dog extends ChangeNotifier {
   String dogBreed;
   String dogHobby;
   String dogPersonality;
+  String imageUrl;
 
-  Dog(this._id, this.userId, this.dogName, this.dogAge, this.dogBreed, this.dogHobby, this.dogPersonality);
+  Dog(this._id, this.userId, this.dogName, this.dogAge, this.dogBreed, this.dogHobby, this.dogPersonality, this.imageUrl);
 
   factory Dog.fromJson(dynamic json) {
     return Dog(
@@ -19,16 +20,15 @@ class Dog extends ChangeNotifier {
         json['dogAge'] as String,
         json['dogBreed'] as String,
         json['dogHobby'] as String,
-        json['dogPersonality'] as String
+        json['dogPersonality'] as String,
+        ""
     );
   }
 
   String get id => _id;
 
-
-
   @override
   String toString() {
-    return 'Dog{_id: $_id, userId: $userId, dogName: $dogName, dogAge: $dogAge, dogBreed: $dogBreed, dogHobby: $dogHobby, dogPersonality: $dogPersonality}';
+    return 'Dog{_id: $_id, userId: $userId, dogName: $dogName, dogAge: $dogAge, dogBreed: $dogBreed, dogHobby: $dogHobby, dogPersonality: $dogPersonality, imageUrl: $imageUrl}';
   }
 }

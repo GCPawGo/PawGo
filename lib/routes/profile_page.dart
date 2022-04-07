@@ -567,7 +567,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 width: 30 * SizeConfig.heightMultiplier!,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset("lib/assets/default_dog.jpg", //TODO: To be replaced with the getdog's image
+                                  child: Image.network(DogsList.instance!.dogsList[index].imageUrl,
                                     fit: BoxFit.cover,
                                     errorBuilder: (BuildContext context, Object object,
                                         StackTrace? stacktrace) {

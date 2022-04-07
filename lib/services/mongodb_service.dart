@@ -155,6 +155,14 @@ class MongoDB {
 
       for(int i = 0; i < dogIdList.length; i ++) {
         Dog dog = await MongoDB.instance.getDogsByDogId(dogIdList[i]);
+        // get dog image from Firebase
+        CollectionReference dogsCollection = FirebaseFirestore.instance.collection("Dogs");
+        QuerySnapshot querySnapshot = await dogsCollection
+            .where("dogId", isEqualTo: dogIdList[i])
+            .get();
+        if (querySnapshot.docs.isNotEmpty) {
+          dog.imageUrl = querySnapshot.docs[0].get("Image");
+        }
         dogsList.add(dog);
       };
       return dogsList;
@@ -171,7 +179,7 @@ class MongoDB {
       Dog dog = Dog.fromJson(decodedBody);
       return dog;
     }
-    return Dog("123", "123", "123", "123", "123", "123", "123");
+    return Dog("123", "123", "123", "123", "123", "123", "123", "123");
   }
 
   Future<bool> removeDogByDogId(String dogId, String userId) async {
