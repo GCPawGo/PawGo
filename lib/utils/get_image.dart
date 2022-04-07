@@ -22,3 +22,7 @@ Future<File?> getImageGallery() async {
   }
   return _image;
 }
+
+Future<void> resetImage() async {
+  _image = null;
+}

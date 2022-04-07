@@ -143,7 +143,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                             ].request();
                             _showPicker(context);
                           },
-                          child: Text("Upload dog's picture"),
+                          child: data == null? Text("Upload dog's picture") : Text("Update dog's picture"),
                           style: ButtonStyle(
                               fixedSize: MaterialStateProperty.all(
                                   Size(200, 35)),
@@ -227,6 +227,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                       title: new Text('Gallery'),
                       onTap: () async {
                         if (await Permission.storage.isGranted) {
+                          await resetImage();
                           f = await getImageGallery();
                           if (f != null) {
                             setState(() {
@@ -265,6 +266,7 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                     title: new Text('Camera'),
                     onTap: () async {
                       if (await Permission.camera.isGranted) {
+                        await resetImage();
                         f = await getImageCamera();
                         if (f != null) {
                           setState(() {
@@ -316,7 +318,38 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
               .where("dogId", isEqualTo: data!)
               .get()
               .then((QuerySnapshot querySnapshot) async {
-
+                // upload image to Firebase
+                FirebaseStorage storage = FirebaseStorage.instance;
+                Reference storageRef = storage.ref();
+                Reference imageRef = storageRef.child(uuid.toString() + ".jpg");
+                await imageRef.putFile(image);
+                CollectionReference dogsCollection = FirebaseFirestore.instance.collection("Dogs");
+                String docID="";
+                String urlFirebase="";
+                await dogsCollection
+                    .where("dogId", isEqualTo: data)
+                    .get()
+                    .then((QuerySnapshot querySnapshot) async {
+                      docID = querySnapshot.docs[0].id;
+                      urlFirebase = querySnapshot.docs[0].get("Image");
+                });
+                await imageRef.getDownloadURL().then((url) async {
+                  await FirebaseFirestore.instance
+                      .collection("Dogs")
+                      .doc(docID)
+                      .update({"Image": url})
+                      .then( (value) async{
+                        await FirebaseStorage.instance.refFromURL(urlFirebase).delete();
+                        dogImageUrl = url;
+                        return showDialog<void>(
+                            context: context,
+                            barrierDismissible: false, // user must tap button!
+                            builder: (BuildContext context) {
+                              return buildCustomAlertOKDialog(
+                                  context, "", "Dog picture updated successfully.");
+                            });
+                  });
+                });
           });
         }else {
           // add dog image to Firebase (dogId with default timestamp)
