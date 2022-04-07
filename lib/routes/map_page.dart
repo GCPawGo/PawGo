@@ -1,14 +1,10 @@
 import 'package:background_location/background_location.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:pawgo/services/mongodb_service.dart';
 import 'package:location/location.dart' as loc;
 
-import '../assets/custom_colors.dart';
 
 extension LocationDataExt on loc.LocationData {
   GeoPoint toGeoPoint() {
@@ -47,13 +43,11 @@ class _MapPageState extends State<MapPage>
   bool _hasPermissions = false;
   bool _isRecording = false;
   bool _shouldInitialize = true;
-  Color _currentButtonColor = CustomColors.pawrange;
-  FaIcon _currentButtonIcon = FaIcon(FontAwesomeIcons.dog);
+  FaIcon markerdog = FaIcon(FontAwesomeIcons.dog);
   List<GeoPoint> path = [];
   RoadInfo? _roadInfo;
   OSMFlutter? map;
   Location? currentLocation;
-  Stopwatch _stopwatch = Stopwatch();
 
   @override
   Future<void> mapIsReady(bool isReady) async {
@@ -68,57 +62,24 @@ class _MapPageState extends State<MapPage>
           controller.removeMarker(currentLocation!.toGeoPoint());
           currentLocation = location;
           controller.changeLocation(location.toGeoPoint());
-          if (_isRecording) {
-            controller.removeMarker(path.last);
-            parseLocation(location);
-            controller.addMarker(path.last,
-                markerIcon:
-                MarkerIcon(image: AssetImage('lib/assets/app_icon.png')));
-            if (path.length > 2) {
-              controller.removeLastRoad();
-              _roadInfo = await controller.drawRoad(path.first, path.last,
-                  intersectPoint: path.sublist(1, path.length - 1),
-                  roadType: RoadType.foot,
-                  roadOption: RoadOption(
-                    roadWidth: 10,
-                    roadColor: CustomColors.pawrange,
-                  ));
-            }
-          }
-          // setState(() {});
         });
         setState(() {
           _shouldInitialize = false;
         });
       }
       controller.setZoom(stepZoom: 10.0);
-      //controller.zoomIn();
     }
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (state == AppLifecycleState.resumed) {
-      if (await Permission.locationAlways.isGranted)
-        setState(() {
-          _hasPermissions = true;
-        });
-      else
-        setState(() {
-          _hasPermissions = false;
-        });
-    }
-    super.didChangeAppLifecycleState(state);
   }
 
   void getLocationPermission() async {
     var status = Permission.locationWhenInUse.request();
     if (await status.isGranted) {
       var status = Permission.locationAlways.request();
-      if (await status.isGranted)
+      if (await status.isGranted) {
         setState(() {
           _hasPermissions = true;
         });
+      }
     }
   }
 
@@ -199,7 +160,6 @@ class _MapPageState extends State<MapPage>
         ),
         showContributorBadgeForOSM: false,
         showDefaultInfoWindow: false,
-        //onLocationChanged: (myLocation) { print(myLocation); },
         onGeoPointClicked: (geoPoint) async {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -214,29 +174,19 @@ class _MapPageState extends State<MapPage>
             ),
           );
         },
-        road: Road(
-          startIcon: MarkerIcon(
-            icon: Icon(
-              Icons.person,
-              size: 80,
-              color: Colors.brown,
-            ),
-          ),
-          roadColor: Colors.red,
-        ),
         markerOption: MarkerOption(
           defaultMarker: MarkerIcon(
             icon: Icon(
-              Icons.location_history_rounded,
-              color: Colors.red,
-              size: 80,
+              markerdog.icon,
+              color: Colors.deepOrange,
+              size: 100,
             ),
           ),
           advancedPickerMarker: MarkerIcon(
             icon: Icon(
-              Icons.location_searching,
+              markerdog.icon,
               color: Colors.green,
-              size: 64,
+              size: 100,
             ),
           ),
         ),
@@ -266,7 +216,9 @@ class _MapPageState extends State<MapPage>
                                   SizedBox(width: size.width/5),
                                 ]);
                           },
-                        ))),
+                        )
+                    ),
+                ),
               ],
             ),
           );
