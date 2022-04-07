@@ -98,8 +98,8 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                     child: Stack(
                       children: [
                         Container(
-                          height: 30 * SizeConfig.heightMultiplier!,
-                          width: 30 * SizeConfig.heightMultiplier!,
+                          height: 20 * SizeConfig.heightMultiplier!,
+                          width: 20 * SizeConfig.heightMultiplier!,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
