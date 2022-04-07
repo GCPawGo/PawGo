@@ -82,11 +82,13 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
               child: ListView(
                 children: [
                   Center(
-                    child: Text(
-                      "New Dog Profile",
-                      style: TextStyle(fontSize: 25,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black54),
+                  child: data == null?
+                    Text("New Dog Profile", style: TextStyle(fontSize: 25,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black54))
+                    : Text("Change Dog Profile", style: TextStyle(fontSize: 25,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black54)
                     ),
                   ),
                   SizedBox(
@@ -96,8 +98,8 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                     child: Stack(
                       children: [
                         Container(
-                          height: 20 * SizeConfig.heightMultiplier!,
-                          width: 20 * SizeConfig.heightMultiplier!,
+                          height: 30 * SizeConfig.heightMultiplier!,
+                          width: 30 * SizeConfig.heightMultiplier!,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
@@ -199,32 +201,6 @@ class _DogsProfilePageState extends State<DogsProfilePage> {
                             ),
                           ),
                         ),
-                        /*Padding(
-                          padding: EdgeInsets.only(
-                            top: 3 * SizeConfig.heightMultiplier!,),
-                          child: !imgInserted
-                              ? ElevatedButton(
-                              onPressed: () async {
-                                Map<Permission, PermissionStatus> statuses = await [
-                                  Permission.camera,
-                                  Permission.storage,
-                                ].request();
-                                _showPicker(context);
-                              },
-                              child: Text("Upload dog's picture"),
-                              style: ButtonStyle(
-                                  fixedSize: MaterialStateProperty.all(
-                                      Size(200, 35)),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      CustomColors.pawrange),
-                                  shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              18.0)))))
-                              : CircularProgressIndicator(
-                            color: CustomColors.pawrange,
-                          ),
-                        ),*/
                         SizedBox(
                           height: 3 * SizeConfig.heightMultiplier!,
                         ),
