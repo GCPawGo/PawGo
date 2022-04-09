@@ -245,9 +245,13 @@ class _MatchmakingState extends State<Matchmaking> {
               itemBuilder: (BuildContext context, int index)
               {
                 return
-                Row(
-                  children: <Widget>[
-
+                Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: 3 * SizeConfig.widthMultiplier!,
+                  ),
                   //USER
                   Padding(
                     padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
@@ -293,11 +297,11 @@ class _MatchmakingState extends State<Matchmaking> {
                       },
                       child: Container(
                         height: 50 * SizeConfig.heightMultiplier!,
-                        width: 90 * SizeConfig.widthMultiplier!,
+                        width: 40 * SizeConfig.widthMultiplier!,
                         // child: ClipPath(
                         //   clipper: TriangleClipperUser(),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(80),
+                          //borderRadius: BorderRadius.circular(80),
                           child: Image.network(
                             _miUser.image.url,
                             fit: BoxFit.cover,
@@ -367,11 +371,11 @@ class _MatchmakingState extends State<Matchmaking> {
                       },
                       child: Container(
                         height: 50 * SizeConfig.heightMultiplier!,
-                        width: 90 * SizeConfig.widthMultiplier!,
+                        width: 40 * SizeConfig.widthMultiplier!,
                         // child: ClipPath(
                         //   clipper: TriangleClipperDog(),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(80),
+                          //borderRadius: BorderRadius.circular(80),
                           child: Image.network(
                             DogsList.instance!.dogsList[index].imageUrl,
                             fit: BoxFit.cover,
@@ -401,7 +405,7 @@ class _MatchmakingState extends State<Matchmaking> {
                     width: 5 * SizeConfig.widthMultiplier!,
                   ),
               ],
-            );
+            ),);
         }),
       ],),
     );
