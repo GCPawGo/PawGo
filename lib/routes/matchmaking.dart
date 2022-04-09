@@ -233,7 +233,7 @@ class _MatchmakingState extends State<Matchmaking> {
   Widget matchmaking() {
     return
       Container(
-        height: 50 * SizeConfig.heightMultiplier!,
+        height: 55 * SizeConfig.heightMultiplier!,
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: [
@@ -248,158 +248,158 @@ class _MatchmakingState extends State<Matchmaking> {
                 Row(
                   children: <Widget>[
 
-                //DOG
-                Padding(
-                  padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
-                  child: GestureDetector(
-                    onTap: () {
-                      showDialog<void>(
-                          context: context,
-                          barrierDismissible: true, // user must tap button!
-                          builder: (BuildContext context) {
-                            return Container(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text("Username:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(LoggedUser.instance!.username, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(CurrentUser.instance!.userAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text("About me:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(CurrentUser.instance!.userDesc, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                        ],
+                  //USER
+                  Padding(
+                    padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
+                    child: GestureDetector(
+                      onTap: () {
+                        showDialog<void>(
+                            context: context,
+                            barrierDismissible: true, // user must tap button!
+                            builder: (BuildContext context) {
+                              return Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text("Username:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(LoggedUser.instance!.username, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(CurrentUser.instance!.userAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text("About me:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(CurrentUser.instance!.userDesc, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                            /*return buildCustomAlertOKDialog(
-                                context, "User Info",
-                                "Username: " + LoggedUser.instance!.username + "\n" +
-                                "Age: " + CurrentUser.instance!.userAge + "\n" +
-                                "About Me: " + CurrentUser.instance!.userDesc + "\n"
-                            );*/
-                          });
-                    },
-                    child: Container(
-                      height: 50 * SizeConfig.heightMultiplier!,
-                      width: 90 * SizeConfig.widthMultiplier!,
-                      // child: ClipPath(
-                      //   clipper: TriangleClipperUser(),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(80),
-                        child: Image.network(
-                          _miUser.image.url,
-                          fit: BoxFit.cover,
-                          errorBuilder: (BuildContext context, Object object,
-                              StackTrace? stacktrace) {
-                            return Image.asset("lib/assets/app_icon.png");
-                          },
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                value: loadingProgress.expectedTotalBytes != null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                    (loadingProgress.expectedTotalBytes as num)
-                                    : null,
-                              ),
-                            );
-                          },
+                                  ],
+                                ),
+                              );
+                              /*return buildCustomAlertOKDialog(
+                                  context, "User Info",
+                                  "Username: " + LoggedUser.instance!.username + "\n" +
+                                  "Age: " + CurrentUser.instance!.userAge + "\n" +
+                                  "About Me: " + CurrentUser.instance!.userDesc + "\n"
+                              );*/
+                            });
+                      },
+                      child: Container(
+                        height: 50 * SizeConfig.heightMultiplier!,
+                        width: 90 * SizeConfig.widthMultiplier!,
+                        // child: ClipPath(
+                        //   clipper: TriangleClipperUser(),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(80),
+                          child: Image.network(
+                            _miUser.image.url,
+                            fit: BoxFit.cover,
+                            errorBuilder: (BuildContext context, Object object,
+                                StackTrace? stacktrace) {
+                              return Image.asset("lib/assets/app_icon.png");
+                            },
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  value: loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                      (loadingProgress.expectedTotalBytes as num)
+                                      : null,
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-                // DOG
-                Padding(
-                  padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
-                  child: GestureDetector(
-                    onTap: () {
-                      showDialog<void>(
-                          context: context,
-                          barrierDismissible: true, // user must tap button!
-                          builder: (BuildContext context) {
-                            return Container(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text("Name:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(DogsList.instance!.dogsList[index].dogName, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(DogsList.instance!.dogsList[index].dogAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text("Breed:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(DogsList.instance!.dogsList[index].dogBreed, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(DogsList.instance!.dogsList[index].dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(DogsList.instance!.dogsList[index].dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                        ],
+                  // DOG
+                  Padding(
+                    padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
+                    child: GestureDetector(
+                      onTap: () {
+                        showDialog<void>(
+                            context: context,
+                            barrierDismissible: true, // user must tap button!
+                            builder: (BuildContext context) {
+                              return Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text("Name:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(DogsList.instance!.dogsList[index].dogName, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(DogsList.instance!.dogsList[index].dogAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text("Breed:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(DogsList.instance!.dogsList[index].dogBreed, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(DogsList.instance!.dogsList[index].dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(DogsList.instance!.dogsList[index].dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          });
-                    },
-                    child: Container(
-                      height: 50 * SizeConfig.heightMultiplier!,
-                      width: 90 * SizeConfig.widthMultiplier!,
-                      // child: ClipPath(
-                      //   clipper: TriangleClipperDog(),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(80),
-                        child: Image.network(
-                          DogsList.instance!.dogsList[index].imageUrl,
-                          fit: BoxFit.cover,
-                          errorBuilder: (BuildContext context, Object object,
-                              StackTrace? stacktrace) {
-                            return Image.asset("lib/assets/app_icon.png");
-                          },
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                value: loadingProgress.expectedTotalBytes != null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                    (loadingProgress.expectedTotalBytes as num)
-                                    : null,
-                              ),
-                            );
-                          },
+                                  ],
+                                ),
+                              );
+                            });
+                      },
+                      child: Container(
+                        height: 50 * SizeConfig.heightMultiplier!,
+                        width: 90 * SizeConfig.widthMultiplier!,
+                        // child: ClipPath(
+                        //   clipper: TriangleClipperDog(),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(80),
+                          child: Image.network(
+                            DogsList.instance!.dogsList[index].imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (BuildContext context, Object object,
+                                StackTrace? stacktrace) {
+                              return Image.asset("lib/assets/app_icon.png");
+                            },
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  value: loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                      (loadingProgress.expectedTotalBytes as num)
+                                      : null,
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 5 * SizeConfig.widthMultiplier!,
-                ),
+                  SizedBox(
+                    width: 5 * SizeConfig.widthMultiplier!,
+                  ),
               ],
             );
         }),
