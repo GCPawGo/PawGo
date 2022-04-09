@@ -21,6 +21,7 @@ import 'package:pawgo/routes/dogs_profile_edit.dart';
 import '../models/dogsList.dart';
 import '../services/mongodb_service.dart';
 import '../models/currentUser.dart';
+import '../widget/TriangleClipperDog.dart';
 import '../widget/TriangleClipperUser.dart';
 import '../widget/custom_alert_dialog.dart';
 
@@ -233,17 +234,21 @@ class _MatchmakingState extends State<Matchmaking> {
     return
       Container(
         height: 50 * SizeConfig.heightMultiplier!,
-          // ListView.builder(
-          //     itemCount: DogsList.instance!.dogsList.length,
-          //     physics: const NeverScrollableScrollPhysics(),
-          //     shrinkWrap: true,
-          //     itemBuilder: (BuildContext context, int index) {
-          //       return Column(
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: [
-            Row(
-              children: [
+          ListView.builder(
+              itemCount: DogsList.instance!.dogsList.length,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index)
+              {
+                return
+                Row(
+                  children: <Widget>[
+
+                //DOG
                 Padding(
                   padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
                   child: GestureDetector(
@@ -318,7 +323,8 @@ class _MatchmakingState extends State<Matchmaking> {
                     ),
                   ),
                 ),
-                // NEXT PADDOG
+
+                // DOG
                 Padding(
                   padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
                   child: GestureDetector(
@@ -341,15 +347,15 @@ class _MatchmakingState extends State<Matchmaking> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Text("Name:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(DogsList.instance!.dogsList[0].dogName, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[index].dogName, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                           Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(DogsList.instance!.dogsList[0].dogAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[index].dogAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                           Text("Breed:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(DogsList.instance!.dogsList[0].dogBreed, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[index].dogBreed, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                           Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(DogsList.instance!.dogsList[0].dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[index].dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                           Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(DogsList.instance!.dogsList[0].dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[index].dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                         ],
                                       ),
                                     ),
@@ -363,11 +369,11 @@ class _MatchmakingState extends State<Matchmaking> {
                       height: 50 * SizeConfig.heightMultiplier!,
                       width: 90 * SizeConfig.widthMultiplier!,
                       // child: ClipPath(
-                      //   clipper: TriangleClipperUser(),
+                      //   clipper: TriangleClipperDog(),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(80),
                         child: Image.network(
-                          DogsList.instance!.dogsList[0].imageUrl,
+                          DogsList.instance!.dogsList[index].imageUrl,
                           fit: BoxFit.cover,
                           errorBuilder: (BuildContext context, Object object,
                               StackTrace? stacktrace) {
@@ -391,10 +397,13 @@ class _MatchmakingState extends State<Matchmaking> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  width: 5 * SizeConfig.widthMultiplier!,
+                ),
               ],
-            ),
-        ],
-      ),
+            );
+        }),
+      ],),
     );
   }
 
