@@ -366,8 +366,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Column(
                             children: [
                               Container(
-                                height: 30 * SizeConfig.heightMultiplier!,
-                                width: 30 * SizeConfig.heightMultiplier!,
+                                height: 40 * SizeConfig.heightMultiplier!,
+                                width: 40 * SizeConfig.heightMultiplier!,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.network(
@@ -554,17 +554,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(
-                            top: 5 * SizeConfig.heightMultiplier!,
-                            left: 10 * SizeConfig.widthMultiplier!,
-                            right: 10 * SizeConfig.widthMultiplier!,
-                            bottom: 5 * SizeConfig.heightMultiplier!,
-                          ),
+                          padding: EdgeInsets.all(5 * SizeConfig.heightMultiplier!),
                           child: Column(
                             children: [
                               Container(
-                                height: 30 * SizeConfig.heightMultiplier!,
-                                width: 30 * SizeConfig.heightMultiplier!,
+                                height: 40 * SizeConfig.heightMultiplier!,
+                                width: 40 * SizeConfig.heightMultiplier!,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.network(DogsList.instance!.dogsList[index].imageUrl,
