@@ -9,6 +9,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'homepage.dart';
 import 'map_page.dart';
+import 'matchmaking.dart';
 
 class SwitchPage extends StatefulWidget {
   const SwitchPage({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class _SwitchPageState extends State<SwitchPage> {
       screens: [
         HomePage(),
         MapPage(),
-        HomePage(),
+        Matchmaking(),
         ProfilePage(),
       ],
       items: [

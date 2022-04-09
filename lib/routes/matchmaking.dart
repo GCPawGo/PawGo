@@ -18,18 +18,21 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/routes/dogs_profile_edit.dart';
 
+import '../models/dogsList.dart';
 import '../services/mongodb_service.dart';
 import '../models/currentUser.dart';
+import '../widget/TriangleClipperUser.dart';
+import '../widget/custom_alert_dialog.dart';
 
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+class Matchmaking extends StatefulWidget {
+  Matchmaking({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _MatchmakingState createState() => _MatchmakingState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MatchmakingState extends State<Matchmaking> {
   LoggedUser _miUser = LoggedUser.instance!;
   User? user = FirebaseAuth.instance.currentUser;
   bool check = false;
@@ -147,7 +150,7 @@ class _HomePageState extends State<HomePage> {
               height: 1 * SizeConfig.heightMultiplier!,
             ),
             Row(
-              //mainAxisAlignment: MainAxisAlignment.end,
+              //mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GestureDetector(
                   onTap: () async {
@@ -208,7 +211,10 @@ class _HomePageState extends State<HomePage> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        userinfo(),
+                        matchmaking(),
+                        SizedBox(
+                          height: 0.9 * SizeConfig.heightMultiplier!,
+                        ),
                         Divider(
                           color: Colors.grey,
                         ),
@@ -227,55 +233,95 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget userinfo() {
+  Widget matchmaking() {
     return
       Container(
         child: SingleChildScrollView(
             child: Column(
               children: [
-                // TODO: Read User's data from MongoDB <------------------------------
                 Padding(
                   padding: EdgeInsets.only(top: 3 * SizeConfig.heightMultiplier!),
-                  child: Text(
-                    "This is an empty page",
-                    style: TextStyle(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 3 * SizeConfig.textMultiplier!),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(0),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 1 * SizeConfig.heightMultiplier!,
-                                ),
-                                Text(
-                                  "Page to be implemented in the future..",
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 2 * SizeConfig.textMultiplier!,
-                                    decoration: TextDecoration.underline,
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog<void>(
+                          context: context,
+                          barrierDismissible: true, // user must tap button!
+                          builder: (BuildContext context) {
+                            return Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                Padding(
+                                padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
+                                  child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                      //User's info\n\n"
+                                        "Username:\n" + LoggedUser.instance!.username + "\n" +
+                                        "\nAge:\n" + CurrentUser.instance!.userAge + "\n" +
+                                        "\nAbout Me:\n" + CurrentUser.instance!.userDesc + "\n\n\n"
+                                      //"Dog's info\n\n"
+                                            "Name: " + DogsList.instance!.dogsList[0].dogName + "\n"
+                                            "Age: " + DogsList.instance!.dogsList[0].dogAge + "\n"
+                                            "Breed: " + DogsList.instance!.dogsList[0].dogBreed + "\n"
+                                            "Hobby: " + DogsList.instance!.dogsList[0].dogHobby + "\n"
+                                            "Personality: " + DogsList.instance!.dogsList[0].dogPersonality,
+                                        style: TextStyle(
+                                          color: Colors.white70,
+                                          fontSize: 2 * SizeConfig.textMultiplier!,
+                                       ),
+                                      ),
+                                     ],
+                                    ),
+                                   ),
                                   ),
+                                 ],
                                 ),
-                                SizedBox(
-                                  height: 1 * SizeConfig.heightMultiplier!,
-                                ),
-                              ],
+                            );
+                            /*return buildCustomAlertOKDialog(
+                                context, "User Info",
+                                "Username: " + LoggedUser.instance!.username + "\n" +
+                                "Age: " + CurrentUser.instance!.userAge + "\n" +
+                                "About Me: " + CurrentUser.instance!.userDesc + "\n"
+                            );*/
+                          });
+                    },
+                  child: Container(
+                    height: 50 * SizeConfig.heightMultiplier!,
+                    width: 90 * SizeConfig.widthMultiplier!,
+                    // child: ClipPath(
+                    //   clipper: TriangleClipper(),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(80),
+                      child: Image.network(
+                        _miUser.image.url,
+                        fit: BoxFit.cover,
+                        errorBuilder: (BuildContext context, Object object,
+                            StackTrace? stacktrace) {
+                          return Image.asset("lib/assets/app_icon.png");
+                        },
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                  (loadingProgress.expectedTotalBytes as num)
+                                  : null,
                             ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                    ],
+                    ),
                   ),
-                  //),
+                 ),
                 ),
               ],
             )
