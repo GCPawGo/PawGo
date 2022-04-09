@@ -67,7 +67,6 @@ class _MatchmakingState extends State<Matchmaking> {
     _miUser.addListener(() => setState(() {}));
     print("userId of the logged user is: " + _miUser.userId);
     this.getUser();
-    //MongoDB.instance.initUser(_miUser.userId).then((value) => getRideHistory());
     super.initState();
   }
 
@@ -248,45 +247,45 @@ class _MatchmakingState extends State<Matchmaking> {
                           barrierDismissible: true, // user must tap button!
                           builder: (BuildContext context) {
                             return Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                Padding(
-                                padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
-                                  child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Username:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text(LoggedUser.instance!.username, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text(CurrentUser.instance!.userAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text("About me:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text(CurrentUser.instance!.userDesc, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text("Username:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(LoggedUser.instance!.username, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(CurrentUser.instance!.userAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("About me:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(CurrentUser.instance!.userDesc, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
 
-                                      // TODO: To be changed when user/dog pictures are splited in half
-                                      SizedBox(
-                                        height: 5 * SizeConfig.heightMultiplier!,
+                                          // TODO: To be changed when user/dog pictures are splited in half
+                                          SizedBox(
+                                            height: 5 * SizeConfig.heightMultiplier!,
+                                          ),
+                                          Text("Name:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[0].dogName, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[0].dogAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("Breed:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[0].dogBreed, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[0].dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[0].dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                        ],
                                       ),
-                                      Text("Name:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text(DogsList.instance!.dogsList[0].dogName, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text(DogsList.instance!.dogsList[0].dogAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text("Breed:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text(DogsList.instance!.dogsList[0].dogBreed, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text(DogsList.instance!.dogsList[0].dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                      Text(DogsList.instance!.dogsList[0].dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                     ],
                                     ),
-                                   ),
                                   ),
-                                 ],
-                                ),
+                                ],
+                              ),
                             );
                             /*return buildCustomAlertOKDialog(
                                 context, "User Info",
@@ -296,37 +295,37 @@ class _MatchmakingState extends State<Matchmaking> {
                             );*/
                           });
                     },
-                  child: Container(
-                    height: 50 * SizeConfig.heightMultiplier!,
-                    width: 90 * SizeConfig.widthMultiplier!,
-                    // child: ClipPath(
-                    //   clipper: TriangleClipper(),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(80),
-                      child: Image.network(
-                        _miUser.image.url,
-                        fit: BoxFit.cover,
-                        errorBuilder: (BuildContext context, Object object,
-                            StackTrace? stacktrace) {
-                          return Image.asset("lib/assets/app_icon.png");
-                        },
-                        loadingBuilder: (BuildContext context, Widget child,
-                            ImageChunkEvent? loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                  (loadingProgress.expectedTotalBytes as num)
-                                  : null,
-                            ),
-                          );
-                        },
+                    child: Container(
+                      height: 50 * SizeConfig.heightMultiplier!,
+                      width: 90 * SizeConfig.widthMultiplier!,
+                      // child: ClipPath(
+                      //   clipper: TriangleClipperUser(),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(80),
+                        child: Image.network(
+                          _miUser.image.url,
+                          fit: BoxFit.cover,
+                          errorBuilder: (BuildContext context, Object object,
+                              StackTrace? stacktrace) {
+                            return Image.asset("lib/assets/app_icon.png");
+                          },
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                    (loadingProgress.expectedTotalBytes as num)
+                                    : null,
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
-                 ),
                 ),
               ],
             )

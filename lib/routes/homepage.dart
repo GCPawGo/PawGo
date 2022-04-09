@@ -64,7 +64,6 @@ class _HomePageState extends State<HomePage> {
     _miUser.addListener(() => setState(() {}));
     print("userId of the logged user is: " + _miUser.userId);
     this.getUser();
-    //MongoDB.instance.initUser(_miUser.userId).then((value) => getRideHistory());
     super.initState();
   }
 
