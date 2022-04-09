@@ -258,24 +258,29 @@ class _MatchmakingState extends State<Matchmaking> {
                                     Navigator.of(context).pop();
                                   },
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                      //User's info\n\n"
-                                        "Username:\n" + LoggedUser.instance!.username + "\n" +
-                                        "\nAge:\n" + CurrentUser.instance!.userAge + "\n" +
-                                        "\nAbout Me:\n" + CurrentUser.instance!.userDesc + "\n\n\n"
-                                      //"Dog's info\n\n"
-                                            "Name: " + DogsList.instance!.dogsList[0].dogName + "\n"
-                                            "Age: " + DogsList.instance!.dogsList[0].dogAge + "\n"
-                                            "Breed: " + DogsList.instance!.dogsList[0].dogBreed + "\n"
-                                            "Hobby: " + DogsList.instance!.dogsList[0].dogHobby + "\n"
-                                            "Personality: " + DogsList.instance!.dogsList[0].dogPersonality,
-                                        style: TextStyle(
-                                          color: Colors.white70,
-                                          fontSize: 2 * SizeConfig.textMultiplier!,
-                                       ),
+                                      Text("Username:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text(LoggedUser.instance!.username, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text(CurrentUser.instance!.userAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text("About me:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text(CurrentUser.instance!.userDesc, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+
+                                      // TODO: To be changed when user/dog pictures are splited in half
+                                      SizedBox(
+                                        height: 5 * SizeConfig.heightMultiplier!,
                                       ),
+                                      Text("Name:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text(DogsList.instance!.dogsList[0].dogName, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text(DogsList.instance!.dogsList[0].dogAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text("Breed:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text(DogsList.instance!.dogsList[0].dogBreed, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text(DogsList.instance!.dogsList[0].dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                      Text(DogsList.instance!.dogsList[0].dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                      ],
                                     ),
                                    ),
