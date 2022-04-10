@@ -4,6 +4,8 @@ import 'package:pawgo/routes/sign_in_page.dart';
 
 import 'package:pawgo/services/authentication.dart';
 
+import '../size_config.dart';
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -44,10 +46,20 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Image.asset(
-                          'lib/assets/app_logo.png',
-                          height: MediaQuery.of(context).size.height * (0.75),
-                          width: MediaQuery.of(context).size.width * (0.75),
+                        Text(
+                          "PawGo",
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'pawfont',
+                              fontSize: 8 * SizeConfig.textMultiplier!),
+                        ),
+                        Flexible(
+                          flex: 1,
+                          child: Image.asset(
+                            'lib/assets/app_logo.png',
+                            height: MediaQuery.of(context).size.width * (0.75),
+                          ),
                         ),
                       ],
                     )),
