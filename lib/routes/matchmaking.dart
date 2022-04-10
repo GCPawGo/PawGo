@@ -27,6 +27,7 @@ import '../widget/MatchCard.dart';
 import '../widget/TriangleClipperDog.dart';
 import '../widget/TriangleClipperUser.dart';
 import '../widget/custom_alert_dialog.dart';
+import '../widget/tinder.dart';
 
 
 class Matchmaking extends StatefulWidget {
@@ -215,8 +216,10 @@ class _MatchmakingState extends State<Matchmaking> {
                     child: Column(
                       children: [
                         // matchmaking(),
-                        MatchCard("Alexa Georigna", 'assets/images/person3.jpg', 23, 'Photographer 📷'),
+                        // MatchCard("Alexa Georigna", 'assets/images/person3.jpg', 23, 'Photographer 📷'),
                         // TinderTab(),
+                        Tinder(),
+                        // matchMake(),
                         Divider(
                           color: Colors.grey,
                         ),
@@ -235,7 +238,14 @@ class _MatchmakingState extends State<Matchmaking> {
     );
   }
 
+  Widget matchMake() {
+    return
+      Container(
+        child: Tinder(
 
+        ),
+      );
+  }
 
   Widget matchmaking() {
     return
