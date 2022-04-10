@@ -214,7 +214,7 @@ class _MatchmakingState extends State<Matchmaking> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        //matchmaking(),
+                        // matchmaking(),
                         MatchCard("Alexa Georigna", 'assets/images/person3.jpg', 23, 'Photographer 📷'),
                         // TinderTab(),
                         Divider(
