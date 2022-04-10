@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:pawgo/models/PeopleList.dart';
 import 'package:pawgo/widget/MatchCard.dart';

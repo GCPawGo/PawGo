@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:math' as math;
 
 import 'package:pawgo/size_config.dart';

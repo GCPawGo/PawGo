@@ -54,7 +54,7 @@ dependencies:
   progress_indicators: ^1.0.0
   background_location: ^0.8.1
   pie_chart: ^5.1.0
-  flutter_screenutil: ^1.1.0
+  # flutter_screenutil: ^1.1.0
   bubble: ^1.1.9+1
   carousel_slider: ^1.4.1
   # The following adds the Cupertino Icons font to your application.

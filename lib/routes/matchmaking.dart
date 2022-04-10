@@ -21,6 +21,7 @@ import 'package:pawgo/routes/dogs_profile_edit.dart';
 import '../models/dogsList.dart';
 import '../services/mongodb_service.dart';
 import '../models/currentUser.dart';
+import '../widget/MatchCard.dart';
 import '../widget/TriangleClipperDog.dart';
 import '../widget/TriangleClipperUser.dart';
 import '../widget/custom_alert_dialog.dart';
@@ -211,7 +212,8 @@ class _MatchmakingState extends State<Matchmaking> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        matchmaking(),
+                        //matchmaking(),
+                        MatchCard("Adam Livene", 'assets/images/person1.jpg', 21, 'Software Developer'),
                         Divider(
                           color: Colors.grey,
                         ),
@@ -229,6 +231,8 @@ class _MatchmakingState extends State<Matchmaking> {
       ),
     );
   }
+
+
 
   Widget matchmaking() {
     return

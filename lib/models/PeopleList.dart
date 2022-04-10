@@ -1,6 +1,6 @@
 import 'package:pawgo/widget/MatchCard.dart';
 
-import '../widget/MatchCard.dart';
+// import '../widget/MatchCard.dart';
 
 List<MatchCard> peoples = [
   MatchCard(
