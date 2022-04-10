@@ -1,7 +1,5 @@
 import 'package:pawgo/widget/MatchCard.dart';
 
-// import '../widget/MatchCard.dart';
-
 List<MatchCard> peoples = [
   MatchCard(
       "Adam Livene", 'assets/images/person1.jpg', 21, 'Software Developer'),

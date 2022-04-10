@@ -6,7 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:pawgo/models/PeopleList.dart';
 import 'package:pawgo/models/loggedUser.dart';
+import 'package:pawgo/routes/TinderTab.dart';
 import 'package:pawgo/routes/profile_editing.dart';
 import 'package:pawgo/routes/sign_in_page.dart';
 import 'package:pawgo/services/authentication.dart';
@@ -213,7 +215,8 @@ class _MatchmakingState extends State<Matchmaking> {
                     child: Column(
                       children: [
                         //matchmaking(),
-                        MatchCard("Adam Livene", 'assets/images/person1.jpg', 21, 'Software Developer'),
+                        MatchCard("Alexa Georigna", 'assets/images/person3.jpg', 23, 'Photographer 📷'),
+                        // TinderTab(),
                         Divider(
                           color: Colors.grey,
                         ),
