@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/size_config.dart';
+import 'package:pawgo/utils/mobile_library.dart';
 import 'package:provider/provider.dart';
 import 'package:pawgo/utils/card_provider.dart';
 import 'package:pawgo/widget/tinder_card.dart';
@@ -21,11 +22,11 @@ class MatchPage extends StatelessWidget {
         primarySwatch: Colors.red,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            textStyle: TextStyle(fontSize: 32),
-            elevation: 8,
+            textStyle: TextStyle(fontSize: 20),
+            // elevation: 8,
             primary: Colors.white,
             shape: CircleBorder(),
-            minimumSize: Size.square(80),
+            minimumSize: Size.square(60),
           ),
         ),
       ),
@@ -95,15 +96,18 @@ class _MatchPagesState extends State<MatchPages> {
     final userz = provider.userz;
 
     return userz.isEmpty
-        ? Center(
-      child: Text(
-        '💔  The End.',
+        ? Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+        Text(
+        '💔\nSorry,\nno more users..',
+        textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 42,
+          fontSize: 30,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
-      ),
+      ),],
     )
         : Stack(
       children: userz
@@ -133,7 +137,7 @@ class _MatchPagesState extends State<MatchPages> {
             child: Text("Restart"),
             style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all(
-                    Size(200, 35)),
+                    Size(125, 35)),
                 backgroundColor: MaterialStateProperty.all(
                     CustomColors.pawrange),
                 shape: MaterialStateProperty.all(
@@ -152,7 +156,7 @@ class _MatchPagesState extends State<MatchPages> {
                 getColor(Colors.white, Colors.red, isDislike),
                 side: getBorder(Colors.red, Colors.white, isDislike),
               ),
-              child: Icon(Icons.clear, size: 46),
+              child: Icon(Icons.clear, size: 40),
               onPressed: () {
                 final provider =
                 Provider.of<CardProvider>(context, listen: false);
@@ -166,7 +170,7 @@ class _MatchPagesState extends State<MatchPages> {
                 backgroundColor: getColor(Colors.white, Colors.green, isLike),
                 side: getBorder(Colors.green, Colors.white, isLike),
               ),
-              child: Icon(Icons.favorite, size: 46),
+              child: Icon(Icons.favorite, size: 40),
               onPressed: () {
                 final provider =
                 Provider.of<CardProvider>(context, listen: false);

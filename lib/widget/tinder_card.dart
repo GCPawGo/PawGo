@@ -89,8 +89,35 @@ class _TinderCardState extends State<TinderCard> {
   Widget buildCard() => buildCardShadow(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: Container(
-
+            child: Container(
+            //   height: 50 * SizeConfig.heightMultiplier!,
+            //   width: 40 * SizeConfig.widthMultiplier!,
+            //   child: ClipRRect(
+            //     //borderRadius: BorderRadius.circular(80),
+            //     child: Image.network(
+            //       DogsList.instance!.dogsList[0].imageUrl,
+            //       fit: BoxFit.cover,
+            //       errorBuilder: (BuildContext context, Object object,
+            //           StackTrace? stacktrace) {
+            //         return Image.asset("lib/assets/app_icon.png");
+            //       },
+            //       loadingBuilder: (BuildContext context, Widget child,
+            //           ImageChunkEvent? loadingProgress) {
+            //         if (loadingProgress == null) return child;
+            //         return Center(
+            //           child: CircularProgressIndicator(
+            //             color: Colors.white,
+            //             value: loadingProgress.expectedTotalBytes != null
+            //                 ? loadingProgress.cumulativeBytesLoaded /
+            //                 (loadingProgress.expectedTotalBytes as num)
+            //                 : null,
+            //           ),
+            //         );
+            //       },
+            //     ),
+            //   ),
+            // ),
+              
             // TODO: To implement user&dog same container
             // child: Row(
             //   mainAxisAlignment: MainAxisAlignment.center,
