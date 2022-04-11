@@ -20,6 +20,7 @@ import 'package:pawgo/routes/matchmaking.dart';
 
 import '../routes/homepage.dart';
 import '../routes/map_page.dart';
+import '../routes/match_page.dart';
 
 class Conditional {
   Future<void> initFireBase() async {
@@ -40,6 +41,7 @@ class Conditional {
     '/dogs_profile_edit': (context) => DogsProfilePage(),
     '/homepage': (context) => HomePage(),
     '/map_page': (context) => MapPage(),
-    '/match_make': (context) => Matchmaking()
+    '/match_make': (context) => Matchmaking(),
+    '/match_page': (context) => MatchPage()
   };
 }
