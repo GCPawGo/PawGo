@@ -106,6 +106,47 @@ class _TinderCardState extends State<TinderCard> {
                     ),
                   ),
                   child: Container(
+                    child: GestureDetector(
+                      onTap: () {
+                        showDialog<void>(
+                            context: context,
+                            barrierDismissible: true, // user must tap button!
+                            builder: (BuildContext context) {
+                              return Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text("Username:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(LoggedUser.instance!.username, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(CurrentUser.instance!.userAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text("About me:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(CurrentUser.instance!.userDesc, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              /*return buildCustomAlertOKDialog(
+                                  context, "User Info",
+                                  "Username: " + LoggedUser.instance!.username + "\n" +
+                                  "Age: " + CurrentUser.instance!.userAge + "\n" +
+                                  "About Me: " + CurrentUser.instance!.userDesc + "\n"
+                              );*/
+                            });
+                      },
+                    ),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [Colors.transparent, Colors.black54],
@@ -125,12 +166,51 @@ class _TinderCardState extends State<TinderCard> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       // image: NetworkImage(widget.user.urlImage),
-                      image: NetworkImage(DogsList.instance!.dogsList[0].imageUrl,),
+                      image: NetworkImage(DogsList.instance!.dogsList[0].imageUrl),
                       fit: BoxFit.cover,
                       alignment: Alignment(-0.3, 0),
                     ),
                   ),
                   child: Container(
+                    child: GestureDetector(
+                    onTap: () {
+                      showDialog<void>(
+                          context: context,
+                          barrierDismissible: true, // user must tap button!
+                          builder: (BuildContext context) {
+                            return Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text("Name:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[0].dogName, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[0].dogAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("Breed:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[0].dogBreed, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[0].dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text(DogsList.instance!.dogsList[0].dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    },
+                    ),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [Colors.transparent, Colors.black54],
@@ -143,197 +223,6 @@ class _TinderCardState extends State<TinderCard> {
                 ),
           ],
         ),
-
-
-            // TODO: To implement user&dog same container
-            // child: Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: <Widget>[
-            //     SizedBox(
-            //       width: 3 * SizeConfig.widthMultiplier!,
-            //     ),
-            //     //USER
-            //     Padding(
-            //       padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
-            //       child: GestureDetector(
-            //         onTap: () {
-            //           showDialog<void>(
-            //               context: context,
-            //               barrierDismissible: true, // user must tap button!
-            //               builder: (BuildContext context) {
-            //                 return Container(
-            //                   child: Column(
-            //                     mainAxisAlignment: MainAxisAlignment.center,
-            //                     children: [
-            //                       Padding(
-            //                         padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
-            //                         child: GestureDetector(
-            //                           onTap: () {
-            //                             Navigator.of(context).pop();
-            //                           },
-            //                           child: Column(
-            //                             mainAxisAlignment: MainAxisAlignment.center,
-            //                             children: [
-            //                               Text("Username:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text(LoggedUser.instance!.username, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text(CurrentUser.instance!.userAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text("About me:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text(CurrentUser.instance!.userDesc, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                             ],
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 );
-            //                 /*return buildCustomAlertOKDialog(
-            //                       context, "User Info",
-            //                       "Username: " + LoggedUser.instance!.username + "\n" +
-            //                       "Age: " + CurrentUser.instance!.userAge + "\n" +
-            //                       "About Me: " + CurrentUser.instance!.userDesc + "\n"
-            //                   );*/
-            //               });
-            //         },
-            //         child: Container(
-            //           height: 50 * SizeConfig.heightMultiplier!,
-            //           width: 40 * SizeConfig.widthMultiplier!,
-            //           // child: ClipPath(
-            //           //   clipper: TriangleClipperUser(),
-            //           child: ClipRRect(
-            //             //borderRadius: BorderRadius.circular(80),
-            //             child: Image.network(
-            //               LoggedUser.instance!.image.url,
-            //               fit: BoxFit.cover,
-            //               errorBuilder: (BuildContext context, Object object,
-            //                   StackTrace? stacktrace) {
-            //                 return Image.asset("lib/assets/app_icon.png");
-            //               },
-            //               loadingBuilder: (BuildContext context, Widget child,
-            //                   ImageChunkEvent? loadingProgress) {
-            //                 if (loadingProgress == null) return child;
-            //                 return Center(
-            //                   child: CircularProgressIndicator(
-            //                     color: Colors.white,
-            //                     value: loadingProgress.expectedTotalBytes != null
-            //                         ? loadingProgress.cumulativeBytesLoaded /
-            //                         (loadingProgress.expectedTotalBytes as num)
-            //                         : null,
-            //                   ),
-            //                 );
-            //               },
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //
-            //     // DOG
-            //     Padding(
-            //       padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
-            //       child: GestureDetector(
-            //         onTap: () {
-            //           showDialog<void>(
-            //               context: context,
-            //               barrierDismissible: true, // user must tap button!
-            //               builder: (BuildContext context) {
-            //                 return Container(
-            //                   child: Column(
-            //                     mainAxisAlignment: MainAxisAlignment.center,
-            //                     children: [
-            //                       Padding(
-            //                         padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
-            //                         child: GestureDetector(
-            //                           onTap: () {
-            //                             Navigator.of(context).pop();
-            //                           },
-            //                           child: Column(
-            //                             mainAxisAlignment: MainAxisAlignment.center,
-            //                             children: [
-            //                               Text("Name:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text(DogsList.instance!.dogsList[0].dogName, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text(DogsList.instance!.dogsList[0].dogAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text("Breed:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text(DogsList.instance!.dogsList[0].dogBreed, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text(DogsList.instance!.dogsList[0].dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                               Text(DogsList.instance!.dogsList[0].dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-            //                             ],
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 );
-            //               });
-            //         },
-            //         child: Container(
-            //           height: 50 * SizeConfig.heightMultiplier!,
-            //           width: 40 * SizeConfig.widthMultiplier!,
-            //           // child: ClipPath(
-            //           //   clipper: TriangleClipperDog(),
-            //           child: ClipRRect(
-            //             //borderRadius: BorderRadius.circular(80),
-            //             child: Image.network(
-            //               DogsList.instance!.dogsList[0].imageUrl,
-            //               fit: BoxFit.cover,
-            //               errorBuilder: (BuildContext context, Object object,
-            //                   StackTrace? stacktrace) {
-            //                 return Image.asset("lib/assets/app_icon.png");
-            //               },
-            //               loadingBuilder: (BuildContext context, Widget child,
-            //                   ImageChunkEvent? loadingProgress) {
-            //                 if (loadingProgress == null) return child;
-            //                 return Center(
-            //                   child: CircularProgressIndicator(
-            //                     color: Colors.white,
-            //                     value: loadingProgress.expectedTotalBytes != null
-            //                         ? loadingProgress.cumulativeBytesLoaded /
-            //                         (loadingProgress.expectedTotalBytes as num)
-            //                         : null,
-            //                   ),
-            //                 );
-            //               },
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //     SizedBox(
-            //       width: 5 * SizeConfig.widthMultiplier!,
-            //     ),
-            //   ],
-            // ),
-            // decoration: BoxDecoration(
-            //   image: DecorationImage(
-            //     // image: NetworkImage(widget.user.urlImage),
-            //     image: NetworkImage(LoggedUser.instance!.image.url),
-            //     fit: BoxFit.cover,
-            //     alignment: Alignment(-0.3, 0),
-            //   ),
-            // ),
-            // child: Container(
-            //   decoration: BoxDecoration(
-            //     gradient: LinearGradient(
-            //       colors: [Colors.transparent, Colors.black54],
-            //       begin: Alignment.center,
-            //       end: Alignment.bottomCenter,
-            //       stops: [0.2, 1],
-            //     ),
-            //   ),
-            //   padding: EdgeInsets.all(20),
-            //   child: Column(
-            //     children: [
-            //       Spacer(),
-            //       buildName(),
-            //       const SizedBox(height: 8),
-            //       buildActive(),
-            //     ],
-            //   ),
-            // ),
-
         ),
       );
 
