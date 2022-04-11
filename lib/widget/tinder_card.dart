@@ -89,35 +89,62 @@ class _TinderCardState extends State<TinderCard> {
   Widget buildCard() => buildCardShadow(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-            child: Container(
-            //   height: 50 * SizeConfig.heightMultiplier!,
-            //   width: 40 * SizeConfig.widthMultiplier!,
-            //   child: ClipRRect(
-            //     //borderRadius: BorderRadius.circular(80),
-            //     child: Image.network(
-            //       DogsList.instance!.dogsList[0].imageUrl,
-            //       fit: BoxFit.cover,
-            //       errorBuilder: (BuildContext context, Object object,
-            //           StackTrace? stacktrace) {
-            //         return Image.asset("lib/assets/app_icon.png");
-            //       },
-            //       loadingBuilder: (BuildContext context, Widget child,
-            //           ImageChunkEvent? loadingProgress) {
-            //         if (loadingProgress == null) return child;
-            //         return Center(
-            //           child: CircularProgressIndicator(
-            //             color: Colors.white,
-            //             value: loadingProgress.expectedTotalBytes != null
-            //                 ? loadingProgress.cumulativeBytesLoaded /
-            //                 (loadingProgress.expectedTotalBytes as num)
-            //                 : null,
-            //           ),
-            //         );
-            //       },
-            //     ),
-            //   ),
-            // ),
-              
+          child: Row(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(1),
+                //USER
+                child: Container(
+                  height: 80 * SizeConfig.heightMultiplier!,
+                  width: 45 * SizeConfig.widthMultiplier!,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      // image: NetworkImage(widget.user.urlImage),
+                      image: NetworkImage(LoggedUser.instance!.image.url),
+                      fit: BoxFit.cover,
+                      alignment: Alignment(-0.3, 0),
+                    ),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.transparent, Colors.black54],
+                        begin: Alignment.center,
+                        end: Alignment.bottomCenter,
+                        stops: [0.2, 1],
+                      ),
+                    ),
+                  ),
+                ),
+               ),
+
+                //DOG
+                Container(
+                  height: 80 * SizeConfig.heightMultiplier!,
+                  width: 45 * SizeConfig.widthMultiplier!,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      // image: NetworkImage(widget.user.urlImage),
+                      image: NetworkImage(DogsList.instance!.dogsList[0].imageUrl,),
+                      fit: BoxFit.cover,
+                      alignment: Alignment(-0.3, 0),
+                    ),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.transparent, Colors.black54],
+                        begin: Alignment.center,
+                        end: Alignment.bottomCenter,
+                        stops: [0.2, 1],
+                      ),
+                    ),
+                  ),
+                ),
+          ],
+        ),
+
+
             // TODO: To implement user&dog same container
             // child: Row(
             //   mainAxisAlignment: MainAxisAlignment.center,
@@ -279,34 +306,34 @@ class _TinderCardState extends State<TinderCard> {
             //     ),
             //   ],
             // ),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                // image: NetworkImage(widget.user.urlImage),
-                image: NetworkImage(LoggedUser.instance!.image.url),
-                fit: BoxFit.cover,
-                alignment: Alignment(-0.3, 0),
-              ),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.transparent, Colors.black54],
-                  begin: Alignment.center,
-                  end: Alignment.bottomCenter,
-                  stops: [0.2, 1],
-                ),
-              ),
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Spacer(),
-                  buildName(),
-                  const SizedBox(height: 8),
-                  buildActive(),
-                ],
-              ),
-            ),
-          ),
+            // decoration: BoxDecoration(
+            //   image: DecorationImage(
+            //     // image: NetworkImage(widget.user.urlImage),
+            //     image: NetworkImage(LoggedUser.instance!.image.url),
+            //     fit: BoxFit.cover,
+            //     alignment: Alignment(-0.3, 0),
+            //   ),
+            // ),
+            // child: Container(
+            //   decoration: BoxDecoration(
+            //     gradient: LinearGradient(
+            //       colors: [Colors.transparent, Colors.black54],
+            //       begin: Alignment.center,
+            //       end: Alignment.bottomCenter,
+            //       stops: [0.2, 1],
+            //     ),
+            //   ),
+            //   padding: EdgeInsets.all(20),
+            //   child: Column(
+            //     children: [
+            //       Spacer(),
+            //       buildName(),
+            //       const SizedBox(height: 8),
+            //       buildActive(),
+            //     ],
+            //   ),
+            // ),
+
         ),
       );
 
