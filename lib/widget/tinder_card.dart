@@ -96,7 +96,7 @@ class _TinderCardState extends State<TinderCard> {
                 //USER
                 child: Container(
                   height: 80 * SizeConfig.heightMultiplier!,
-                  width: 45 * SizeConfig.widthMultiplier!,
+                  width: 44 * SizeConfig.widthMultiplier!,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       // image: NetworkImage(widget.user.urlImage),
@@ -121,7 +121,7 @@ class _TinderCardState extends State<TinderCard> {
                 //DOG
                 Container(
                   height: 80 * SizeConfig.heightMultiplier!,
-                  width: 45 * SizeConfig.widthMultiplier!,
+                  width: 44.5 * SizeConfig.widthMultiplier!,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       // image: NetworkImage(widget.user.urlImage),
