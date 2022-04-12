@@ -1,18 +1,20 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:pawgo/models/user.dart';
+import 'package:pawgo/models/cardUser.dart';
+
+import '../models/dog.dart';
 
 enum CardStatus { like, dislike, superLike }
 
 class CardProvider extends ChangeNotifier {
-  List<User> _userz = [];
+  List<CardUser> _cardUserList = [];
   bool _isDragging = false;
   double _angle = 0;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
 
-  List<User> get userz => _userz;
+  List<CardUser> get cardUserList => _cardUserList;
   bool get isDragging => _isDragging;
   Offset get position => _position;
   double get angle => _angle;
@@ -113,56 +115,70 @@ class CardProvider extends ChangeNotifier {
   }
 
   Future _nextCard() async {
-    if (userz.isEmpty) return;
+    if (cardUserList.isEmpty) return;
 
     await Future.delayed(Duration(milliseconds: 200));
-    _userz.removeLast();
+    _cardUserList.removeLast();
     resetPosition();
   }
 
   void resetUsers() {
-    _userz = <User>[
-      User(
-        name: 'Steffi',
-        age: 20,
-        urlImage:
-            'https://images.unsplash.com/photo-1612282130134-49784d98ac61?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2118&q=80',
+    _cardUserList = <CardUser>[
+      CardUser(
+        "123",
+        'Steffi',
+        "20",
+        'https://images.unsplash.com/photo-1612282130134-49784d98ac61?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2118&q=80',
+        "123",
+        Dog("123", "123", "123", "123", "123", "123", "123", "123")
       ),
-      User(
-        name: 'Johanna',
-        age: 21,
-        urlImage:
-            'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=396&q=80',
+      CardUser(
+        "123",
+        'Johanna',
+        "21",
+        'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=396&q=80',
+        "123",
+        Dog("123", "123", "123", "123", "123", "123", "123", "123")
       ),
-      User(
-        name: 'Sarah',
-        age: 24,
-        urlImage:
-            'https://images.unsplash.com/photo-1574701148212-8518049c7b2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80',
+      CardUser(
+        "123",
+        'Sarah',
+        "24",
+        'https://images.unsplash.com/photo-1574701148212-8518049c7b2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80',
+        "123",
+        Dog("123", "123", "123", "123", "123", "123", "123", "123")
       ),
-      User(
-        name: 'Emma',
-        age: 22,
-        urlImage:
-            'https://images.unsplash.com/photo-1540331547168-8b63109225b7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=419&q=80',
+      CardUser(
+        "123",
+        'Emma',
+        "22",
+        'https://images.unsplash.com/photo-1540331547168-8b63109225b7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=419&q=80',
+        "123",
+        Dog("123", "123", "123", "123", "123", "123", "123", "123")
       ),
-      User(
-        name: 'Emily',
-        age: 29,
-        urlImage:
-            'https://images.unsplash.com/photo-1612782730315-f1c3def444a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
+      CardUser(
+        "123",
+        'Emily',
+        "29",
+        'https://images.unsplash.com/photo-1612782730315-f1c3def444a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
+        "123",
+        Dog("123", "123", "123", "123", "123", "123", "123", "123")
       ),
-      User(
-        name: 'Hillary',
-        age: 29,
-        urlImage:
-            'https://images.unsplash.com/photo-1562904403-a5106bef8319?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80',
+      CardUser(
+        "123",
+        'Hillary',
+        "29",
+        'https://images.unsplash.com/photo-1562904403-a5106bef8319?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80',
+        "123",
+        Dog("123", "123", "123", "123", "123", "123", "123", "123")
       ),
-      User(
-        name: 'Ashley',
-        age: 29,
-        urlImage:
-            'https://images.unsplash.com/photo-1609533928169-4ca295689762?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80',
+      CardUser(
+        "123",
+        "Ashley",
+        "29",
+        'https://images.unsplash.com/photo-1609533928169-4ca295689762?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80',
+        "123",
+        Dog("123", "123", "123", "123", "123", "123", "123", "123")
       ),
     ].reversed.toList();
 

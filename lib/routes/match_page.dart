@@ -40,6 +40,8 @@ class MatchPages extends StatefulWidget {
 }
 
 class _MatchPagesState extends State<MatchPages> {
+  List cardUserList = [];
+
   @override
   Widget build(BuildContext context) => Container(
     decoration: BoxDecoration(
@@ -92,10 +94,9 @@ class _MatchPagesState extends State<MatchPages> {
   );
 
   Widget buildCards() {
-    final provider = Provider.of<CardProvider>(context);
-    final userz = provider.userz;
+    cardUserList = Provider.of<CardProvider>(context).cardUserList;
 
-    return userz.isEmpty
+    return cardUserList.isEmpty
         ? Column(
       mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -110,10 +111,10 @@ class _MatchPagesState extends State<MatchPages> {
       ),],
     )
         : Stack(
-      children: userz
-          .map((user) => TinderCard(
-        user: user,
-        isFront: userz.last == user,
+      children: cardUserList
+          .map((cardUser) => TinderCard(
+        cardUser: cardUser,
+        isFront: cardUserList.last == cardUser,
       ))
           .toList(),
     );
@@ -121,17 +122,14 @@ class _MatchPagesState extends State<MatchPages> {
 
   Widget buildButtons() {
     final provider = Provider.of<CardProvider>(context);
-    final userz = provider.userz;
+    // cardUserList = Provider.of<CardProvider>(context).cardUserList;
     final status = provider.getStatus();
     final isLike = status == CardStatus.like;
     final isDislike = status == CardStatus.dislike;
 
-    return userz.isEmpty
+    return cardUserList.isEmpty
          ? ElevatedButton(
             onPressed: () {
-              final provider =
-              Provider.of<CardProvider>(context, listen: false);
-
               provider.resetUsers();
             },
             child: Text("Restart"),

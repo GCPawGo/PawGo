@@ -29,8 +29,6 @@ class DogsProfilePage extends StatefulWidget {
   String? data;
   DogsProfilePage({Key? key, this.data}) : super(key: key);
 
-
-
   @override
   _DogsProfilePageState createState() => _DogsProfilePageState(data: data);
 }

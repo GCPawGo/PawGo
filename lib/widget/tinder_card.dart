@@ -5,26 +5,25 @@ import 'package:pawgo/models/currentUser.dart';
 import 'package:pawgo/models/dogsList.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:provider/provider.dart';
-import 'package:pawgo/models/user.dart';
+import 'package:pawgo/models/cardUser.dart';
 import 'package:pawgo/utils/card_provider.dart';
 
 import '../size_config.dart';
 
 class TinderCard extends StatefulWidget {
-  final User user;
+  final CardUser cardUser;
   final bool isFront;
 
-  const TinderCard({
-    Key? key,
-    required this.user,
-    required this.isFront,
-  }) : super(key: key);
+  TinderCard({Key? key, required this.cardUser, required this.isFront}) : super(key: key);
 
   @override
-  State<TinderCard> createState() => _TinderCardState();
+  _TinderCardState createState() => _TinderCardState(cardUser: cardUser);
 }
 
 class _TinderCardState extends State<TinderCard> {
+  CardUser cardUser;
+  _TinderCardState({required this.cardUser});
+
   @override
   void initState() {
     super.initState();
@@ -100,7 +99,7 @@ class _TinderCardState extends State<TinderCard> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       // image: NetworkImage(widget.user.urlImage),
-                      image: NetworkImage(LoggedUser.instance!.image.url),
+                      image: NetworkImage(cardUser.userImage),
                       fit: BoxFit.cover,
                       alignment: Alignment(-0.3, 0),
                     ),
