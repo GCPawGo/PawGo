@@ -51,7 +51,7 @@ class _SwitchPageState extends State<SwitchPage> {
             icon: FaIcon(FontAwesomeIcons.map), title: 'Map'),
         PersistentBottomNavBarItem(
             activeColorPrimary: CustomColors.pawrange,
-            icon: FaIcon(FontAwesomeIcons.dog), title: 'Dog'),
+            icon: FaIcon(FontAwesomeIcons.dog), title: 'Dog Match'),
         PersistentBottomNavBarItem(
             activeColorPrimary: CustomColors.pawrange,
             icon: FaIcon(FontAwesomeIcons.user), title: 'Profile'),

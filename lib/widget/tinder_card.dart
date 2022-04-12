@@ -91,7 +91,7 @@ class _TinderCardState extends State<TinderCard> {
           child: Row(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(1),
+              padding: EdgeInsets.all(1.5),
                 //USER
                 child: Container(
                   height: 80 * SizeConfig.heightMultiplier!,
@@ -101,7 +101,7 @@ class _TinderCardState extends State<TinderCard> {
                       // image: NetworkImage(widget.user.urlImage),
                       image: NetworkImage(cardUser.userImage),
                       fit: BoxFit.cover,
-                      alignment: Alignment(-0.3, 0),
+                      // alignment: Alignment(-0.3, 0),
                     ),
                   ),
                   child: Container(
@@ -160,14 +160,14 @@ class _TinderCardState extends State<TinderCard> {
 
                 //DOG
                 Container(
-                  height: 80 * SizeConfig.heightMultiplier!,
-                  width: 44.5 * SizeConfig.widthMultiplier!,
+                  height: 67.5 * SizeConfig.heightMultiplier!,
+                  width: 44.8 * SizeConfig.widthMultiplier!,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       // image: NetworkImage(widget.user.urlImage),
                       image: NetworkImage(DogsList.instance!.dogsList[0].imageUrl),
                       fit: BoxFit.cover,
-                      alignment: Alignment(-0.3, 0),
+                      // alignment: Alignment(-0.3, 0),
                     ),
                   ),
                   child: Container(

@@ -128,7 +128,7 @@ class CardProvider extends ChangeNotifier {
         "123",
         'Steffi',
         "20",
-        'https://images.unsplash.com/photo-1612282130134-49784d98ac61?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2118&q=80',
+        'https://images.unsplash.com/photo-1648978147652-b5450ef30dab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDQ5fHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
         "123",
         Dog("123", "123", "123", "123", "123", "123", "123", "123")
       ),
@@ -152,7 +152,7 @@ class CardProvider extends ChangeNotifier {
         "123",
         'Emma',
         "22",
-        'https://images.unsplash.com/photo-1540331547168-8b63109225b7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=419&q=80',
+        'https://images.unsplash.com/photo-1648978147703-589308311049?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDUwfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
         "123",
         Dog("123", "123", "123", "123", "123", "123", "123", "123")
       ),
@@ -160,7 +160,7 @@ class CardProvider extends ChangeNotifier {
         "123",
         'Emily',
         "29",
-        'https://images.unsplash.com/photo-1612782730315-f1c3def444a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
+        'https://i.imgur.com/5VPySm5.jpg',
         "123",
         Dog("123", "123", "123", "123", "123", "123", "123", "123")
       ),
@@ -176,7 +176,7 @@ class CardProvider extends ChangeNotifier {
         "123",
         "Ashley",
         "29",
-        'https://images.unsplash.com/photo-1609533928169-4ca295689762?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80',
+        'https://images.unsplash.com/photo-1647996217624-d6d7212f3929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDgwfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
         "123",
         Dog("123", "123", "123", "123", "123", "123", "123", "123")
       ),
