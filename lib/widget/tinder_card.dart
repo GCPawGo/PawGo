@@ -206,10 +206,10 @@ class _TinderCardState extends State<TinderCard> {
                                           Text(cardUser.dog.dogAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                           Text("Breed:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
                                           Text(cardUser.dog.dogBreed, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(cardUser.dog.dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          Text(cardUser.dog.dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          cardUser.dog.dogHobby == "What's your dog's hobbies?" ? SizedBox() : Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          cardUser.dog.dogHobby == "What's your dog's hobbies?" ? SizedBox() : Text(cardUser.dog.dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          cardUser.dog.dogPersonality == "What's your dog's personality?" ? SizedBox() : Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          cardUser.dog.dogPersonality == "What's your dog's personality?" ? SizedBox() : Text(cardUser.dog.dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                         ],
                                       ),
                                     ),
@@ -311,13 +311,6 @@ class _TinderCardState extends State<TinderCard> {
   }
 
   Widget buildDog() =>
-      // Container(
-      //   height: 80 * SizeConfig.heightMultiplier!,
-      //   width: 75 * SizeConfig.widthMultiplier!,
-          // SizedBox(
-          // height: 67.5 * SizeConfig.heightMultiplier!,
-          //   width: 44.8 * SizeConfig.widthMultiplier!,
-          // ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -342,11 +335,9 @@ class _TinderCardState extends State<TinderCard> {
                           ),
                         ],
                       ),
-                      // SizedBox(width: 15 * SizeConfig.widthMultiplier!),
                     ],
                 ),
               ],
-          // ),
       );
 
   Widget buildName() =>
@@ -356,7 +347,6 @@ class _TinderCardState extends State<TinderCard> {
         child: Column(
          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-              // SizedBox(width: 6 * SizeConfig.widthMultiplier!),
               Text(
                 cardUser.userName,
                 // widget.user.name,
