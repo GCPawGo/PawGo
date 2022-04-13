@@ -468,7 +468,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               border: Border.all(
                               color: Colors.black26.withOpacity(0.1),),
                               ),
-                              child: (userDesc.toString() != null)
+                              child: (userDesc != "Update your desc here")
                                   ? Padding(
                                 padding: EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
                                 child: Text(
@@ -482,7 +482,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Padding(
                                 padding: EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
                               child: Text(
-                                CurrentUser.instance!.userDesc,
+                                " - ",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -633,6 +633,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
+                              DogsList.instance!.dogsList[index].dogHobby == "What's your dog's hobbies?" ?
+                              Text(
+                                " - ",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                ),
+                              ) :
                               Text(
                                 DogsList.instance!.dogsList[index].dogHobby,
                                 style: TextStyle(
@@ -651,6 +659,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
+                              DogsList.instance!.dogsList[index].dogPersonality == "What's your dog's personality?"
+                                  ?
+                              Text(
+                                " - ",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                ),
+                              ) :
                               Text(
                                 DogsList.instance!.dogsList[index].dogPersonality,
                                 style: TextStyle(

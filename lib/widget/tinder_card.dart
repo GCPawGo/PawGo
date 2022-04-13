@@ -145,6 +145,7 @@ class _TinderCardState extends State<TinderCard> {
                                             Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
                                             Text(userAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                             Text("About me:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            userDesc == "Update your desc here" ? Text(" - ", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)) :
                                             Text(userDesc, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                           ],
                                         ),
@@ -206,10 +207,14 @@ class _TinderCardState extends State<TinderCard> {
                                           Text(cardUser.dog.dogAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                           Text("Breed:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
                                           Text(cardUser.dog.dogBreed, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          cardUser.dog.dogHobby == "What's your dog's hobbies?" ? SizedBox() : Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          cardUser.dog.dogHobby == "What's your dog's hobbies?" ? SizedBox() : Text(cardUser.dog.dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          cardUser.dog.dogPersonality == "What's your dog's personality?" ? SizedBox() : Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                          cardUser.dog.dogPersonality == "What's your dog's personality?" ? SizedBox() : Text(cardUser.dog.dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("Hobby:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          cardUser.dog.dogHobby == "What's your dog's hobbies?"
+                                              ? Text(" - ", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!))
+                                              : Text(cardUser.dog.dogHobby, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          Text("Personality:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                          cardUser.dog.dogPersonality == "What's your dog's personality?"
+                                              ? Text(" - ", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!))
+                                              : Text(cardUser.dog.dogPersonality, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                         ],
                                       ),
                                     ),
