@@ -8,6 +8,7 @@ import 'package:pawgo/utils/card_provider.dart';
 import 'package:pawgo/widget/tinder_card.dart';
 
 import '../models/cardUser.dart';
+import '../widget/custom_alert_dialog.dart';
 
 class MatchPage extends StatelessWidget {
 
@@ -41,6 +42,7 @@ class MatchPages extends StatefulWidget {
 
 class _MatchPagesState extends State<MatchPages> {
   List<CardUser> cardUserList = [];
+  late bool matchChecked = false;
 
   @override
   void initState() {
@@ -98,10 +100,47 @@ class _MatchPagesState extends State<MatchPages> {
     ),
   );
 
+   checkMatch() {
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      title: Text(
+        "Hint",
+        style: TextStyle(color: Colors.black),
+      ),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: <Widget>[
+            Text(
+              "Swipe the pictures right or left.\n\nTap on the pictures to reveal details.",
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: Text(
+            'OK',
+            style: TextStyle(color: CustomColors.green),
+          ),
+          onPressed: () {
+            matchChecked = true;
+          },
+        ),
+      ],
+    );
+  }
+
   Widget buildCards() {
     cardUserList = Provider.of<CardProvider>(context).cardUserList;
 
-    return cardUserList.isEmpty
+    return !matchChecked
+    ? Container(
+       child: checkMatch(),
+    )
+    :
+    cardUserList.isEmpty
         ? Column(
       mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -114,8 +153,8 @@ class _MatchPagesState extends State<MatchPages> {
           color: Colors.white,
         ),
       ),],
-    )
-        : Stack(
+    ) :
+    Stack(
       children: cardUserList
           .map((cardUser) => TinderCard(
         cardUser: cardUser,
