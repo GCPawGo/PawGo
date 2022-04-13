@@ -7,6 +7,7 @@ import 'package:pawgo/models/cardUser.dart';
 import 'package:pawgo/models/loggedUser.dart';
 
 import '../models/dog.dart';
+import '../services/mongodb_service.dart';
 
 enum CardStatus { like, dislike, superLike }
 
@@ -136,17 +137,23 @@ class CardProvider extends ChangeNotifier {
         .get()
         .then((QuerySnapshot querySnapshot) async {
       for(int i = 0; i < querySnapshot.size; i++) {
+        // skip if the matchmaking card is yourself
         if (querySnapshot.docs[i].get("userId") == LoggedUser.instance!.userId) continue;
-        // Dog dog = Dog(_id, userId, dogName, dogAge, dogBreed, dogHobby, dogPersonality, imageUrl);
-        Dog dog = Dog("123", "123", "123", "123", "123", "123", "123", "123");
-        CardUser cardUser = CardUser(
+
+        // get user dog list and skip if the dog list is empty
+        List<Dog>? dogList = await MongoDB.instance.getDogsByUserId(querySnapshot.docs[i].get("userId"));
+        if(dogList == null) continue;
+
+        dogList.forEach((dog) {
+          CardUser cardUser = CardUser(
             querySnapshot.docs[i].get("userId"),
             querySnapshot.docs[i].get("Username"),
             "userAge",
             querySnapshot.docs[i].get("Image"),
             "userDesc",
             dog);
-        _cardUserList.add(cardUser);
+          _cardUserList.add(cardUser);
+        });
       }
     });
   }

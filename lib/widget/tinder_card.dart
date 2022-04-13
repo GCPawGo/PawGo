@@ -177,7 +177,7 @@ class _TinderCardState extends State<TinderCard> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       // image: NetworkImage(widget.user.urlImage),
-                      image: NetworkImage(DogsList.instance!.dogsList[0].imageUrl),
+                      image: NetworkImage(cardUser.dog.imageUrl),
                       fit: BoxFit.cover,
                       // alignment: Alignment(-0.3, 0),
                     ),
