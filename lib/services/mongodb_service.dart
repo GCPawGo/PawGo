@@ -5,8 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:pawgo/models/dog.dart';
 import 'package:pawgo/models/loggedUser.dart';
-import 'package:tuple/tuple.dart';
-
 import '../models/currentUser.dart';
 
 class MongoDB {
