@@ -310,33 +310,53 @@ class _TinderCardState extends State<TinderCard> {
     );
   }
 
-  Widget buildDog() => Row(
-    mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          SizedBox(height: 10 * SizeConfig.heightMultiplier!),
-          Text(
-            cardUser.dog.dogName,
-            style: TextStyle(fontSize: 20, color: Colors.white),
-            // textAlign: TextAlign.justify,
-          ),
-          const SizedBox(width: 8),
-          Text(
-            cardUser.dog.dogAge,
-            style: TextStyle(fontSize: 20, color: Colors.white),
-            // textAlign: TextAlign.justify,
-          ),
-          SizedBox(width: 10 * SizeConfig.widthMultiplier!),
-        ],
+  Widget buildDog() =>
+      // Container(
+      //   height: 80 * SizeConfig.heightMultiplier!,
+      //   width: 75 * SizeConfig.widthMultiplier!,
+          // SizedBox(
+          // height: 67.5 * SizeConfig.heightMultiplier!,
+          //   width: 44.8 * SizeConfig.widthMultiplier!,
+          // ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 45 * SizeConfig.widthMultiplier!),
+                      SizedBox(height: 10 * SizeConfig.heightMultiplier!),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            cardUser.dog.dogName,
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            // textAlign: TextAlign.justify,
+                          ),
+                          // const SizedBox(width: 8),
+                          Text(
+                            cardUser.dog.dogAge,
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            // textAlign: TextAlign.justify,
+                          ),
+                        ],
+                      ),
+                      // SizedBox(width: 15 * SizeConfig.widthMultiplier!),
+                    ],
+                ),
+              ],
+          // ),
       );
 
   Widget buildName() =>
-      Column(
-       mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(width: 6 * SizeConfig.widthMultiplier!),
+      Container(
+        height: 80 * SizeConfig.heightMultiplier!,
+        width: 44 * SizeConfig.widthMultiplier!,
+        child: Column(
+         mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+              // SizedBox(width: 6 * SizeConfig.widthMultiplier!),
               Text(
                 cardUser.userName,
                 // widget.user.name,
@@ -355,9 +375,8 @@ class _TinderCardState extends State<TinderCard> {
                   color: Colors.white,
                 ),
               ),
+              SizedBox(height: 2 * SizeConfig.heightMultiplier!),
             ],
-          ),
-          SizedBox(height: 2 * SizeConfig.heightMultiplier!),
-        ],
+        ),
       );
 }
