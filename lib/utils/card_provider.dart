@@ -1,7 +1,10 @@
+import 'dart:collection';
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/models/cardUser.dart';
+import 'package:pawgo/models/loggedUser.dart';
 
 import '../models/dog.dart';
 
@@ -20,7 +23,7 @@ class CardProvider extends ChangeNotifier {
   double get angle => _angle;
 
   CardProvider() {
-    resetUsers();
+    this.resetUsers();
   }
 
   void setScreenSize(Size screenSize) => _screenSize = screenSize;
@@ -122,66 +125,86 @@ class CardProvider extends ChangeNotifier {
     resetPosition();
   }
 
-  void resetUsers() {
-    _cardUserList = <CardUser>[
-      CardUser(
-        "123",
-        'Steffi',
-        "20",
-        'https://images.unsplash.com/photo-1648978147652-b5450ef30dab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDQ5fHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
-        "123",
-        Dog("123", "123", "123", "123", "123", "123", "123", "123")
-      ),
-      CardUser(
-        "123",
-        'Johanna',
-        "21",
-        'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=396&q=80',
-        "123",
-        Dog("123", "123", "123", "123", "123", "123", "123", "123")
-      ),
-      CardUser(
-        "123",
-        'Sarah',
-        "24",
-        'https://images.unsplash.com/photo-1574701148212-8518049c7b2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80',
-        "123",
-        Dog("123", "123", "123", "123", "123", "123", "123", "123")
-      ),
-      CardUser(
-        "123",
-        'Emma',
-        "22",
-        'https://images.unsplash.com/photo-1648978147703-589308311049?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDUwfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
-        "123",
-        Dog("123", "123", "123", "123", "123", "123", "123", "123")
-      ),
-      CardUser(
-        "123",
-        'Emily',
-        "29",
-        'https://i.imgur.com/5VPySm5.jpg',
-        "123",
-        Dog("123", "123", "123", "123", "123", "123", "123", "123")
-      ),
-      CardUser(
-        "123",
-        'Hillary',
-        "29",
-        'https://images.unsplash.com/photo-1562904403-a5106bef8319?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80',
-        "123",
-        Dog("123", "123", "123", "123", "123", "123", "123", "123")
-      ),
-      CardUser(
-        "123",
-        "Ashley",
-        "29",
-        'https://images.unsplash.com/photo-1647996217624-d6d7212f3929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDgwfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
-        "123",
-        Dog("123", "123", "123", "123", "123", "123", "123", "123")
-      ),
-    ].reversed.toList();
-
+  void resetUsers() async {
+    await this.getCardUser();
     notifyListeners();
   }
+
+  Future<void> getCardUser() async {
+    CollectionReference usersCollection = FirebaseFirestore.instance.collection("Users");
+    await usersCollection
+        .get()
+        .then((QuerySnapshot querySnapshot) async {
+      for(int i = 0; i < querySnapshot.size; i++) {
+        if (querySnapshot.docs[i].get("userId") == LoggedUser.instance!.userId) continue;
+        // Dog dog = Dog(_id, userId, dogName, dogAge, dogBreed, dogHobby, dogPersonality, imageUrl);
+        Dog dog = Dog("123", "123", "123", "123", "123", "123", "123", "123");
+        CardUser cardUser = CardUser(
+            querySnapshot.docs[i].get("userId"),
+            querySnapshot.docs[i].get("Username"),
+            "userAge",
+            querySnapshot.docs[i].get("Image"),
+            "userDesc",
+            dog);
+        _cardUserList.add(cardUser);
+      }
+    });
+  }
+
+  // CardUser(
+  // "123",
+  // 'Steffi',
+  // "20",
+  // 'https://images.unsplash.com/photo-1648978147652-b5450ef30dab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDQ5fHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
+  // "123",
+  // Dog("123", "123", "123", "123", "123", "123", "123", "123")
+  // ),
+  // CardUser(
+  // "123",
+  // 'Johanna',
+  // "21",
+  // 'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=396&q=80',
+  // "123",
+  // Dog("123", "123", "123", "123", "123", "123", "123", "123")
+  // ),
+  // CardUser(
+  // "123",
+  // 'Sarah',
+  // "24",
+  // 'https://images.unsplash.com/photo-1574701148212-8518049c7b2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80',
+  // "123",
+  // Dog("123", "123", "123", "123", "123", "123", "123", "123")
+  // ),
+  // CardUser(
+  // "123",
+  // 'Emma',
+  // "22",
+  // 'https://images.unsplash.com/photo-1648978147703-589308311049?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDUwfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
+  // "123",
+  // Dog("123", "123", "123", "123", "123", "123", "123", "123")
+  // ),
+  // CardUser(
+  // "123",
+  // 'Emily',
+  // "29",
+  // 'https://i.imgur.com/5VPySm5.jpg',
+  // "123",
+  // Dog("123", "123", "123", "123", "123", "123", "123", "123")
+  // ),
+  // CardUser(
+  // "123",
+  // 'Hillary',
+  // "29",
+  // 'https://images.unsplash.com/photo-1562904403-a5106bef8319?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80',
+  // "123",
+  // Dog("123", "123", "123", "123", "123", "123", "123", "123")
+  // ),
+  // CardUser(
+  // "123",
+  // "Ashley",
+  // "29",
+  // 'https://images.unsplash.com/photo-1647996217624-d6d7212f3929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDgwfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
+  // "123",
+  // Dog("123", "123", "123", "123", "123", "123", "123", "123")
+  // ),
 }

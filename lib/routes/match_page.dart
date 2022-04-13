@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/size_config.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 import 'package:provider/provider.dart';
 import 'package:pawgo/utils/card_provider.dart';
 import 'package:pawgo/widget/tinder_card.dart';
+
+import '../models/cardUser.dart';
 
 class MatchPage extends StatelessWidget {
 
@@ -40,7 +40,12 @@ class MatchPages extends StatefulWidget {
 }
 
 class _MatchPagesState extends State<MatchPages> {
-  List cardUserList = [];
+  List<CardUser> cardUserList = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Container(
