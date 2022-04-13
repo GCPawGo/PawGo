@@ -26,7 +26,7 @@ Widget buildCustomAlertOKDialog(
       TextButton(
         child: Text(
           'OK',
-          style: TextStyle(color: CustomColors.green),
+          style: TextStyle(color: CustomColors.pawrange),
         ),
         onPressed: () {
           Navigator.of(context).pop();

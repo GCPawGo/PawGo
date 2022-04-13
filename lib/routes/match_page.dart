@@ -8,7 +8,6 @@ import 'package:pawgo/utils/card_provider.dart';
 import 'package:pawgo/widget/tinder_card.dart';
 
 import '../models/cardUser.dart';
-import '../widget/custom_alert_dialog.dart';
 
 class MatchPage extends StatelessWidget {
 
@@ -122,10 +121,13 @@ class _MatchPagesState extends State<MatchPages> {
         TextButton(
           child: Text(
             'OK',
-            style: TextStyle(color: CustomColors.green),
+            style: TextStyle(color: CustomColors.pawrange),
           ),
           onPressed: () {
             matchChecked = true;
+            setState(() {
+
+            });
           },
         ),
       ],

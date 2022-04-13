@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/models/currentUser.dart';
 import 'package:pawgo/models/dogsList.dart';
 import 'package:pawgo/models/loggedUser.dart';
+import 'package:pawgo/utils/mobile_library.dart';
 import 'package:provider/provider.dart';
 import 'package:pawgo/models/cardUser.dart';
 import 'package:pawgo/utils/card_provider.dart';
@@ -75,6 +77,8 @@ class _TinderCardState extends State<TinderCard> {
                 children: [
                   buildCard(),
                   buildStamps(),
+                  buildName(),
+                  buildDog(),
                 ],
               ),
             );
@@ -149,12 +153,6 @@ class _TinderCardState extends State<TinderCard> {
                                   ],
                                 ),
                               );
-                              /*return buildCustomAlertOKDialog(
-                                  context, "User Info",
-                                  "Username: " + LoggedUser.instance!.username + "\n" +
-                                  "Age: " + CurrentUser.instance!.userAge + "\n" +
-                                  "About Me: " + CurrentUser.instance!.userDesc + "\n"
-                              );*/
                             });
                       },
                     ),
@@ -312,49 +310,54 @@ class _TinderCardState extends State<TinderCard> {
     );
   }
 
-  Widget buildActive() => Row(
+  Widget buildDog() => Row(
+    mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.green,
-            ),
-            width: 12,
-            height: 12,
+          SizedBox(height: 10 * SizeConfig.heightMultiplier!),
+          Text(
+            cardUser.dog.dogName,
+            style: TextStyle(fontSize: 20, color: Colors.white),
+            // textAlign: TextAlign.justify,
           ),
           const SizedBox(width: 8),
           Text(
-            DogsList.instance!.dogsList[0].dogName,
+            cardUser.dog.dogAge,
             style: TextStyle(fontSize: 20, color: Colors.white),
+            // textAlign: TextAlign.justify,
           ),
-          const SizedBox(width: 8),
-          Text(
-            DogsList.instance!.dogsList[0].dogAge,
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
+          SizedBox(width: 10 * SizeConfig.widthMultiplier!),
         ],
       );
 
-  Widget buildName() => Row(
+  Widget buildName() =>
+      Column(
+       mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text(
-            LoggedUser.instance!.username,
-            // widget.user.name,
-            style: TextStyle(
-              fontSize: 32,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(width: 6 * SizeConfig.widthMultiplier!),
+              Text(
+                cardUser.userName,
+                // widget.user.name,
+                style: TextStyle(
+                  fontSize: 32,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                userAge,
+                // '${widget.user.age}',
+                style: TextStyle(
+                  fontSize: 32,
+                  color: Colors.white,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 16),
-          Text(
-            CurrentUser.instance!.userAge,
-            // '${widget.user.age}',
-            style: TextStyle(
-              fontSize: 32,
-              color: Colors.white,
-            ),
-          ),
+          SizedBox(height: 2 * SizeConfig.heightMultiplier!),
         ],
       );
 }
