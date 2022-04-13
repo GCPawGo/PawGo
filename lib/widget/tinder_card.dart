@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:pawgo/models/cardUser.dart';
 import 'package:pawgo/utils/card_provider.dart';
 
+import '../services/mongodb_service.dart';
 import '../size_config.dart';
 
 class TinderCard extends StatefulWidget {
@@ -23,9 +24,12 @@ class TinderCard extends StatefulWidget {
 class _TinderCardState extends State<TinderCard> {
   CardUser cardUser;
   _TinderCardState({required this.cardUser});
+  String userAge = "";
+  String userDesc = "";
 
   @override
   void initState() {
+    this.getUser();
     super.initState();
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
@@ -34,6 +38,14 @@ class _TinderCardState extends State<TinderCard> {
       final provider = Provider.of<CardProvider>(context, listen: false);
       provider.setScreenSize(size);
     });
+  }
+
+  Future<void> getUser() async {
+    CurrentUser? currentUser = await MongoDB.instance.getUser(cardUser.userId);
+    if(currentUser != null) {
+      userAge = currentUser.getUserAge();
+      userDesc = currentUser.getUserDesc();
+    }
   }
 
   @override
@@ -125,11 +137,11 @@ class _TinderCardState extends State<TinderCard> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Text("Username:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                            Text(LoggedUser.instance!.username, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(cardUser.userName, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                             Text("Age:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                            Text(CurrentUser.instance!.userAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(userAge, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                             Text("About me:", style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 2 * SizeConfig.textMultiplier!)),
-                                            Text(CurrentUser.instance!.userDesc, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
+                                            Text(userDesc, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 2 * SizeConfig.textMultiplier!)),
                                           ],
                                         ),
                                       ),
