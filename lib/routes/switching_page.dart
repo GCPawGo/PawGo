@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/routes/match_page.dart';
 import 'package:pawgo/routes/profile_page.dart';
+import 'package:pawgo/routes/search_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
 import 'homepage.dart';
 import 'map_page.dart';
-import 'matchmaking.dart';
 
 class SwitchPage extends StatefulWidget {
   const SwitchPage({Key? key}) : super(key: key);
@@ -38,6 +37,7 @@ class _SwitchPageState extends State<SwitchPage> {
       ),
       screens: [
         HomePage(),
+        DogSearchPage(),
         MapPage(),
         MatchPage(),
         ProfilePage(),
@@ -46,6 +46,9 @@ class _SwitchPageState extends State<SwitchPage> {
         PersistentBottomNavBarItem(
             activeColorPrimary: CustomColors.pawrange,
             icon: FaIcon(FontAwesomeIcons.home), title: 'Home'),
+        PersistentBottomNavBarItem(
+            activeColorPrimary: CustomColors.pawrange,
+            icon: FaIcon(FontAwesomeIcons.search), title: 'Search'),
         PersistentBottomNavBarItem(
             activeColorPrimary: CustomColors.pawrange,
             icon: FaIcon(FontAwesomeIcons.map), title: 'Map'),

@@ -305,12 +305,17 @@ class _ProfilePageState extends State<ProfilePage> {
           Container(
             child: Expanded(
               child: Container(
+                height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30.0),
-                      topLeft: Radius.circular(30.0),
-                    )),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      CustomColors.pawrange,
+                      Colors.white,
+                    ],
+                  ),
+                ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(30.0),

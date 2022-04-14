@@ -190,7 +190,7 @@ class _InsertUsernameScreenState extends State<InsertUsernameScreen> {
     } else {
       return Container(
         child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(CustomColors.green)),
+            valueColor: AlwaysStoppedAnimation<Color>(CustomColors.pawrange)),
       );
     }
   }
