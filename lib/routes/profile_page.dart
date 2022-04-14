@@ -360,7 +360,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     fontSize: 3 * SizeConfig.textMultiplier!),
               ),
             ),
-            Padding(
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                color: Colors.grey.shade200,
+                border: Border.all(
+                  color: Colors.black26.withOpacity(0.1),
+                ),
+              ),
+            child: Padding(
               padding: EdgeInsets.all(15.0),
                   child: Column(
                     children: [
@@ -467,12 +475,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                 height: 1 * SizeConfig.heightMultiplier!,
                               ),
                             Container(
-                              decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                              color: Colors.grey.shade200,
-                              border: Border.all(
-                              color: Colors.black26.withOpacity(0.1),),
-                              ),
+                              // decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                              // color: Colors.grey.shade200,
+                              // border: Border.all(
+                              // color: Colors.black26.withOpacity(0.1),),
+                              // ),
                               child: (userDesc != "Update your desc here")
                                   ? Padding(
                                 padding: EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
@@ -503,7 +511,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
               //),
-            ),
+            ),),
           ],
         )
       ),
