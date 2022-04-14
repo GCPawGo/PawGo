@@ -94,13 +94,6 @@ class _MatchPagesState extends State<MatchPages> {
                   // buildLikeButtons(),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  buildLikeButtons(),
-                  const SizedBox(width: 5),
-                ],
-              ),
               const SizedBox(height: 5),
               Expanded(child: buildCards()),
               const SizedBox(height: 5),
@@ -240,30 +233,6 @@ class _MatchPagesState extends State<MatchPages> {
           },
         ),
       ],
-    );
-  }
-
-  Widget buildLikeButtons() {
-    return ClipOval(
-      child: Material(
-        color: Colors.white, // button color
-        child: InkWell(
-          splashColor: CustomColors.pawrange, // inkwell color
-          child: SizedBox(width: 36, height: 36, child: Icon(Icons.favorite_sharp, color: Colors.red, size: 24.0)),
-          onTap: () async{
-              // TODO: To add dog's data grab from MongoDB
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => MatchFavouritePage(
-                  ),
-                ),
-              ).then((data) {
-
-              });
-          },
-        ),
-      ),
     );
   }
 

@@ -1,25 +1,19 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:pawgo/models/loggedUser.dart';
-import 'package:pawgo/routes/profile_editing.dart';
 import 'package:pawgo/routes/sign_in_page.dart';
 import 'package:pawgo/services/authentication.dart';
 import 'package:pawgo/services/mongodb_service.dart';
 import 'package:pawgo/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/utils/mobile_library.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pawgo/assets/custom_colors.dart';
-import 'package:pawgo/routes/dogs_profile_edit.dart';
 
 import '../services/mongodb_service.dart';
 import '../models/currentUser.dart';
+import 'match_favourite_page.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -232,20 +226,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget userinfo() {
-    return
-      Container(
+    return Container(
         child: SingleChildScrollView(
             child: Column(
               children: [
-                // TODO: Read User's data from MongoDB <------------------------------
                 Padding(
                   padding: EdgeInsets.only(top: 3 * SizeConfig.heightMultiplier!),
                   child: Text(
-                    "This is an empty page",
+                    "Home page",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 3 * SizeConfig.textMultiplier!),
+                      fontSize: 7 * SizeConfig.textMultiplier!,
+                      fontFamily: 'pawfont',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 Padding(
@@ -258,19 +252,12 @@ class _HomePageState extends State<HomePage> {
                             padding: EdgeInsets.all(0),
                             child: Column(
                               children: [
-                                SizedBox(
-                                  height: 1 * SizeConfig.heightMultiplier!,
-                                ),
-                                Text(
-                                  "Page to be implemented in the future..",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 2 * SizeConfig.textMultiplier!,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 1 * SizeConfig.heightMultiplier!,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    buildLikeButtons(),
+                                    const SizedBox(width: 5),
+                                  ],
                                 ),
                               ],
                             ),
@@ -287,7 +274,29 @@ class _HomePageState extends State<HomePage> {
       );
   }
 
+  Widget buildLikeButtons() {
+    return ClipOval(
+      child: Material(
+        color: Colors.white, // button color
+        child: InkWell(
+          splashColor: CustomColors.pawrange, // inkwell color
+          child: SizedBox(width: 36, height: 36, child: Icon(Icons.favorite_sharp, color: Colors.red, size: 24.0)),
+          onTap: () async{
+            // TODO: To add dog's data grab from MongoDB
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => MatchFavouritePage(
+                ),
+              ),
+            ).then((data) {
 
+            });
+          },
+        ),
+      ),
+    );
+  }
 
   String nStringToNNString(String? str) {
     return str ?? "";
