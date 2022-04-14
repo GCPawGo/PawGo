@@ -20,5 +20,14 @@ app.post('/addFavouriteUser', async (req, res) => {
     res.send({msg: "Successfully add favourite user"})
 });
 
+app.get('/getFavouriteUserListByUserId', async (req, res) => {
+    const userId = req.query.userId;
+    
+    if (userId) {
+        const favouriteUserList = await FavouriteUserModel.find({userId: userId})
+        res.send(favouriteUserList)
+    }
+});
+
 module.exports = app;
   
