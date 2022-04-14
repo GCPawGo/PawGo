@@ -193,12 +193,17 @@ class _HomePageState extends State<HomePage> {
           Container(
             child: Expanded(
               child: Container(
+                height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30.0),
-                      topLeft: Radius.circular(30.0),
-                    )),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      CustomColors.pawrange,
+                      Colors.white,
+                    ],
+                  ),
+                ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(30.0),
@@ -238,7 +243,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     "This is an empty page",
                     style: TextStyle(
-                        color: Colors.black54,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 3 * SizeConfig.textMultiplier!),
                   ),
@@ -259,7 +264,7 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   "Page to be implemented in the future..",
                                   style: TextStyle(
-                                    color: Colors.black54,
+                                    color: Colors.white,
                                     fontSize: 2 * SizeConfig.textMultiplier!,
                                     decoration: TextDecoration.underline,
                                   ),

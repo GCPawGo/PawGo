@@ -7,6 +7,7 @@ export 'package:flutter/services.dart';
 export 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pawgo/routes/search_page.dart';
 import 'package:pawgo/routes/sign_in.dart';
 import 'package:pawgo/routes/sign_in_page.dart';
 import 'package:pawgo/routes/start_page.dart';
@@ -16,7 +17,6 @@ import 'package:pawgo/routes/profile_page.dart';
 import 'package:pawgo/routes/profile_editing.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/routes/dogs_profile_edit.dart';
-import 'package:pawgo/routes/matchmaking.dart';
 
 import '../routes/homepage.dart';
 import '../routes/map_page.dart';
@@ -41,7 +41,7 @@ class Conditional {
     '/dogs_profile_edit': (context) => DogsProfilePage(),
     '/homepage': (context) => HomePage(),
     '/map_page': (context) => MapPage(),
-    '/match_make': (context) => Matchmaking(),
+    '/search_page': (context) => DogSearchPage(),
     '/match_page': (context) => MatchPage()
   };
 }

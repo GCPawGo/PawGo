@@ -77,7 +77,7 @@ class _MatchPagesState extends State<MatchPages> {
                   //   color: Colors.white,
                   //   size: 36,
                   // ),
-                  const SizedBox(width: 110),
+                  const SizedBox(width: 4),
                   Text(
                     'PawGo',
                     style: TextStyle(
@@ -87,14 +87,12 @@ class _MatchPagesState extends State<MatchPages> {
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(width: 80),
-                  buildLikeButtons(),
                 ],
               ),
               const SizedBox(height: 5),
               Expanded(child: buildCards()),
               const SizedBox(height: 5),
-              buildButtons()
+              buildButtons(),
             ],
           ),
         ),
@@ -102,7 +100,7 @@ class _MatchPagesState extends State<MatchPages> {
     ),
   );
 
-   checkMatch() {
+  checkMatch() {
     return AlertDialog(
       backgroundColor: Colors.white,
       title: Text(
@@ -120,6 +118,20 @@ class _MatchPagesState extends State<MatchPages> {
           ],
         ),
       ),
+      // actions: <Widget>[
+      //   TextButton(
+      //     child: Text(
+      //       'OK',
+      //       style: TextStyle(color: CustomColors.pawrange),
+      //     ),
+      //     onPressed: () {
+      //       matchChecked = true;
+      //       setState(() {
+      //
+      //       });
+      //     },
+      //   ),
+      // ],
     );
   }
 
@@ -131,23 +143,23 @@ class _MatchPagesState extends State<MatchPages> {
     }
 
     return !matchChecked
-    ? Container(
-       child: checkMatch(),
+        ? Container(
+      child: checkMatch(),
     )
-    :
+        :
     cardUserList.isEmpty
         ? Column(
       mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+      children: [
         Text(
-        '💔\nSorry,\nno more users..',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),],
+          '💔\nSorry,\nno more users..',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),],
     ) :
     Stack(
       children: cardUserList
@@ -161,6 +173,7 @@ class _MatchPagesState extends State<MatchPages> {
 
   Widget buildButtons() {
     final provider = Provider.of<CardProvider>(context);
+    // cardUserList = Provider.of<CardProvider>(context).cardUserList;
     final status = provider.getStatus();
     final isLike = status == CardStatus.like;
     final isDislike = status == CardStatus.dislike;
@@ -172,80 +185,64 @@ class _MatchPagesState extends State<MatchPages> {
     }
 
     return cardUserList.length != 5 && check
-         ? CircularProgressIndicator(
+        ? CircularProgressIndicator(
       valueColor: new AlwaysStoppedAnimation<Color>(CustomColors.pawrange),
     ) :
-            cardUserList.isEmpty && !check ?
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  check = true;
-                  matchChecked = false;
-                });
+    cardUserList.isEmpty && !check ?
+    ElevatedButton(
+      onPressed: () {
+        setState(() {
+          check = true;
+          matchChecked = false;
+        });
 
-                provider.resetUsers();
-              },
-              child: Text("Restart"),
-              style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all(
-                      Size(125, 35)),
-                  backgroundColor: MaterialStateProperty.all(
-                      CustomColors.pawrange),
-                  shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              18.0)))),
-            ) :
-            Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                style: ButtonStyle(
-                  foregroundColor:
-                  getColor(Colors.red, Colors.white, isDislike),
-                  backgroundColor:
-                  getColor(Colors.white, Colors.red, isDislike),
-                  side: getBorder(Colors.red, Colors.white, isDislike),
-                ),
-                child: Icon(Icons.clear, size: 40),
-                onPressed: () {
-                  final provider =
-                  Provider.of<CardProvider>(context, listen: false);
+        provider.resetUsers();
+      },
+      child: Text("Restart"),
+      style: ButtonStyle(
+          fixedSize: MaterialStateProperty.all(
+              Size(125, 35)),
+          backgroundColor: MaterialStateProperty.all(
+              CustomColors.pawrange),
+          shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      18.0)))),
+    ) :
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        ElevatedButton(
+          style: ButtonStyle(
+            foregroundColor:
+            getColor(Colors.red, Colors.white, isDislike),
+            backgroundColor:
+            getColor(Colors.white, Colors.red, isDislike),
+            side: getBorder(Colors.red, Colors.white, isDislike),
+          ),
+          child: Icon(Icons.clear, size: 40),
+          onPressed: () {
+            final provider =
+            Provider.of<CardProvider>(context, listen: false);
 
-                  provider.dislike();
-                },
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  foregroundColor: getColor(Colors.green, Colors.white, isLike),
-                  backgroundColor: getColor(Colors.white, Colors.green, isLike),
-                  side: getBorder(Colors.green, Colors.white, isLike),
-                ),
-                child: Icon(Icons.favorite, size: 40),
-                onPressed: () {
-                  final provider =
-                  Provider.of<CardProvider>(context, listen: false);
-
-                  provider.like();
-                },
-              ),
-            ],
-          );
-  }
-
-  Widget buildLikeButtons() {
-    return ClipOval(
-      child: Material(
-        color: Colors.white, // button color
-        child: InkWell(
-          splashColor: CustomColors.pawrange, // inkwell color
-          child: SizedBox(width: 36, height: 36, child: Icon(Icons.favorite, color: Colors.pink, size: 24.0)),
-          onTap: () {
-            // TODO to the like page
-            
+            provider.dislike();
           },
         ),
-      ),
+        ElevatedButton(
+          style: ButtonStyle(
+            foregroundColor: getColor(Colors.green, Colors.white, isLike),
+            backgroundColor: getColor(Colors.white, Colors.green, isLike),
+            side: getBorder(Colors.green, Colors.white, isLike),
+          ),
+          child: Icon(Icons.favorite, size: 40),
+          onPressed: () {
+            final provider =
+            Provider.of<CardProvider>(context, listen: false);
+
+            provider.like();
+          },
+        ),
+      ],
     );
   }
 
