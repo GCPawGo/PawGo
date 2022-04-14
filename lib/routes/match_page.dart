@@ -240,9 +240,12 @@ class _MatchPagesState extends State<MatchPages> {
         child: InkWell(
           splashColor: CustomColors.pawrange, // inkwell color
           child: SizedBox(width: 36, height: 36, child: Icon(Icons.favorite, color: Colors.pink, size: 24.0)),
-          onTap: () {
-            // TODO to the like page
-            
+          onTap: () async {
+            // Navigator.push(
+            //   context,
+            //   CupertinoPageRoute(builder: (context) => MatchFavouritePage(),),).then((data) {
+            //
+            //   });
           },
         ),
       ),

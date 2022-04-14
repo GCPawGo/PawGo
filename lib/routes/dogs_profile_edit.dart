@@ -1,26 +1,20 @@
 import 'dart:collection';
-import 'dart:convert';
-//import 'dart:html';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 import 'package:pawgo/models/dog.dart';
 import 'package:pawgo/models/loggedUser.dart';
-import 'package:pawgo/services/authentication.dart';
 import 'package:pawgo/services/mongodb_service.dart';
 import 'package:pawgo/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:uuid/uuid.dart';
 
-import '../models/currentUser.dart';
 import '../utils/dogInfo_check.dart';
 import '../utils/get_image.dart';
 import '../widget/custom_alert_dialog.dart';
