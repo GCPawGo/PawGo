@@ -150,7 +150,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   ),
                                 ),
                                 Text(
-                                  "Name:",
+                                  "Username:",
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontSize: 2.5 * SizeConfig.textMultiplier!,
@@ -186,7 +186,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   height: 0.5 * SizeConfig.heightMultiplier!,
                                 ),
                                 Text(
-                                  "Breed:",
+                                  "Email:",
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontSize: 2.5 * SizeConfig.textMultiplier!,
@@ -204,7 +204,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   height: 0.5 * SizeConfig.heightMultiplier!,
                                 ),
                                 Text(
-                                  "Hobbies:",
+                                  "About Me:",
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontSize: 2.5 * SizeConfig.textMultiplier!,
@@ -221,33 +221,6 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                 ) :
                                 Text(
                                   DogsList.instance!.dogsList[index].dogHobby,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 2.2 * SizeConfig.textMultiplier!,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 0.5 * SizeConfig.heightMultiplier!,
-                                ),
-                                Text(
-                                  "Personality:",
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 2.5 * SizeConfig.textMultiplier!,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                                DogsList.instance!.dogsList[index].dogPersonality == "What's your dog's personality?"
-                                    ?
-                                Text(
-                                  " - ",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 2.2 * SizeConfig.textMultiplier!,
-                                  ),
-                                ) :
-                                Text(
-                                  DogsList.instance!.dogsList[index].dogPersonality,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
