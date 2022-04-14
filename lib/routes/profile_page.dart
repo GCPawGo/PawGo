@@ -351,7 +351,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 3 * SizeConfig.heightMultiplier!),
+              padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
               child: Text(
                 "User's Profile",
                 style: TextStyle(
@@ -359,6 +359,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     fontWeight: FontWeight.bold,
                     fontSize: 3 * SizeConfig.textMultiplier!),
               ),
+            ),
+            SizedBox(
+              height: 2 * SizeConfig.heightMultiplier!,
             ),
             Container(
               decoration: BoxDecoration(
@@ -621,7 +624,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 height: 1 * SizeConfig.heightMultiplier!,
                               ),
                               Text(
-                                "Bread:",
+                                "Breed:",
                                 style: TextStyle(
                                   color: Colors.black54,
                                   fontSize: 2.5 * SizeConfig.textMultiplier!,
