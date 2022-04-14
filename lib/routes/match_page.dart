@@ -41,7 +41,8 @@ class MatchPages extends StatefulWidget {
 
 class _MatchPagesState extends State<MatchPages> {
   List<CardUser> cardUserList = [];
-  late bool matchChecked = false;
+  bool matchChecked = false;
+  bool check = true;
 
   @override
   void initState() {
@@ -110,32 +111,36 @@ class _MatchPagesState extends State<MatchPages> {
         child: ListBody(
           children: <Widget>[
             Text(
-              "Swipe the pictures right or left.\n\nTap on the pictures to reveal details.",
+              "Swipe the pictures right or left.\n\nTap on the pictures to reveal details.\n\nWaiting for loading...\n",
               style: TextStyle(color: Colors.black),
               textAlign: TextAlign.center,
             ),
           ],
         ),
       ),
-      actions: <Widget>[
-        TextButton(
-          child: Text(
-            'OK',
-            style: TextStyle(color: CustomColors.pawrange),
-          ),
-          onPressed: () {
-            matchChecked = true;
-            setState(() {
-
-            });
-          },
-        ),
-      ],
+      // actions: <Widget>[
+      //   TextButton(
+      //     child: Text(
+      //       'OK',
+      //       style: TextStyle(color: CustomColors.pawrange),
+      //     ),
+      //     onPressed: () {
+      //       matchChecked = true;
+      //       setState(() {
+      //
+      //       });
+      //     },
+      //   ),
+      // ],
     );
   }
 
   Widget buildCards() {
     cardUserList = Provider.of<CardProvider>(context).cardUserList;
+
+    if(cardUserList.length == 5) {
+      matchChecked = true;
+    }
 
     return !matchChecked
     ? Container(
@@ -173,57 +178,72 @@ class _MatchPagesState extends State<MatchPages> {
     final isLike = status == CardStatus.like;
     final isDislike = status == CardStatus.dislike;
 
-    return cardUserList.isEmpty
-         ? ElevatedButton(
-            onPressed: () {
-              provider.resetUsers();
-            },
-            child: Text("Restart"),
-            style: ButtonStyle(
-                fixedSize: MaterialStateProperty.all(
-                    Size(125, 35)),
-                backgroundColor: MaterialStateProperty.all(
-                    CustomColors.pawrange),
-                shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            18.0)))),
-              )
-        : Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-              style: ButtonStyle(
-                foregroundColor:
-                getColor(Colors.red, Colors.white, isDislike),
-                backgroundColor:
-                getColor(Colors.white, Colors.red, isDislike),
-                side: getBorder(Colors.red, Colors.white, isDislike),
-              ),
-              child: Icon(Icons.clear, size: 40),
-              onPressed: () {
-                final provider =
-                Provider.of<CardProvider>(context, listen: false);
+    if(cardUserList.length == 5) {
+      setState(() {
+        check = false;
+      });
+    }
 
-                provider.dislike();
-              },
-            ),
+    return cardUserList.length != 5 && check
+         ? CircularProgressIndicator(
+      valueColor: new AlwaysStoppedAnimation<Color>(CustomColors.pawrange),
+    ) :
+            cardUserList.isEmpty && !check ?
             ElevatedButton(
-              style: ButtonStyle(
-                foregroundColor: getColor(Colors.green, Colors.white, isLike),
-                backgroundColor: getColor(Colors.white, Colors.green, isLike),
-                side: getBorder(Colors.green, Colors.white, isLike),
-              ),
-              child: Icon(Icons.favorite, size: 40),
               onPressed: () {
-                final provider =
-                Provider.of<CardProvider>(context, listen: false);
+                setState(() {
+                  check = true;
+                  matchChecked = false;
+                });
 
-                provider.like();
+                provider.resetUsers();
               },
-            ),
-      ],
-    );
+              child: Text("Restart"),
+              style: ButtonStyle(
+                  fixedSize: MaterialStateProperty.all(
+                      Size(125, 35)),
+                  backgroundColor: MaterialStateProperty.all(
+                      CustomColors.pawrange),
+                  shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              18.0)))),
+            ) :
+            Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                style: ButtonStyle(
+                  foregroundColor:
+                  getColor(Colors.red, Colors.white, isDislike),
+                  backgroundColor:
+                  getColor(Colors.white, Colors.red, isDislike),
+                  side: getBorder(Colors.red, Colors.white, isDislike),
+                ),
+                child: Icon(Icons.clear, size: 40),
+                onPressed: () {
+                  final provider =
+                  Provider.of<CardProvider>(context, listen: false);
+
+                  provider.dislike();
+                },
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  foregroundColor: getColor(Colors.green, Colors.white, isLike),
+                  backgroundColor: getColor(Colors.white, Colors.green, isLike),
+                  side: getBorder(Colors.green, Colors.white, isLike),
+                ),
+                child: Icon(Icons.favorite, size: 40),
+                onPressed: () {
+                  final provider =
+                  Provider.of<CardProvider>(context, listen: false);
+
+                  provider.like();
+                },
+              ),
+            ],
+          );
   }
 
   MaterialStateProperty<Color> getColor(
