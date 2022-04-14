@@ -8,6 +8,7 @@ import 'package:pawgo/utils/card_provider.dart';
 import 'package:pawgo/widget/tinder_card.dart';
 
 import '../models/cardUser.dart';
+import 'match_favourite_page.dart';
 
 class MatchPage extends StatelessWidget {
 
@@ -35,6 +36,8 @@ class MatchPage extends StatelessWidget {
 }
 
 class MatchPages extends StatefulWidget {
+  MatchPages({Key? key}) : super(key: key);
+
   @override
   _MatchPagesState createState() => _MatchPagesState();
 }
@@ -247,9 +250,17 @@ class _MatchPagesState extends State<MatchPages> {
         child: InkWell(
           splashColor: CustomColors.pawrange, // inkwell color
           child: SizedBox(width: 36, height: 36, child: Icon(Icons.favorite_sharp, color: Colors.red, size: 24.0)),
-          onTap: () {
-            // TODO to the like page
+          onTap: () async{
+              // TODO: To add dog's data grab from MongoDB
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => MatchFavouritePage(
+                  ),
+                ),
+              ).then((data) {
 
+              });
           },
         ),
       ),
