@@ -114,7 +114,7 @@ class CardProvider extends ChangeNotifier {
     _angle = 20;
     _position += Offset(2 * _screenSize.width, 0);
     _nextCard();
-
+    print("like");
     notifyListeners();
   }
 

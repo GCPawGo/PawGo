@@ -77,7 +77,7 @@ class _MatchPagesState extends State<MatchPages> {
                   //   color: Colors.white,
                   //   size: 36,
                   // ),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: 110),
                   Text(
                     'PawGo',
                     style: TextStyle(
@@ -87,12 +87,14 @@ class _MatchPagesState extends State<MatchPages> {
                       color: Colors.white,
                     ),
                   ),
+                  const SizedBox(width: 80),
+                  buildLikeButtons(),
                 ],
               ),
               const SizedBox(height: 5),
               Expanded(child: buildCards()),
               const SizedBox(height: 5),
-              buildButtons(),
+              buildButtons()
             ],
           ),
         ),
@@ -118,20 +120,6 @@ class _MatchPagesState extends State<MatchPages> {
           ],
         ),
       ),
-      // actions: <Widget>[
-      //   TextButton(
-      //     child: Text(
-      //       'OK',
-      //       style: TextStyle(color: CustomColors.pawrange),
-      //     ),
-      //     onPressed: () {
-      //       matchChecked = true;
-      //       setState(() {
-      //
-      //       });
-      //     },
-      //   ),
-      // ],
     );
   }
 
@@ -173,7 +161,6 @@ class _MatchPagesState extends State<MatchPages> {
 
   Widget buildButtons() {
     final provider = Provider.of<CardProvider>(context);
-    // cardUserList = Provider.of<CardProvider>(context).cardUserList;
     final status = provider.getStatus();
     final isLike = status == CardStatus.like;
     final isDislike = status == CardStatus.dislike;
@@ -244,6 +231,22 @@ class _MatchPagesState extends State<MatchPages> {
               ),
             ],
           );
+  }
+
+  Widget buildLikeButtons() {
+    return ClipOval(
+      child: Material(
+        color: Colors.white, // button color
+        child: InkWell(
+          splashColor: CustomColors.pawrange, // inkwell color
+          child: SizedBox(width: 36, height: 36, child: Icon(Icons.favorite, color: Colors.pink, size: 24.0)),
+          onTap: () {
+            // TODO to the like page
+            
+          },
+        ),
+      ),
+    );
   }
 
   MaterialStateProperty<Color> getColor(

@@ -1,10 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/models/currentUser.dart';
-import 'package:pawgo/models/dogsList.dart';
-import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 import 'package:provider/provider.dart';
 import 'package:pawgo/models/cardUser.dart';
@@ -114,7 +111,6 @@ class _TinderCardState extends State<TinderCard> {
                   width: 44 * SizeConfig.widthMultiplier!,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      // image: NetworkImage(widget.user.urlImage),
                       image: NetworkImage(cardUser.userImage),
                       fit: BoxFit.cover,
                       // alignment: Alignment(-0.3, 0),
