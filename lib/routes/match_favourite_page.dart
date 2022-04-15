@@ -161,7 +161,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   ),
                                 ),
                                 Text(
-                                  DogsList.instance!.dogsList[index].dogName,
+                                  LoggedUser.instance!.username,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -237,6 +237,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                     ],
                   ),
                 ),
+              SizedBox(height: 3 * SizeConfig.heightMultiplier!,),
             ],
           );
         });
