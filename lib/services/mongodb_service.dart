@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:pawgo/models/dog.dart';
+import 'package:pawgo/models/favouriteUser.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import '../models/currentUser.dart';
 
@@ -190,11 +191,46 @@ class MongoDB {
     }
   }
 
+  Future<List<FavouriteUser>?> getFavouriteUserList(String userId) async {
+    var url = Uri.parse(baseUri + '/favouriteUser/getFavouriteUserListByUserId').replace(queryParameters: {'userId': userId});
+
+    var response = await _serverClient.get(url, headers: _headers);
+
+    if (response.statusCode == 200) {
+      var decodedBody = json.decode(response.body) as List;
+
+      List<FavouriteUser> favouriteUserList = [];
+
+      for(int i = 0; i < decodedBody.length; i++) {
+        favouriteUserList.add(FavouriteUser.fromJson(decodedBody[i]));
+      }
+      
+      return favouriteUserList;
+    }else {
+      return null;
+    }
+  }
+
   Future<bool> addFavouriteUser(String userId, String favouriteUserId, String favouriteUserDogId) async {
     var url = Uri.parse(baseUri + '/favouriteUser/addFavouriteUser');
-
-    print(userId + " " + favouriteUserId + " " + favouriteUserDogId);
     
+    var response = await _serverClient.post(
+        url,
+        headers: _headers,
+        body: json.encode({
+          'userId': userId,
+          'favouriteUserId': favouriteUserId,
+          'favouriteUserDogId': favouriteUserDogId}));
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> removeFavouriteUser(String userId, String favouriteUserId, String favouriteUserDogId) async {
+    var url = Uri.parse(baseUri + '/dogs/removeFavouriteUser');
     var response = await _serverClient.post(
         url,
         headers: _headers,

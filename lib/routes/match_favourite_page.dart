@@ -6,6 +6,7 @@ import 'package:pawgo/utils/mobile_library.dart';
 
 import '../assets/custom_colors.dart';
 import '../models/dogsList.dart';
+import '../services/mongodb_service.dart';
 
 class MatchFavouritePage extends StatefulWidget {
   String? data;
@@ -21,6 +22,18 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
   _MatchFavouritePageState({this.data});
 
   bool _alreadyClicked = false;
+
+  Future<void> getFavouriteUserList() async {
+    setState(() {
+    });
+    await MongoDB.instance.getFavouriteUserList(LoggedUser.instance!.userId);
+  }
+
+  @override
+  void initState() {
+    this.getFavouriteUserList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -282,7 +295,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                                         onPressed: () async {
                                                           buttonUpdate(context);
                                                           print("remove");
-                                                          // await removeFavouriteUser();
+                                                          // await removeFavouriteUser(userId, favouriteUserId, favouriteUserDogId);
                                                         },
                                                       ),
                                                       TextButton(
