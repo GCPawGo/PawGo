@@ -190,26 +190,23 @@ class MongoDB {
     }
   }
 
-  Future<void> addFavouriteUser(String userId, String favouriteUserId, String favouriteUserDogId) async {
+  Future<bool> addFavouriteUser(String userId, String favouriteUserId, String favouriteUserDogId) async {
     var url = Uri.parse(baseUri + '/favouriteUser/addFavouriteUser');
 
     print(userId + " " + favouriteUserId + " " + favouriteUserDogId);
     
-    // var response = await _serverClient.post(
-    //     url,
-    //     headers: _headers,
-    //     body: json.encode({
-    //       'userId': userId,
-    //       'favouriteUserId': favouriteUserId,
-    //       'favouriteUserDogId': favouriteUserDogId}));
+    var response = await _serverClient.post(
+        url,
+        headers: _headers,
+        body: json.encode({
+          'userId': userId,
+          'favouriteUserId': favouriteUserId,
+          'favouriteUserDogId': favouriteUserDogId}));
 
-    // if (response.statusCode == 200) {
-    //   var decodedBody = json.decode(response.body);
-    //   Dog dog = Dog.fromJson(decodedBody);
-    //   print(dog.id);
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -16,8 +16,18 @@ app.post('/addFavouriteUser', async (req, res) => {
         favouriteUserDogId: favouriteUser.favouriteUserDogId,
     })
 
-    await newfavouriteUser.save()
-    res.send({msg: "Successfully add favourite user"})
+    const oldFavouriteUser = await FavouriteUserModel.findOne({
+        userId: favouriteUser.userId,
+        favouriteUserId: favouriteUser.favouriteUserId,
+        favouriteUserDogId: favouriteUser.favouriteUserDogId,
+    })
+
+    if(oldFavouriteUser) {
+        res.send({msg: "Duplicate addition"})
+    }else {
+        await newfavouriteUser.save()
+        res.send({msg: "Successfully add favourite user"})
+    }
 });
 
 app.get('/getFavouriteUserListByUserId', async (req, res) => {
