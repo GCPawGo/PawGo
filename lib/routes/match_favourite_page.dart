@@ -6,6 +6,7 @@ import 'package:pawgo/utils/mobile_library.dart';
 
 import '../assets/custom_colors.dart';
 import '../models/dogsList.dart';
+import '../models/favouriteUser.dart';
 import '../services/mongodb_service.dart';
 
 class MatchFavouritePage extends StatefulWidget {
@@ -18,15 +19,24 @@ class MatchFavouritePage extends StatefulWidget {
 
 class _MatchFavouritePageState extends State<MatchFavouritePage> {
   String? data;
-
   _MatchFavouritePageState({this.data});
 
+  List<FavouriteUser>? favouriteUserList = [];
   bool _alreadyClicked = false;
 
   Future<void> getFavouriteUserList() async {
     setState(() {
     });
-    await MongoDB.instance.getFavouriteUserList(LoggedUser.instance!.userId);
+    favouriteUserList = await MongoDB.instance.getFavouriteUserList(LoggedUser.instance!.userId);
+    if(favouriteUserList != null) {
+      for(int i = 0; i < favouriteUserList!.length; i++) {
+        // TODO use firebase with favouriteUserId find user info
+
+        // TODO use firebase with favouriteUserDogId find dog image
+
+        // TODO create favouriteUserInfo model and put all the retrieved data above to store in favouriteUserInfoList
+      }
+    }
   }
 
   @override

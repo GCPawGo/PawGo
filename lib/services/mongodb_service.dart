@@ -204,7 +204,7 @@ class MongoDB {
       for(int i = 0; i < decodedBody.length; i++) {
         favouriteUserList.add(FavouriteUser.fromJson(decodedBody[i]));
       }
-      
+
       return favouriteUserList;
     }else {
       return null;
