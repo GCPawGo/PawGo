@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pawgo/models/currentUser.dart';
+import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 
 import '../assets/custom_colors.dart';
@@ -72,11 +74,11 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
+                    padding: EdgeInsets.only(top: 5 * SizeConfig.heightMultiplier!),
                     child: Text(
-                      'Liked user',
+                      'Users Like Me',
                       style: TextStyle(
-                        fontSize: 7 * SizeConfig.textMultiplier!,
+                        fontSize: 6 * SizeConfig.textMultiplier!,
                         fontFamily: 'pawfont',
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -98,9 +100,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
         itemBuilder: (BuildContext context, int index) {
           return Column(
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Container(
+                Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     color: Colors.grey.shade200,
@@ -111,28 +111,31 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                   child: Column(
                     children: [
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(0 * SizeConfig.heightMultiplier!),
+                            padding: EdgeInsets.only(top: 5 * SizeConfig.heightMultiplier!,
+                            bottom: 5 * SizeConfig.heightMultiplier!),
                             child: Column(
                               children: [
-                                Padding(
-                                padding: EdgeInsets.all(5 * SizeConfig.heightMultiplier!),
-                                  child: Row(
+                                // Padding(
+                                //   padding: EdgeInsets.all(5 * SizeConfig.heightMultiplier!),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.all(1.5),
-                                          child: Container(
-                                            height: 40 * SizeConfig.heightMultiplier!,
-                                            width: 30 * SizeConfig.widthMultiplier!,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(DogsList.instance!.dogsList[index].imageUrl),
-                                                fit: BoxFit.cover,
-                                                // alignment: Alignment(-0.3, 0),
-                                              ),
+                                        child: Container(
+                                          height: 40 * SizeConfig.heightMultiplier!,
+                                          width: 30 * SizeConfig.widthMultiplier!,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(LoggedUser.instance!.image.url),
+                                              fit: BoxFit.cover,
+                                              // alignment: Alignment(-0.3, 0),
                                             ),
                                           ),
+                                        ),
                                       ),
                                       Container(
                                         height: 40 * SizeConfig.heightMultiplier!,
@@ -148,7 +151,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                       ),
                                     ],
                                   ),
-                                ),
+                                // ),
                                 Text(
                                   "Username:",
                                   style: TextStyle(
@@ -176,7 +179,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   ),
                                 ),
                                 Text(
-                                  DogsList.instance!.dogsList[index].dogAge,
+                                  CurrentUser.instance!.userAge,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -194,7 +197,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   ),
                                 ),
                                 Text(
-                                  DogsList.instance!.dogsList[index].dogBreed,
+                                  LoggedUser.instance!.mail,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -211,7 +214,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),
-                                DogsList.instance!.dogsList[index].dogHobby == "What's your dog's hobbies?" ?
+                                CurrentUser.instance!.userDesc == "Update your desc here" ?
                                 Text(
                                   " - ",
                                   style: TextStyle(
@@ -220,7 +223,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   ),
                                 ) :
                                 Text(
-                                  DogsList.instance!.dogsList[index].dogHobby,
+                                  CurrentUser.instance!.userDesc,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -234,10 +237,8 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                     ],
                   ),
                 ),
-              ),
             ],
           );
         });
   }
 }
-

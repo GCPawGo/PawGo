@@ -208,7 +208,32 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         userinfo(),
                         Divider(
-                          color: Colors.grey,
+                          color: Colors.white,
+                        ),
+                          Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Column(
+                            children: [
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            buildLikeButtons(),
+                                            const SizedBox(width: 5),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(
                           height: 3 * SizeConfig.heightMultiplier!,
@@ -231,42 +256,16 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 3 * SizeConfig.heightMultiplier!),
+                  padding: EdgeInsets.only(top: 1 * SizeConfig.heightMultiplier!),
                   child: Text(
                     "Home page",
                     style: TextStyle(
-                      fontSize: 7 * SizeConfig.textMultiplier!,
+                      fontSize: 5 * SizeConfig.textMultiplier!,
                       fontFamily: 'pawfont',
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(0),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    buildLikeButtons(),
-                                    const SizedBox(width: 5),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  //),
                 ),
               ],
             )
@@ -275,14 +274,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildLikeButtons() {
-    return ClipOval(
-      child: Material(
-        color: Colors.white, // button color
-        child: InkWell(
-          splashColor: CustomColors.pawrange, // inkwell color
-          child: SizedBox(width: 36, height: 36, child: Icon(Icons.favorite_sharp, color: Colors.red, size: 24.0)),
-          onTap: () async{
-            // TODO: To add dog's data grab from MongoDB
+    return Container(
+      child: ElevatedButton(
+          onPressed: () async {
             Navigator.push(
               context,
               CupertinoPageRoute(
@@ -293,7 +287,34 @@ class _HomePageState extends State<HomePage> {
 
             });
           },
-        ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Users Liked Me", style: TextStyle(fontSize: 2.2 * SizeConfig.textMultiplier!),),
+              SizedBox(width: 2 * SizeConfig.widthMultiplier!),
+              ClipOval(
+                child: Material(
+                  color: Colors.white, // button color
+                  child: InkWell(
+                    splashColor: CustomColors.pawrange, // inkwell color
+                    child: SizedBox(width: 30, height: 30, child: Icon(Icons.favorite_sharp, color: Colors.red, size: 20.0)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          style: ButtonStyle(
+              fixedSize: MaterialStateProperty.all(
+                  Size(200, 35)),
+              backgroundColor: MaterialStateProperty
+                  .all(
+                  CustomColors.pawrange),
+              shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0)
+                  )
+              )
+          ),
       ),
     );
   }

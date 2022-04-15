@@ -9,7 +9,7 @@ import 'package:pawgo/models/loggedUser.dart';
 import '../models/dog.dart';
 import '../services/mongodb_service.dart';
 
-enum CardStatus { like, dislike, superLike }
+enum CardStatus { like, dislike }
 
 class CardProvider extends ChangeNotifier {
   List<CardUser> _cardUserList = [];

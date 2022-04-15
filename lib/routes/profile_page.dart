@@ -326,7 +326,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         userInfo(),
                         Divider(
-                          color: Colors.grey,
+                          color: Colors.white,
                         ),
                         dogsInfo(),
                         SizedBox(
@@ -478,12 +478,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 height: 1 * SizeConfig.heightMultiplier!,
                               ),
                             Container(
-                              // decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                              // color: Colors.grey.shade200,
-                              // border: Border.all(
-                              // color: Colors.black26.withOpacity(0.1),),
-                              // ),
                               child: (userDesc != "Update your desc here")
                                   ? Padding(
                                 padding: EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
