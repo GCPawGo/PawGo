@@ -1,6 +1,9 @@
 import 'package:background_location/background_location.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pawgo/models/currentUser.dart';
+import 'package:pawgo/models/dogsList.dart';
+import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:location/location.dart' as loc;
@@ -37,8 +40,7 @@ class MapPage extends StatefulWidget {
   _MapPageState createState() => _MapPageState();
 }
 
-class _MapPageState extends State<MapPage>
-    with OSMMixinObserver, WidgetsBindingObserver {
+class _MapPageState extends State<MapPage> {
   final MapController controller = MapController(initMapWithUserPosition: true);
   bool _hasPermissions = false;
   bool _isRecording = false;
@@ -48,6 +50,7 @@ class _MapPageState extends State<MapPage>
   RoadInfo? _roadInfo;
   OSMFlutter? map;
   Location? currentLocation;
+  LoggedUser _miUser = LoggedUser.instance!;
 
   @override
   Future<void> mapIsReady(bool isReady) async {
@@ -100,8 +103,8 @@ class _MapPageState extends State<MapPage>
   @override
   void initState() {
     super.initState();
-    controller.addObserver(this);
-    WidgetsBinding.instance?.addObserver(this);
+    // controller.addObserver(this);
+    // WidgetsBinding.instance?.addObserver(this);
     getLocationPermission();
   }
 
@@ -109,7 +112,7 @@ class _MapPageState extends State<MapPage>
   void dispose() {
     BackgroundLocation.stopLocationService();
     controller.dispose();
-    WidgetsBinding.instance?.removeObserver(this);
+    // WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 
@@ -129,6 +132,7 @@ class _MapPageState extends State<MapPage>
     if (map == null && _hasPermissions) {
       map = OSMFlutter(
         controller: controller,
+        trackMyPosition: true,
         mapIsLoading: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -141,14 +145,14 @@ class _MapPageState extends State<MapPage>
         minZoomLevel: 8,
         maxZoomLevel: 19,
         stepZoom: 1.0,
-        //key: widget.key,
+        key: widget.key,
         androidHotReloadSupport: true,
         userLocationMarker: UserLocationMaker(
           personMarker: MarkerIcon(
             icon: Icon(
-              Icons.location_history_rounded,
-              color: Colors.red,
-              size: 80,
+              markerdog.icon,
+              color: Colors.deepOrange,
+              size: 90,
             ),
           ),
           directionArrowMarker: MarkerIcon(
@@ -158,40 +162,26 @@ class _MapPageState extends State<MapPage>
             ),
           ),
         ),
-        showContributorBadgeForOSM: false,
-        showDefaultInfoWindow: false,
-        onGeoPointClicked: (geoPoint) async {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "${geoPoint.toMap().toString()}",
-              ),
-              action: SnackBarAction(
-                onPressed: () =>
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-                label: "hide",
-              ),
-            ),
-          );
-        },
-        markerOption: MarkerOption(
-          defaultMarker: MarkerIcon(
-            icon: Icon(
-              markerdog.icon,
-              color: Colors.deepOrange,
-              size: 100,
-            ),
-          ),
-          advancedPickerMarker: MarkerIcon(
-            icon: Icon(
-              markerdog.icon,
-              color: Colors.green,
-              size: 100,
-            ),
-          ),
-        ),
-      );
-    }
+          showContributorBadgeForOSM: false,
+          showDefaultInfoWindow: false,
+          // TODO: To implement at some point to show user's profile once tapped on the icon
+          // onGeoPointClicked: (geoPoint) async {
+          //   ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(
+          //       content: Text(
+          //         "${geoPoint.toMap().toString()}",
+          //       ),
+          //       action: SnackBarAction(
+          //         onPressed: () =>
+          //             ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+          //         label: "hide",
+          //       ),
+          //     ),
+          //   );
+          // },
+        );
+      }
+
     Size size = MediaQuery.of(context).size;
     return _hasPermissions
         ? Scaffold(

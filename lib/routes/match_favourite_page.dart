@@ -289,7 +289,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                                       child: ListBody(
                                                         children: <Widget>[
                                                           Text(
-                                                            "Are you sure you want to remove this user?",
+                                                            "Are you sure you want to remove " + LoggedUser.instance!.username + "?",
                                                             textAlign: TextAlign.center,
                                                             style: TextStyle(color: Colors.black),
                                                           ),

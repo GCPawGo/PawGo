@@ -115,7 +115,7 @@ class _MatchPagesState extends State<MatchPages> {
         child: ListBody(
           children: <Widget>[
             Text(
-              "Swipe the pictures right or left.\n\nTap on the pictures to reveal details.\n\nWaiting for loading...\n",
+              "Swipe the pictures right or left.\n\nTap on the pictures to reveal details.\n\nMatch Page is loading...\n",
               style: TextStyle(color: Colors.black),
               textAlign: TextAlign.center,
             ),
