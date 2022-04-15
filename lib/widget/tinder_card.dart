@@ -94,7 +94,7 @@ class _TinderCardState extends State<TinderCard> {
         onPanEnd: (details) {
           final provider = Provider.of<CardProvider>(context, listen: false);
 
-          provider.endPosition();
+          provider.endPosition(cardUser.userId, cardUser.dog.id);
         },
       );
 

@@ -8,7 +8,6 @@ import 'package:pawgo/utils/card_provider.dart';
 import 'package:pawgo/widget/tinder_card.dart';
 
 import '../models/cardUser.dart';
-import 'match_favourite_page.dart';
 
 class MatchPage extends StatelessWidget {
 
@@ -229,7 +228,7 @@ class _MatchPagesState extends State<MatchPages> {
           final provider =
           Provider.of<CardProvider>(context, listen: false);
 
-          provider.like();
+          provider.like(cardUserList[cardUserList.length - 1].userId, cardUserList[cardUserList.length - 1].dog.id);
           },
         ),
       ],

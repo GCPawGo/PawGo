@@ -44,7 +44,7 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void endPosition() {
+  void endPosition(String favouriteUserId, String favouriteUserDogId) {
     _isDragging = false;
     notifyListeners();
 
@@ -52,7 +52,7 @@ class CardProvider extends ChangeNotifier {
 
     switch (status) {
       case CardStatus.like:
-        like();
+        like(favouriteUserId, favouriteUserDogId);
         break;
       case CardStatus.dislike:
         dislike();
@@ -110,11 +110,13 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void like() {
+  void like(String favouriteUserId, String favouriteUserDogId) {
     _angle = 20;
     _position += Offset(2 * _screenSize.width, 0);
     _nextCard();
-    print("like");
+
+    this.addFavouriteUser(favouriteUserId, favouriteUserDogId);
+
     notifyListeners();
   }
 
@@ -156,6 +158,10 @@ class CardProvider extends ChangeNotifier {
         });
       }
     });
+  }
+
+  Future<void> addFavouriteUser(String favouriteUserId, String favouriteUserDogId) async {
+      await MongoDB.instance.addFavouriteUser(LoggedUser.instance!.userId, favouriteUserId, favouriteUserDogId);
   }
 
   // CardUser(
