@@ -20,6 +20,8 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
 
   _MatchFavouritePageState({this.data});
 
+  bool _alreadyClicked = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -229,6 +231,81 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
                                   ),
                                 ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 1 * SizeConfig.heightMultiplier!),
+                                  child: AnimatedSwitcher(
+                                    duration: Duration(milliseconds: 250),
+                                    child: AnimatedSwitcher(
+                                      duration: Duration(milliseconds: 250),
+                                      child: ElevatedButton(
+                                          child: Text("Remove User"),
+                                          style: ButtonStyle(
+                                            fixedSize: MaterialStateProperty.all(
+                                                Size(200, 35)),
+                                            backgroundColor: MaterialStateProperty.all(
+                                                CustomColors.pawrange),
+                                            shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(18.0))),
+                                          ),
+                                          onPressed: () async{
+                                            if(!_alreadyClicked)
+                                            {
+                                              showDialog<bool>(
+                                                context: context,
+                                                barrierDismissible: false, // user must tap button!
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    backgroundColor: Colors.white,
+                                                    title: Text(
+                                                      "",
+                                                      style: TextStyle(color: Colors.black),
+                                                    ),
+                                                    content: SingleChildScrollView(
+                                                      child: ListBody(
+                                                        children: <Widget>[
+                                                          Text(
+                                                            "Are you sure you want to remove this user?",
+                                                            textAlign: TextAlign.center,
+                                                            style: TextStyle(color: Colors.black),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        child: Text(
+                                                          'YES',
+                                                          style: TextStyle(color: CustomColors.pawrange),
+                                                        ),
+                                                        onPressed: () async {
+                                                          buttonUpdate(context);
+                                                          print("remove");
+                                                          // await removeFavouriteUser();
+                                                        },
+                                                      ),
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            buttonUpdate(context);
+                                                            print("not remove");
+                                                          },
+                                                          child: Text('NO',
+                                                              style: TextStyle(color: CustomColors.pawrange))),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            } else {
+                                              setState(() {
+                                                _alreadyClicked = true;
+                                              });
+                                            }
+                                          }),
+
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -242,4 +319,13 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
           );
         });
   }
+
+  void buttonUpdate(BuildContext context) {
+    Navigator.of(context).pop();
+    setState(() {
+      _alreadyClicked = false;
+    });
+  }
 }
+
+

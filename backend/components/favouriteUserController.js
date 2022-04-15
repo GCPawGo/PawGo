@@ -39,5 +39,28 @@ app.get('/getFavouriteUserListByUserId', async (req, res) => {
     }
 });
 
+app.post('/removeFavouriteUser', async (req, res) => {
+    const userId = req.body.userId;
+    const favouriteUserId = req.body.favouriteUserId;
+    const favouriteUserDogId = req.body.favouriteUserDogId;
+
+    const existUser = await FavouriteUserModel.findOne({
+        userId: userId,
+        favouriteUserId: favouriteUserId,
+        favouriteUserDogId: favouriteUserDogId,
+    })
+
+    if (existUser) {
+        await FavouriteUserModel.findOneAndRemove({
+            userId: userId,
+            favouriteUserId: favouriteUserId,
+            favouriteUserDogId: favouriteUserDogId,
+        })
+        res.send({msg: "Successfully remove the favourite user"})
+    }else {
+        res.send({msg: "Failed to remove the favourite user"})
+    }
+});
+
 module.exports = app;
   
