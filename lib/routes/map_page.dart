@@ -157,8 +157,8 @@ class _MapPageState extends State<MapPage> {
           ),
           directionArrowMarker: MarkerIcon(
             icon: Icon(
-              Icons.double_arrow,
-              size: 48,
+              markerdog.icon,
+              size: 90,
             ),
           ),
         ),
