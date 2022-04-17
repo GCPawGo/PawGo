@@ -50,6 +50,8 @@ dependencies:
   progress_indicators: ^1.0.0
   background_location: ^0.8.1
   provider: ^6.0.2
+  grouped_list: ^4.2.0
+  intl: ^0.17.0
 #  cupertino_icons: ^1.0.3
 #  intl: ^0.17.0
 #  convert: ^3.0.1
