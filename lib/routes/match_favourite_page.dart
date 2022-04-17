@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/models/currentUser.dart';
 import 'package:pawgo/models/loggedUser.dart';
+import 'package:pawgo/routes/chat_page.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 
 import '../assets/custom_colors.dart';
@@ -252,6 +253,36 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 1 * SizeConfig.heightMultiplier!),
+                                  child: AnimatedSwitcher(
+                                    duration: Duration(milliseconds: 250),
+                                    child: AnimatedSwitcher(
+                                      duration: Duration(milliseconds: 250),
+                                      child: ElevatedButton(
+                                          child: Text("Chat"),
+                                          style: ButtonStyle(
+                                            fixedSize: MaterialStateProperty.all(
+                                                Size(200, 35)),
+                                            backgroundColor: MaterialStateProperty.all(
+                                                CustomColors.pawrange),
+                                            shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(18.0))),
+                                          ),
+                                          onPressed: () async {
+                                            Navigator.push(context, CupertinoPageRoute(
+                                            builder: (context) => ChatPage(),
+                                            ));
+                                            // setState(() {
+                                            //
+                                            // });
+                                          },
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 Padding(

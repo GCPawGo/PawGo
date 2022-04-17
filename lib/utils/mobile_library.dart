@@ -18,6 +18,7 @@ import 'package:pawgo/routes/profile_editing.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/routes/dogs_profile_edit.dart';
 
+import '../routes/chat_page.dart';
 import '../routes/homepage.dart';
 import '../routes/map_page.dart';
 import '../routes/match_page.dart';
@@ -42,6 +43,7 @@ class Conditional {
     '/homepage': (context) => HomePage(),
     '/map_page': (context) => MapPage(),
     '/search_page': (context) => DogSearchPage(),
-    '/match_page': (context) => MatchPage()
+    '/match_page': (context) => MatchPage(),
+    '/chat_page': (context) => ChatPage()
   };
 }
