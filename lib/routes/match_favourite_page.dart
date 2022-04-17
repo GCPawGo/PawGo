@@ -38,11 +38,15 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
             .where("userId", isEqualTo: favouriteUserList![i].favouriteUserId)
             .get();
         if (querySnapshot.docs.isNotEmpty) {
+          CurrentUser? current = await MongoDB.instance.getUser(querySnapshot.docs[0].get("userId"));
+
           FavouriteUserInfo favouriteUserInfo = FavouriteUserInfo(
             querySnapshot.docs[0].get("userId"),
             querySnapshot.docs[0].get("Username"),
             querySnapshot.docs[0].get("Mail"),
             querySnapshot.docs[0].get("Image"),
+            current!.userAge,
+            current.userDesc,
             "Dog not found."
           );
 
@@ -229,7 +233,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   ),
                                 ),
                                 Text(
-                                  favouriteUserInfoList![index].userName,
+                                  favouriteUserInfoList![index].userAge,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -264,7 +268,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),
-                                CurrentUser.instance!.userDesc == "Update your desc here" ?
+                                favouriteUserInfoList![index].userDesc == "Update your desc here" ?
                                 Text(
                                   " - ",
                                   style: TextStyle(
@@ -273,7 +277,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   ),
                                 ) :
                                 Text(
-                                  CurrentUser.instance!.userDesc,
+                                  favouriteUserInfoList![index].userDesc,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
