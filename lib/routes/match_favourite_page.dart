@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/models/currentUser.dart';
@@ -6,7 +7,7 @@ import 'package:pawgo/routes/chat_page.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 
 import '../assets/custom_colors.dart';
-import '../models/dogsList.dart';
+import '../models/favouriteUserInfo.dart';
 import '../models/favouriteUser.dart';
 import '../services/mongodb_service.dart';
 
@@ -23,26 +24,49 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
   _MatchFavouritePageState({this.data});
 
   List<FavouriteUser>? favouriteUserList = [];
+  List<FavouriteUserInfo>? favouriteUserInfoList = [];
   bool _alreadyClicked = false;
 
   Future<void> getFavouriteUserList() async {
-    setState(() {
-    });
     favouriteUserList = await MongoDB.instance.getFavouriteUserList(LoggedUser.instance!.userId);
+    print(favouriteUserList);
     if(favouriteUserList != null) {
       for(int i = 0; i < favouriteUserList!.length; i++) {
-        // TODO use firebase with favouriteUserId find user info
+        // use firebase with favouriteUserId find user info
+        CollectionReference userCollection = FirebaseFirestore.instance.collection("Users");
+        QuerySnapshot querySnapshot = await userCollection
+            .where("userId", isEqualTo: favouriteUserList![i].favouriteUserId)
+            .get();
+        if (querySnapshot.docs.isNotEmpty) {
+          FavouriteUserInfo favouriteUserInfo = FavouriteUserInfo(
+            querySnapshot.docs[0].get("userId"),
+            querySnapshot.docs[0].get("Username"),
+            querySnapshot.docs[0].get("Mail"),
+            querySnapshot.docs[0].get("Image"),
+            "Dog not found."
+          );
 
-        // TODO use firebase with favouriteUserDogId find dog image
-
-        // TODO create favouriteUserInfo model and put all the retrieved data above to store in favouriteUserInfoList
+          // use firebase with favouriteUserDogId find dog image
+          CollectionReference dogCollection = FirebaseFirestore.instance.collection("Dogs");
+          QuerySnapshot dogQuerySnapshot = await dogCollection
+              .where("dogId", isEqualTo: favouriteUserList![i].favouriteUserDogId)
+              .get();
+          if (dogQuerySnapshot.docs.isNotEmpty) {
+            favouriteUserInfo.dogImage = dogQuerySnapshot.docs[0].get("Image");
+            favouriteUserInfoList?.add(favouriteUserInfo);
+          }else {
+            continue;
+          }
+        }
       }
     }
+    setState(() {});
   }
 
   @override
   void initState() {
-    this.getFavouriteUserList();
+    getFavouriteUserList();
+
     super.initState();
   }
 
@@ -92,7 +116,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
 
   Widget usersInfo() {
     return Container(
-        child: DogsList.instance!.dogsList.isEmpty
+        child: favouriteUserInfoList!.isEmpty
             ? SizedBox()
             : Container(
           padding: EdgeInsets.all(30),
@@ -120,7 +144,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
 
   Widget displayInfo() {
     return ListView.builder(
-        itemCount: DogsList.instance!.dogsList.length,
+        itemCount: favouriteUserInfoList!.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
@@ -156,7 +180,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                           width: 30 * SizeConfig.widthMultiplier!,
                                           decoration: BoxDecoration(
                                             image: DecorationImage(
-                                              image: NetworkImage(LoggedUser.instance!.image.url),
+                                              image: NetworkImage(favouriteUserInfoList![index].userImage),
                                               fit: BoxFit.cover,
                                               // alignment: Alignment(-0.3, 0),
                                             ),
@@ -169,7 +193,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             // image: NetworkImage(widget.user.urlImage),
-                                            image: NetworkImage(DogsList.instance!.dogsList[index].imageUrl),
+                                            image: NetworkImage(favouriteUserInfoList![index].dogImage),
                                             fit: BoxFit.cover,
                                             // alignment: Alignment(-0.3, 0),
                                           ),
@@ -187,7 +211,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   ),
                                 ),
                                 Text(
-                                  LoggedUser.instance!.username,
+                                  favouriteUserInfoList![index].userName,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -205,7 +229,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   ),
                                 ),
                                 Text(
-                                  CurrentUser.instance!.userAge,
+                                  favouriteUserInfoList![index].userName,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -223,7 +247,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                   ),
                                 ),
                                 Text(
-                                  LoggedUser.instance!.mail,
+                                  favouriteUserInfoList![index].userMail,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -336,6 +360,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                                         onPressed: () async {
                                                           buttonUpdate(context);
                                                           print("remove");
+                                                          // TODO remove user
                                                           // await removeFavouriteUser(userId, favouriteUserId, favouriteUserDogId);
                                                         },
                                                       ),
