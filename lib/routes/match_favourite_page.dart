@@ -64,7 +64,8 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
         }
       }
     }
-    setState(() {});
+    setState(() {
+    });
   }
 
   @override
@@ -120,9 +121,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
 
   Widget usersInfo() {
     return Container(
-        child: favouriteUserInfoList!.isEmpty
-            ? SizedBox()
-            : Container(
+        child: Container(
           padding: EdgeInsets.all(30),
           child: SingleChildScrollView(
               child: Column(
@@ -146,8 +145,40 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
     );
   }
 
+  checkLoading() {
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      title: Text(
+        "Hint",
+        style: TextStyle(color: Colors.black),
+      ),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: <Widget>[
+            Text(
+              "You can interact with the users you like here!\n\nClick on the ""\"Chat\" button to start your first chat\n\nYour liked users is loading...\n",
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget displayInfo() {
-    return ListView.builder(
+    return favouriteUserInfoList!.isEmpty
+        ? Container(
+            child: Column(
+            children: [
+              SizedBox(
+                height: 15 * SizeConfig.heightMultiplier!,
+              ),
+              checkLoading(),
+            ],
+          ),
+        )
+        :ListView.builder(
         itemCount: favouriteUserInfoList!.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
