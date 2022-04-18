@@ -273,6 +273,8 @@ class _HomePageState extends State<HomePage> {
       );
   }
 
+  String loadingCheck = "firstCheck";
+
   Widget buildLikeButtons() {
     return Container(
       child: ElevatedButton(
@@ -281,10 +283,11 @@ class _HomePageState extends State<HomePage> {
               context,
               CupertinoPageRoute(
                 builder: (context) => MatchFavouritePage(
+                  data: loadingCheck,
                 ),
               ),
             ).then((data) {
-
+              loadingCheck = "secondCheck";
             });
           },
           child: Row(

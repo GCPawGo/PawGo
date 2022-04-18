@@ -26,7 +26,6 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
   List<FavouriteUser>? favouriteUserList = [];
   List<FavouriteUserInfo>? favouriteUserInfoList = [];
   bool _alreadyClicked = false;
-  bool check = false;
 
   Future<void> getFavouriteUserList() async {
     favouriteUserList = await MongoDB.instance.getFavouriteUserList(LoggedUser.instance!.userId);
@@ -179,7 +178,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                     // Navigator.of(context).pop();
                     // check = true;
                     setState(() {
-                      check = true;
+                      data = "secondCheck";
                     });
                   },
                 ),
@@ -190,7 +189,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
     }
 
   Widget displayInfo() {
-    return !check
+    return data == "firstCheck"
         ? Container(
             child: Column(
             children: [
@@ -201,7 +200,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
             ],
           ),
         )
-        : check ? ListView.builder(
+        : ListView.builder(
         itemCount: favouriteUserInfoList!.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
@@ -454,7 +453,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
               SizedBox(height: 3 * SizeConfig.heightMultiplier!,),
             ],
           );
-        }) : SizedBox();
+        });
   }
 
   void buttonUpdate(BuildContext context) {
