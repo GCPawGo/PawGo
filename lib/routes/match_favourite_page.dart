@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -417,6 +419,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                                         onPressed: () async {
                                                           buttonUpdate(context);
                                                           print("remove");
+                                                          print(Random().nextInt(5).toString());
                                                           // TODO remove user
                                                           // await removeFavouriteUser(userId, favouriteUserId, favouriteUserDogId);
                                                         },

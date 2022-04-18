@@ -13,6 +13,7 @@ enum CardStatus { like, dislike }
 
 class CardProvider extends ChangeNotifier {
   List<CardUser> _cardUserList = [];
+  List<String> addedDogList = [];
   bool _isDragging = false;
   double _angle = 0;
   Offset _position = Offset.zero;
@@ -133,29 +134,72 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Future<void> getCardUser() async {
+  //   CollectionReference usersCollection = FirebaseFirestore.instance.collection("Users");
+  //   await usersCollection
+  //       .get()
+  //       .then((QuerySnapshot querySnapshot) async {
+  //     for(int i = 0; i < querySnapshot.size; i++) {
+  //       // skip if the matchmaking card is yourself
+  //       if (querySnapshot.docs[i].get("userId") == LoggedUser.instance!.userId) continue;
+  //
+  //       // get user dog list and skip if the dog list is empty
+  //       List<Dog>? dogList = await MongoDB.instance.getDogsByUserId(querySnapshot.docs[i].get("userId"));
+  //       if(dogList == null) continue;
+  //
+  //       dogList.forEach((dog) {
+  //         CardUser cardUser = CardUser(
+  //           querySnapshot.docs[i].get("userId"),
+  //           querySnapshot.docs[i].get("Username"),
+  //           "userAge",
+  //           querySnapshot.docs[i].get("Image"),
+  //           "userDesc",
+  //           dog);
+  //         _cardUserList.add(cardUser);
+  //       });
+  //     }
+  //   });
+  // }
+
   Future<void> getCardUser() async {
+    // reset the array for next time use
+    addedDogList = [];
+    _cardUserList = [];
+
     CollectionReference usersCollection = FirebaseFirestore.instance.collection("Users");
     await usersCollection
         .get()
         .then((QuerySnapshot querySnapshot) async {
-      for(int i = 0; i < querySnapshot.size; i++) {
+      for(int i = 0; i < querySnapshot.size; i = Random().nextInt(querySnapshot.size)) {
+        // matchmaking system should only have 5 cards
+        if(_cardUserList.length == 5) break;
+
         // skip if the matchmaking card is yourself
         if (querySnapshot.docs[i].get("userId") == LoggedUser.instance!.userId) continue;
 
         // get user dog list and skip if the dog list is empty
         List<Dog>? dogList = await MongoDB.instance.getDogsByUserId(querySnapshot.docs[i].get("userId"));
+
+        // skip if user do not have dog
         if(dogList == null) continue;
 
-        dogList.forEach((dog) {
-          CardUser cardUser = CardUser(
-            querySnapshot.docs[i].get("userId"),
-            querySnapshot.docs[i].get("Username"),
-            "userAge",
-            querySnapshot.docs[i].get("Image"),
-            "userDesc",
-            dog);
-          _cardUserList.add(cardUser);
-        });
+        for (int j = 0; j < dogList.length; j++) {
+          // continue if the dog has already added
+          if (addedDogList.contains(dogList[j].id)) {
+            continue;
+          } else {
+            CardUser cardUser = CardUser(
+                querySnapshot.docs[i].get("userId"),
+                querySnapshot.docs[i].get("Username"),
+                "userAge",
+                querySnapshot.docs[i].get("Image"),
+                "userDesc",
+                dogList[j]);
+            addedDogList.add(dogList[j].id);
+            _cardUserList.add(cardUser);
+            break;
+          }
+        }
       }
     });
   }

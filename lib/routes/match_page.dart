@@ -203,12 +203,11 @@ class _MatchPagesState extends State<MatchPages> {
     cardUserList.isEmpty && !check ?
     ElevatedButton(
       onPressed: () {
+        provider.resetUsers();
         setState(() {
           check = true;
           matchChecked = false;
         });
-
-        provider.resetUsers();
       },
       child: Text("Restart"),
       style: ButtonStyle(
