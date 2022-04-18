@@ -26,6 +26,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
   List<FavouriteUser>? favouriteUserList = [];
   List<FavouriteUserInfo>? favouriteUserInfoList = [];
   bool _alreadyClicked = false;
+  bool check = false;
 
   Future<void> getFavouriteUserList() async {
     favouriteUserList = await MongoDB.instance.getFavouriteUserList(LoggedUser.instance!.userId);
@@ -146,28 +147,50 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
   }
 
   checkLoading() {
-    return AlertDialog(
-      backgroundColor: Colors.white,
-      title: Text(
-        "Hint",
-        style: TextStyle(color: Colors.black),
-      ),
-      content: SingleChildScrollView(
-        child: ListBody(
-          children: <Widget>[
-            Text(
-              "You can interact with the users you like here!\n\nClick on the ""\"Chat\" button to start your first chat\n\nYour liked users is loading...\n",
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.center,
+      return
+        AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text(
+            "Hint",
+            style: TextStyle(color: Colors.black),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  "You can interact with the users you like here!\n\nClick on the ""\"Chat\" button to start your first chat.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  child: Text(
+                    'OK',
+                    // textAlign: TextAlign.center,
+                    style: TextStyle(color: CustomColors.pawrange),
+                  ),
+                  onPressed: () {
+                    // Navigator.of(context).pop();
+                    // check = true;
+                    setState(() {
+                      check = true;
+                    });
+                  },
+                ),
+              ],
             ),
           ],
-        ),
-      ),
-    );
-  }
+        );
+    }
 
   Widget displayInfo() {
-    return favouriteUserInfoList!.isEmpty
+    return !check
         ? Container(
             child: Column(
             children: [
@@ -178,7 +201,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
             ],
           ),
         )
-        :ListView.builder(
+        : check ? ListView.builder(
         itemCount: favouriteUserInfoList!.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
@@ -379,7 +402,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                                       child: ListBody(
                                                         children: <Widget>[
                                                           Text(
-                                                            "Are you sure you want to remove " + LoggedUser.instance!.username + "?",
+                                                            "Are you sure you want to remove " + favouriteUserInfoList![index].userName + "?",
                                                             textAlign: TextAlign.center,
                                                             style: TextStyle(color: Colors.black),
                                                           ),
@@ -431,7 +454,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
               SizedBox(height: 3 * SizeConfig.heightMultiplier!,),
             ],
           );
-        });
+        }) : SizedBox();
   }
 
   void buttonUpdate(BuildContext context) {
@@ -440,6 +463,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
       _alreadyClicked = false;
     });
   }
+  
 }
 
 

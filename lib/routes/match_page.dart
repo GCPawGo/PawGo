@@ -8,6 +8,7 @@ import 'package:pawgo/utils/card_provider.dart';
 import 'package:pawgo/widget/tinder_card.dart';
 
 import '../models/cardUser.dart';
+import '../widget/custom_alert_dialog.dart';
 
 class MatchPage extends StatelessWidget {
 
@@ -45,6 +46,7 @@ class _MatchPagesState extends State<MatchPages> {
   List<CardUser> cardUserList = [];
   bool matchChecked = false;
   bool check = true;
+  bool _check = false;
 
   @override
   void initState() {
@@ -104,7 +106,7 @@ class _MatchPagesState extends State<MatchPages> {
     ),
   );
 
-  checkMatch() {
+  Widget checkMatch() {
     return AlertDialog(
       backgroundColor: Colors.white,
       title: Text(
@@ -115,13 +117,34 @@ class _MatchPagesState extends State<MatchPages> {
         child: ListBody(
           children: <Widget>[
             Text(
-              "Swipe the pictures right or left.\n\nTap on the pictures to reveal details.\n\nMatch Page is loading...\n",
-              style: TextStyle(color: Colors.black),
+              "Swipe the pictures right or left.\n\nTap on the pictures to reveal details.",
               textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black),
             ),
           ],
         ),
       ),
+      actions: <Widget>[
+      Row(
+       mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+        TextButton(
+          child: Text(
+            'OK',
+            // textAlign: TextAlign.center,
+            style: TextStyle(color: CustomColors.pawrange),
+          ),
+          onPressed: () {
+            // Navigator.of(context).pop();
+            setState(() {
+              matchChecked = true;
+              _check = true;
+            });
+          },
+          ),
+         ],
+        ),
+      ],
     );
   }
 
@@ -132,7 +155,7 @@ class _MatchPagesState extends State<MatchPages> {
       matchChecked = true;
     }
 
-    return !matchChecked
+    return !_check
         ? Container(
       child: checkMatch(),
     )
