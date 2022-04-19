@@ -91,7 +91,6 @@ class _ChatsPageState extends State<ChatPage> {
           )
       ),
       body: Center(
-        // TODO: to add padding somewhere around here
         child: Column(
           children:[
             Expanded(

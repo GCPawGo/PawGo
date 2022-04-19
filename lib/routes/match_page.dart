@@ -142,7 +142,7 @@ class _MatchPagesState extends State<MatchPages> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '💔\nSorry,\nno more users..',
+          '🐾\nRestart\nfor more users',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 30,
