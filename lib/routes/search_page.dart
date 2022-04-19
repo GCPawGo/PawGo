@@ -7,7 +7,7 @@ import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/models/dog.dart';
 import 'package:pawgo/services/mongodb_service.dart';
 import 'package:pawgo/size_config.dart';
-import 'package:pawgo/widget/dogs_search_button.dart';
+import 'package:pawgo/widget/dogs_search_info_cards.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
