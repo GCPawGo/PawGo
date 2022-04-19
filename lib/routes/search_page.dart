@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/assets/custom_colors.dart';
+import 'package:pawgo/models/dogsList.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/models/dog.dart';
 import 'package:pawgo/services/mongodb_service.dart';
@@ -8,6 +10,7 @@ import 'package:pawgo/size_config.dart';
 import 'package:pawgo/widget/dogs_search_button.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class DogSearchPage extends StatefulWidget {
   DogSearchPage({Key? key}) : super(key: key);
@@ -20,7 +23,6 @@ class _DogSearchPageState extends State<DogSearchPage> {
   List<Dog>? foundDogs;
   late bool hasSearched, loading;
   final dogSearchController = TextEditingController();
-  bool loadingTeamDetails=false;
 
   @override
   void initState() {
