@@ -64,6 +64,7 @@ app.post('/updateDogByDogId', async (req, res) => {
 
 app.get('/getDogsByUserId', async (req, res) => {
     const userId = req.query.userId;
+
     if (userId) {
         const user = await UserModel.findOne({ userId: userId })
         res.send(user.userDogs)
@@ -72,6 +73,7 @@ app.get('/getDogsByUserId', async (req, res) => {
 
 app.get('/getDogsByDogId', async (req, res) => {
     const _id = req.query._id;
+
     if (_id) {
         const dog = await DogModel.findOne({ _id: _id })
         res.send(dog)
@@ -80,11 +82,21 @@ app.get('/getDogsByDogId', async (req, res) => {
 
 app.post('/removeDogByDogId', async (req, res) => {
     const dogId = req.body._id;
-    const userId = req.body.userId
+    const userId = req.body.userId;
+
     if (dogId && userId) {
         await UserModel.findOneAndUpdate({ userId: userId }, { $pull: { userDogs: dogId }})
         await DogModel.findByIdAndRemove({ _id: dogId })
         res.send("Successfully remove the dog")
+    }
+});
+
+app.get('/getDogListByDogBreed', async (req, res) => {
+    const dogBreed = req.query.dogBreed;
+
+    if (dogBreed) {
+        const dogList = await DogModel.find({dogBreed: dogBreed})
+        res.send(dogList)
     }
 });
 
