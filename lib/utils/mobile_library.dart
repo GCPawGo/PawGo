@@ -22,6 +22,7 @@ import '../routes/chat_page.dart';
 import '../routes/homepage.dart';
 import '../routes/map_page.dart';
 import '../routes/match_page.dart';
+import '../routes/support_page.dart';
 
 class Conditional {
   Future<void> initFireBase() async {
@@ -44,6 +45,7 @@ class Conditional {
     '/map_page': (context) => MapPage(),
     '/search_page': (context) => DogSearchPage(),
     '/match_page': (context) => MatchPage(),
-    '/chat_page': (context) => ChatPage()
+    '/chat_page': (context) => ChatPage(),
+    '/support_page': (context) => SupportPage()
   };
 }
