@@ -15,9 +15,9 @@ class MongoDB {
   static final MongoDB instance = new MongoDB();
 
   http.Client _serverClient = http.Client();
-  String baseUri = "https://pawgo.herokuapp.com";
+  // String baseUri = "https://pawgo.herokuapp.com";
   // local connection
-  // String baseUri = "http://10.0.2.2:8000";
+  String baseUri = "http://10.0.2.2:8000";
   static var _dateFormatter = DateFormat("yyyy-MM-ddTHH:mm:ss");
 
   Map<String, String> _headers = {
@@ -230,7 +230,7 @@ class MongoDB {
   }
 
   Future<bool> removeFavouriteUser(String userId, String favouriteUserId, String favouriteUserDogId) async {
-    var url = Uri.parse(baseUri + '/dogs/removeFavouriteUser');
+    var url = Uri.parse(baseUri + '/favouriteUser/removeFavouriteUser');
     var response = await _serverClient.post(
         url,
         headers: _headers,

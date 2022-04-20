@@ -15,24 +15,29 @@ import '../services/mongodb_service.dart';
 
 class MatchFavouritePage extends StatefulWidget {
   String? data;
-  MatchFavouritePage({Key? key, this.data}) : super(key: key);
+  bool userCheck;
+  MatchFavouritePage({Key? key, this.data, required this.userCheck}) : super(key: key);
 
   @override
-  _MatchFavouritePageState createState() => _MatchFavouritePageState(data: data);
+  _MatchFavouritePageState createState() => _MatchFavouritePageState(data: data, userCheck: userCheck);
 }
 
 class _MatchFavouritePageState extends State<MatchFavouritePage> {
   String? data;
-  _MatchFavouritePageState({this.data});
+  bool userCheck;
+  _MatchFavouritePageState({this.data, required this.userCheck});
 
   List<FavouriteUser>? favouriteUserList = [];
   List<FavouriteUserInfo>? favouriteUserInfoList = [];
   bool _alreadyClicked = false;
 
   Future<void> getFavouriteUserList() async {
+    favouriteUserList = [];
+    favouriteUserInfoList = [];
     favouriteUserList = await MongoDB.instance.getFavouriteUserList(LoggedUser.instance!.userId);
     print(favouriteUserList);
-    if(favouriteUserList != null) {
+    if(favouriteUserList!.isNotEmpty) {
+      userCheck = false;
       for(int i = 0; i < favouriteUserList!.length; i++) {
         // use firebase with favouriteUserId find user info
         CollectionReference userCollection = FirebaseFirestore.instance.collection("Users");
@@ -65,6 +70,8 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
           }
         }
       }
+    }else {
+      userCheck = true;
     }
     setState(() {
     });
@@ -152,7 +159,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
         AlertDialog(
           backgroundColor: Colors.white,
           title: Text(
-            "Hint",
+            "Tip",
             style: TextStyle(color: Colors.black),
           ),
           content: SingleChildScrollView(
@@ -201,8 +208,47 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
               checkLoading(),
             ],
           ),
+        ) :
+    favouriteUserList!.isEmpty && !userCheck?
+    Container(
+      child: Center(
+        child: Column (
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: 35 * SizeConfig.heightMultiplier!,
+            ),
+            SizedBox(
+              child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(CustomColors.pawrange),
+              ),
+            )
+          ],
+        ),
+      )
+    ) : userCheck ?
+    Container(
+        child: Center(
+          child: Column (
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 18 * SizeConfig.heightMultiplier!,
+              ),
+              Text(
+                "Please explore the matchmaking function(Dog icon)!\n\nAdd your favourite users and start your first chat here.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 4 * SizeConfig.textMultiplier!,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
         )
-        : ListView.builder(
+    ) :
+    ListView.builder(
         itemCount: favouriteUserInfoList!.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
@@ -418,16 +464,19 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                                                         ),
                                                         onPressed: () async {
                                                           buttonUpdate(context);
-                                                          print("remove");
-                                                          print(Random().nextInt(5).toString());
                                                           // TODO remove user
-                                                          // await removeFavouriteUser(userId, favouriteUserId, favouriteUserDogId);
+                                                          await MongoDB.instance.removeFavouriteUser(
+                                                              favouriteUserList![index].userId,
+                                                              favouriteUserList![index].favouriteUserId,
+                                                              favouriteUserList![index].favouriteUserDogId);
+                                                          setState(() {
+                                                            getFavouriteUserList();
+                                                          });
                                                         },
                                                       ),
                                                       TextButton(
                                                           onPressed: () {
                                                             buttonUpdate(context);
-                                                            print("not remove");
                                                           },
                                                           child: Text('NO',
                                                               style: TextStyle(color: CustomColors.pawrange))),

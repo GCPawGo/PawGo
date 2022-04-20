@@ -274,6 +274,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   String loadingCheck = "firstCheck";
+  bool noUser = false;
 
   Widget buildLikeButtons() {
     return Container(
@@ -284,6 +285,7 @@ class _HomePageState extends State<HomePage> {
               CupertinoPageRoute(
                 builder: (context) => MatchFavouritePage(
                   data: loadingCheck,
+                  userCheck: noUser,
                 ),
               ),
             ).then((data) {

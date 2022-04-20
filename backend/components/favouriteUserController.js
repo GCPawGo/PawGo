@@ -44,6 +44,9 @@ app.post('/removeFavouriteUser', async (req, res) => {
     const favouriteUserId = req.body.favouriteUserId;
     const favouriteUserDogId = req.body.favouriteUserDogId;
 
+    console.log(userId)
+    console.log(favouriteUserId)
+
     const existUser = await FavouriteUserModel.findOne({
         userId: userId,
         favouriteUserId: favouriteUserId,
