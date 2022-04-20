@@ -20,7 +20,7 @@ class DogSearchPage extends StatefulWidget {
 
 class _DogSearchPageState extends State<DogSearchPage> {
   LoggedUser? user;
-  List<Dog>? foundDogs;
+  List<Dog>? foundDogs = [];
   late bool hasSearched, loading;
   final dogSearchController = TextEditingController();
 
@@ -30,6 +30,7 @@ class _DogSearchPageState extends State<DogSearchPage> {
     user!.addListener(() {setState((){});});
     hasSearched = false;
     loading = false;
+    foundDogs!.add(Dog("123", "123", "123", "123", "123", "123", "123", "123"));
     super.initState();
   }
 
@@ -111,6 +112,7 @@ class _DogSearchPageState extends State<DogSearchPage> {
                                       });
                                       // TODO: Retrieve data from MongoDB
                                       // foundDogs = await MongoDB.instance.searchDog(dogSearchController.text);
+                                      print("123");
                                       setState(() {
                                         loading = false;
                                       });

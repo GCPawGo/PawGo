@@ -23,14 +23,13 @@ class DogSearchButton extends StatefulWidget {
 }
 
 class _DogSearchButtonState extends State<DogSearchButton> {
-  late List<Dog> dogsFound;
-  List<CardUser> cardUserList = [];
-  late CardUser cardUser;
+  List<Dog>? dogsFound;
+  // List<CardUser> cardUserList = [];
+  // CardUser cardUser;
 
   @override
   void initState() {
     dogsFound=widget.dogsFound;
-
 
     super.initState();
   }
@@ -38,7 +37,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: dogsFound.length,
+        itemCount: dogsFound!.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, int index) {
@@ -74,7 +73,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                       width: 30 * SizeConfig.widthMultiplier!,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          image: NetworkImage(cardUser.userImage),
+                                          image: NetworkImage("cardUser.userImage"),
                                           fit: BoxFit.cover,
                                           // alignment: Alignment(-0.3, 0),
                                         ),
@@ -106,7 +105,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                 ),
                               ),
                               Text(
-                                cardUser.userName,
+                                "cardUser.userName",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -124,7 +123,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                 ),
                               ),
                               Text(
-                                cardUser.userAge,
+                                "cardUser.userAge",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -141,7 +140,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
-                              cardUser.userDesc == "Update your desc here" ?
+                              "cardUser.userDesc" == "Update your desc here" ?
                               Text(
                                 " - ",
                                 style: TextStyle(
@@ -150,7 +149,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                 ),
                               ) :
                               Text(
-                                cardUser.userDesc,
+                                "cardUser.userDesc",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -290,6 +289,4 @@ class _DogSearchButtonState extends State<DogSearchButton> {
         }
     );
   }
-
-
 }
