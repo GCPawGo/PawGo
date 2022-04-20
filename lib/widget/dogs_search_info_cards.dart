@@ -1,43 +1,35 @@
-import 'dart:collection';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/assets/custom_colors.dart';
-import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/models/dog.dart';
-import 'package:pawgo/services/mongodb_service.dart';
 
-import '../models/cardUser.dart';
 import '../models/dogsList.dart';
 import '../routes/chat_page.dart';
 import '../size_config.dart';
 
 class DogSearchButton extends StatefulWidget {
-  const DogSearchButton({Key? key, required List<Dog> dogsFound,}) : dogsFound=dogsFound,super(key: key);
-  final List<Dog> dogsFound;
-
+  List<Dog> dogsFound;
+  DogSearchButton({Key? key, required List<Dog> dogsFound,}) : dogsFound=dogsFound,super(key: key);
 
   @override
-  _DogSearchButtonState createState() => _DogSearchButtonState();
+  _DogSearchButtonState createState() => _DogSearchButtonState(dogsFound: dogsFound);
 }
 
 class _DogSearchButtonState extends State<DogSearchButton> {
-  List<Dog>? dogsFound;
+  List<Dog> dogsFound;
+  _DogSearchButtonState({required this.dogsFound});
   // List<CardUser> cardUserList = [];
   // CardUser cardUser;
 
   @override
   void initState() {
-    dogsFound=widget.dogsFound;
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: dogsFound!.length,
+        itemCount: dogsFound.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, int index) {
@@ -73,7 +65,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                       width: 30 * SizeConfig.widthMultiplier!,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          image: NetworkImage("cardUser.userImage"),
+                                          image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/gcpawgo.appspot.com/o/05840a23-576e-407a-966a-853beeaf44e4.jpg?alt=media&token=ea2a786f-5e91-4f4b-898c-078440753da8"),
                                           fit: BoxFit.cover,
                                           // alignment: Alignment(-0.3, 0),
                                         ),
