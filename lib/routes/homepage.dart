@@ -4,12 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/routes/sign_in_page.dart';
+import 'package:pawgo/routes/support_page.dart';
 import 'package:pawgo/services/authentication.dart';
 import 'package:pawgo/services/mongodb_service.dart';
 import 'package:pawgo/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 import 'package:pawgo/assets/custom_colors.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../services/mongodb_service.dart';
 import '../models/currentUser.dart';
@@ -140,7 +142,7 @@ class _HomePageState extends State<HomePage> {
               height: 1 * SizeConfig.heightMultiplier!,
             ),
             Row(
-              //mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
                   onTap: () async {
@@ -162,6 +164,31 @@ class _HomePageState extends State<HomePage> {
                           left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
                       child: Text(
                         "SIGN OUT",
+                        style: TextStyle(
+                            color: Colors.white60,
+                            fontSize: 1.8 * SizeConfig.textMultiplier!),
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    pushNewScreen(context,
+                    screen: SupportPage(),
+                    pageTransitionAnimation:
+                    PageTransitionAnimation.cupertino);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white60),
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Colors.lightGreen,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                      child: Text(
+                        "SUPPORT",
                         style: TextStyle(
                             color: Colors.white60,
                             fontSize: 1.8 * SizeConfig.textMultiplier!),
