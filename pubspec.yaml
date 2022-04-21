@@ -52,8 +52,8 @@ dependencies:
   provider: ^6.0.2
   grouped_list: ^4.2.0
   intl: ^0.17.0
-#  cupertino_icons: ^1.0.3
-#  intl: ^0.17.0
+  cupertino_icons: ^1.0.3
+  audioplayers: ^0.20.1
 #  convert: ^3.0.1
 #  tuple: ^2.0.0
 #  pie_chart: ^5.1.0
@@ -93,11 +93,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/assets/google_logo.png
-    - lib/assets/app_logo.png
-    - lib/assets/app_icon.png
-    - lib/assets/Smokey.jpg
-    - lib/assets/default_dog.jpg
+    - lib/assets/
 
   fonts:
     - family: pawfont
