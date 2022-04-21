@@ -109,7 +109,7 @@ class _MatchPagesState extends State<MatchPages> {
     return AlertDialog(
       backgroundColor: Colors.white,
       title: Text(
-        "Hint",
+        "Tip",
         style: TextStyle(color: Colors.black),
       ),
       content: SingleChildScrollView(

@@ -35,7 +35,10 @@ class _DogSearchButtonState extends State<DogSearchButton> {
         itemBuilder: (context, int index) {
           return Column(
             children: <Widget>[
-              Container(
+          Padding(
+          padding: EdgeInsets.only(left: 5 * SizeConfig.widthMultiplier!,
+              right: 5 * SizeConfig.widthMultiplier!),
+              child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(15.0)),
                   color: Colors.grey.shade200,
@@ -275,6 +278,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                   ],
                 ),
               ),
+          ),
               SizedBox(height: 3 * SizeConfig.heightMultiplier!,),
             ],
           );

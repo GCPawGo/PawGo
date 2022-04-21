@@ -138,35 +138,6 @@ class MongoDB {
     }
   }
 
-  // TODO: To add function for the fronend getDogListByDogBreed :note by Panos
-  // Future<List<Dog>?> getDogListByDogBreed(String dogBreed) async {
-  //   var url = Uri.parse(baseUri + '/dogs/getDogListByDogBreed').replace(queryParameters: {'dogBreed': dogBreed});
-  //   var response = await _serverClient.get(url, headers: _headers);
-  //   print("Received events json from the getDogListByDogBreed");
-  //   if (response.statusCode == 200) {
-  //     var decodedBody = json.decode(response.body) as List;
-  //
-  //     List<String> dogBreedList = [];
-  //     List<Dog> dogsList = [];
-  //
-  //     for(int i = 0; i < dogBreedList.length; i ++) {
-  //       Dog dogsList = await MongoDB.instance.getDogListByDogBreed(dogBreedList[i]);
-  //       // get dog image from Firebase
-  //       CollectionReference dogsCollection = FirebaseFirestore.instance.collection("Dogs");
-  //       QuerySnapshot querySnapshot = await dogsCollection
-  //           .where("dogBreed", isEqualTo: dogBreedList[i])
-  //           .get();
-  //       if (querySnapshot.docs.isNotEmpty) {
-  //         dogsList.imageUrl = querySnapshot.docs[0].get("Image");
-  //       }
-  //       dogsList.add(dog);
-  //     };
-  //     return dogsList;
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
   Future<List<Dog>?> getDogsByUserId(String userId) async {
     var url = Uri.parse(baseUri + '/dogs/getDogsByUserId').replace(queryParameters: {'userId': userId});
     var response = await _serverClient.get(url, headers: _headers);
