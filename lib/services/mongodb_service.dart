@@ -245,4 +245,24 @@ class MongoDB {
       return false;
     }
   }
+
+  Future<List<Dog>> searchDogsByDogBreed(String dogBreed) async {
+    var url = Uri.parse(baseUri + '/dogs/getDogListByDogBreed').replace(queryParameters: {'dogBreed': dogBreed});;
+
+    var response = await _serverClient.get(url, headers: _headers);
+
+    List<Dog> dogList = [];
+
+    if (response.statusCode == 200) {
+      var decodedBody = json.decode(response.body) as List;
+
+      for(int i = 0; i < decodedBody.length; i++) {
+        dogList.add(Dog.fromJson(decodedBody[i]));
+      }
+
+      return dogList;
+    } else {
+      return dogList;
+    }
+  }
 }

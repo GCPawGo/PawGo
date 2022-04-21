@@ -1,15 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/assets/custom_colors.dart';
-import 'package:pawgo/models/dogsList.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/models/dog.dart';
 import 'package:pawgo/services/mongodb_service.dart';
 import 'package:pawgo/size_config.dart';
 import 'package:pawgo/widget/dogs_search_info_cards.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class DogSearchPage extends StatefulWidget {
@@ -28,7 +24,7 @@ class _DogSearchPageState extends State<DogSearchPage> {
   @override
   void initState() {
     user!.addListener(() {setState((){});});
-    foundDogs.add(Dog("123", "123", "123", "123", "123", "123", "123", "123"));
+    // foundDogs.add(Dog("123", "123", "123", "123", "123", "123", "123", "123"));
     super.initState();
   }
 
@@ -107,8 +103,7 @@ class _DogSearchPageState extends State<DogSearchPage> {
                                                 hasSearched = true;
                                                 loading = true;
                                               });
-                                              // TODO: Retrieve data from MongoDB
-                                              // foundDogs = await MongoDB.instance.searchDog(dogSearchController.text);
+                                              foundDogs = await MongoDB.instance.searchDogsByDogBreed(dogSearchController.text);
                                               setState(() {
                                                 loading = false;
                                               });
