@@ -259,7 +259,7 @@ class MongoDB {
       for(int i = 0; i < decodedBody.length; i++) {
         dogList.add(Dog.fromJson(decodedBody[i]));
       }
-
+      print(dogList);
       return dogList;
     } else {
       return dogList;

@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/models/dog.dart';
+import 'package:pawgo/models/searchResult.dart';
 
-import '../models/dogsList.dart';
+import '../models/currentUser.dart';
 import '../routes/chat_page.dart';
+import '../services/mongodb_service.dart';
 import '../size_config.dart';
 
 class DogSearchButton extends StatefulWidget {
@@ -18,18 +21,56 @@ class DogSearchButton extends StatefulWidget {
 class _DogSearchButtonState extends State<DogSearchButton> {
   List<Dog> dogsFound;
   _DogSearchButtonState({required this.dogsFound});
-  // List<CardUser> cardUserList = [];
-  // CardUser cardUser;
+  List<SearchResult> searchResultList = [];
+
+  Future<void> getSearchResultList() async {
+    searchResultList = [];
+
+    for (int i = 0; i < dogsFound.length; i++) {
+      CollectionReference userCollection = FirebaseFirestore.instance
+          .collection("Users");
+      QuerySnapshot querySnapshot = await userCollection
+          .where("userId", isEqualTo: dogsFound[i].userId)
+          .get();
+
+      CollectionReference dogCollection = FirebaseFirestore.instance.collection(
+          "Dogs");
+      QuerySnapshot dogQuerySnapshot = await dogCollection
+          .where("dogId", isEqualTo: dogsFound[i].id)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty && dogQuerySnapshot.docs.isNotEmpty) {
+        CurrentUser? current = await MongoDB.instance.getUser(
+            querySnapshot.docs[0].get("userId"));
+
+        Dog dog = dogsFound[i];
+        dog.imageUrl = dogQuerySnapshot.docs[0].get("Image");
+
+        SearchResult searchResult = SearchResult(
+            querySnapshot.docs[0].get("userId"),
+            querySnapshot.docs[0].get("Username"),
+            querySnapshot.docs[0].get("Mail"),
+            current!.userAge,
+            current.userDesc,
+            querySnapshot.docs[0].get("Image"),
+            dog);
+
+        searchResultList.add(searchResult);
+      }
+    }
+    setState(() {});
+  }
 
   @override
   void initState() {
+    getSearchResultList();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: dogsFound.length,
+        itemCount: searchResultList.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, int index) {
@@ -68,7 +109,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                       width: 35 * SizeConfig.widthMultiplier!,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/gcpawgo.appspot.com/o/05840a23-576e-407a-966a-853beeaf44e4.jpg?alt=media&token=ea2a786f-5e91-4f4b-898c-078440753da8"),
+                                          image: NetworkImage(searchResultList[index].userImage),
                                           fit: BoxFit.cover,
                                           // alignment: Alignment(-0.3, 0),
                                         ),
@@ -82,7 +123,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                       image: DecorationImage(
                                         // image: NetworkImage(widget.user.urlImage),
                                         // TODO: To be changed by to dog's breed search! :note by Panos
-                                        image: NetworkImage(DogsList.instance!.dogsList[index].imageUrl),
+                                        image: NetworkImage(searchResultList[index].dog.imageUrl),
                                         fit: BoxFit.cover,
                                         // alignment: Alignment(-0.3, 0),
                                       ),
@@ -100,7 +141,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                 ),
                               ),
                               Text(
-                                "cardUser.userName",
+                                searchResultList[index].userName,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -118,7 +159,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                 ),
                               ),
                               Text(
-                                "cardUser.userAge",
+                                searchResultList[index].userAge,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -135,7 +176,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
-                              "cardUser.userDesc" == "Update your desc here" ?
+                              searchResultList[index].userDesc == "Update your desc here" ?
                               Text(
                                 " - ",
                                 style: TextStyle(
@@ -144,7 +185,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                 ),
                               ) :
                               Text(
-                                "cardUser.userDesc",
+                                searchResultList[index].userDesc,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -162,7 +203,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                 ),
                               ),
                               Text(
-                                DogsList.instance!.dogsList[index].dogName,
+                                searchResultList[index].dog.dogName,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -180,7 +221,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                 ),
                               ),
                               Text(
-                                DogsList.instance!.dogsList[index].dogAge,
+                                searchResultList[index].dog.dogAge,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -198,7 +239,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                 ),
                               ),
                               Text(
-                                DogsList.instance!.dogsList[index].dogBreed,
+                                searchResultList[index].dog.dogBreed,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
@@ -208,22 +249,30 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                 height: 0.5 * SizeConfig.heightMultiplier!,
                               ),
                               Text(
-                                "Dog's Hobby:",
+                                "Dog's Hobbies:",
                                 style: TextStyle(
                                   color: Colors.black54,
                                   fontSize: 2.5 * SizeConfig.textMultiplier!,
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
+                              searchResultList[index].dog.dogHobby == "What's your dog's hobbies?" ?
                               Text(
-                                DogsList.instance!.dogsList[index].dogHobby,
+                                " - ",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                ),
+                              ) :
+                              Text(
+                                searchResultList[index].dog.dogHobby,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,
                                 ),
                               ),
                               SizedBox(
-                                height: 0.5 * SizeConfig.heightMultiplier!,
+                                height: 1 * SizeConfig.heightMultiplier!,
                               ),
                               Text(
                                 "Dog's Personality:",
@@ -233,8 +282,17 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
+                              searchResultList[index].dog.dogPersonality == "What's your dog's personality?"
+                                  ?
                               Text(
-                                DogsList.instance!.dogsList[index].dogPersonality,
+                                " - ",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 2.2 * SizeConfig.textMultiplier!,
+                                ),
+                              ) :
+                              Text(
+                                searchResultList[index].dog.dogPersonality,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 2.2 * SizeConfig.textMultiplier!,

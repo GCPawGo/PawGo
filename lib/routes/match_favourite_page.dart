@@ -35,7 +35,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
     favouriteUserList = [];
     favouriteUserInfoList = [];
     favouriteUserList = await MongoDB.instance.getFavouriteUserList(LoggedUser.instance!.userId);
-    print(favouriteUserList);
+
     if(favouriteUserList!.isNotEmpty) {
       userCheck = false;
       for(int i = 0; i < favouriteUserList!.length; i++) {
@@ -80,7 +80,6 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
   @override
   void initState() {
     getFavouriteUserList();
-
     super.initState();
   }
 
