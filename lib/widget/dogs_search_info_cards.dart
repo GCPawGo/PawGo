@@ -65,7 +65,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                     padding: EdgeInsets.all(1.5),
                                     child: Container(
                                       height: 40 * SizeConfig.heightMultiplier!,
-                                      width: 30 * SizeConfig.widthMultiplier!,
+                                      width: 35 * SizeConfig.widthMultiplier!,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                           image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/gcpawgo.appspot.com/o/05840a23-576e-407a-966a-853beeaf44e4.jpg?alt=media&token=ea2a786f-5e91-4f4b-898c-078440753da8"),
@@ -77,7 +77,7 @@ class _DogSearchButtonState extends State<DogSearchButton> {
                                   ),
                                   Container(
                                     height: 40 * SizeConfig.heightMultiplier!,
-                                    width: 30 * SizeConfig.widthMultiplier!,
+                                    width: 35 * SizeConfig.widthMultiplier!,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         // image: NetworkImage(widget.user.urlImage),

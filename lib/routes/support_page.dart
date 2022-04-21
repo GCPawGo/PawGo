@@ -87,7 +87,7 @@ class _SupportPageState extends State<SupportPage> {
                                                 fontSize: 3 * SizeConfig.textMultiplier!,
                                                 fontWeight: FontWeight.bold,
                                                 decoration: TextDecoration.underline,
-                                                color: Colors.white,
+                                                color: Colors.white60,
                                               ),
                                             ),
                                           ),
