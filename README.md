@@ -15,7 +15,7 @@ Team:</br>
 "Friend5" project team is responsible for the development of the "PawGo" hybrid application for both platforms (Android, iOS) for matchmaking dog owners/lovers. This objective is pursued by providing the users with an interactive system that encourages dog owners to find others and match based on dog breed, hobbies and other preferences. This will give users the opportunity to meet up at a pet allowed restaurant or outdoors and have the chance to know each other.
 
 ## Video Commercial
-[![Promo Video](https://img.youtube.com/vi/5j9MIvSbWX0E/0.jpg)](https://www.youtube.com/watch?v=5j9MIvSbWX0E)
+[![Promo Video](https://i.imgur.com/iZ5fDRN.jpeg)](https://www.youtube.com/watch?v=5j9MIvSbWX0E)
 
 ## Technology Selection
 
