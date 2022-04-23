@@ -145,7 +145,7 @@ class _MapPageState extends State<MapPage> {
         minZoomLevel: 8,
         maxZoomLevel: 19,
         stepZoom: 1.0,
-        key: widget.key,
+        // key: widget.key,
         androidHotReloadSupport: true,
         userLocationMarker: UserLocationMaker(
           personMarker: MarkerIcon(
@@ -158,13 +158,14 @@ class _MapPageState extends State<MapPage> {
           directionArrowMarker: MarkerIcon(
             icon: Icon(
               markerdog.icon,
+              color: Colors.deepOrange,
               size: 90,
             ),
           ),
         ),
           showContributorBadgeForOSM: false,
           showDefaultInfoWindow: false,
-          // TODO: To implement at some point to show user's profile once tapped on the icon
+          // TODO: To implement at some point to show user's profile once tapped on the icon :note by Panos
           // onGeoPointClicked: (geoPoint) async {
           //   ScaffoldMessenger.of(context).showSnackBar(
           //     SnackBar(
