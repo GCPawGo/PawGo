@@ -274,7 +274,7 @@ class _TinderCardState extends State<TinderCard> {
       case CardStatus.dislike:
         final child = buildStamp(
           angle: 0.5,
-          color: CustomColors.pawrange,
+          color: Colors.red,
           text: 'NOPE',
           opacity: opacity,
         );
