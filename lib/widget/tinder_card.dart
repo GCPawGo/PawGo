@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/models/currentUser.dart';
 import 'package:pawgo/utils/mobile_library.dart';
 import 'package:provider/provider.dart';
@@ -273,7 +274,7 @@ class _TinderCardState extends State<TinderCard> {
       case CardStatus.dislike:
         final child = buildStamp(
           angle: 0.5,
-          color: Colors.red,
+          color: CustomColors.pawrange,
           text: 'NOPE',
           opacity: opacity,
         );
@@ -328,13 +329,13 @@ class _TinderCardState extends State<TinderCard> {
                         children: [
                           Text(
                             cardUser.dog.dogName,
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 25, color: Colors.white),
                             // textAlign: TextAlign.justify,
                           ),
                           // const SizedBox(width: 8),
                           Text(
                             cardUser.dog.dogAge,
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 25, color: Colors.white),
                             // textAlign: TextAlign.justify,
                           ),
                         ],

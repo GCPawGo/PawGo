@@ -45,6 +45,13 @@ class _SignInScreenState extends State<SignInScreen> {
                           height: MediaQuery.of(context).size.width * (0.75),
                         ),
                       ),
+                      Text(
+                        "\"find you pawmate\"",
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 2.5 * SizeConfig.textMultiplier!),
+                      ),
                     ],
                   ),
                 ),

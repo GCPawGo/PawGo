@@ -202,10 +202,10 @@ class _MatchPagesState extends State<MatchPages> {
         ElevatedButton(
           style: ButtonStyle(
             foregroundColor:
-            getColor(Colors.red, Colors.white, isDislike),
+            getColor(CustomColors.pawrange, Colors.white, isDislike),
             backgroundColor:
-            getColor(Colors.white, Colors.red, isDislike),
-            side: getBorder(Colors.red, Colors.white, isDislike),
+            getColor(Colors.white, CustomColors.pawrange, isDislike),
+            side: getBorder(CustomColors.pawrange, Colors.white, isDislike),
           ),
           child: Icon(Icons.clear, size: 40),
           onPressed: () {
