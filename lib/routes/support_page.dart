@@ -37,7 +37,7 @@ class _SupportPageState extends State<SupportPage> {
               ),
               child: GestureDetector(
                 onLongPress: () async {
-                  // final result = await audioPlayer.play("D:/PawGo/lib/assets/sounds/1.mp3", isLocal: true);
+                  // final result = await audioPlayer.play("assets/sounds/1.mp3", isLocal: true);
 
                   showDialog<void>(
                       context: context,
