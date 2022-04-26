@@ -1,11 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/size_config.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
 
 class SupportPage extends StatefulWidget {
   SupportPage({Key? key}) : super(key: key);
@@ -14,6 +11,8 @@ class SupportPage extends StatefulWidget {
 }
 
 class _SupportPageState extends State<SupportPage> {
+  AudioCache player = AudioCache();
+  AudioPlayer audioPlayer = AudioPlayer();
 
   @override
   void initState() {
@@ -37,7 +36,9 @@ class _SupportPageState extends State<SupportPage> {
                 ),
               ),
               child: GestureDetector(
-                onLongPress: ()  {
+                onLongPress: () async {
+                  // final result = await audioPlayer.play("D:/PawGo/lib/assets/sounds/1.mp3", isLocal: true);
+
                   showDialog<void>(
                       context: context,
                       barrierDismissible: true, // user must tap button!

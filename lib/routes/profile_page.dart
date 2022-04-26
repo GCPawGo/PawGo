@@ -1,11 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:pawgo/models/dogsList.dart';
 import 'package:pawgo/models/loggedUser.dart';
 import 'package:pawgo/routes/profile_editing.dart';
@@ -478,7 +474,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 height: 1 * SizeConfig.heightMultiplier!,
                               ),
                             Container(
-                              child: (userDesc != "Update your desc here")
+                              child: (CurrentUser.instance!.userDesc != "Update your desc here")
                                   ? Padding(
                                 padding: EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
                                 child: Text(
