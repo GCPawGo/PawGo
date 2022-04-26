@@ -46,7 +46,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ),
                       Text(
-                        "\"find you pawmate\"",
+                        "\"find your pawmate\"",
                         style: TextStyle(
                             color: Colors.black54,
                             fontWeight: FontWeight.bold,
