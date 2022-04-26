@@ -322,7 +322,7 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Users Like Me", style: TextStyle(fontSize: 2.2 * SizeConfig.textMultiplier!),),
+              Text("Users Liked", style: TextStyle(fontSize: 2.2 * SizeConfig.textMultiplier!),),
               SizedBox(width: 2 * SizeConfig.widthMultiplier!),
               ClipOval(
                 child: Material(

@@ -137,7 +137,7 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
                   Padding(
                     padding: EdgeInsets.only(top: 5 * SizeConfig.heightMultiplier!),
                     child: Text(
-                      'Users Like Me',
+                      'Users Liked',
                       style: TextStyle(
                         fontSize: 6 * SizeConfig.textMultiplier!,
                         fontFamily: 'pawfont',
@@ -227,25 +227,50 @@ class _MatchFavouritePageState extends State<MatchFavouritePage> {
       )
     ) : userCheck ?
     Container(
-        child: Center(
-          child: Column (
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 18 * SizeConfig.heightMultiplier!,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 15 * SizeConfig.heightMultiplier!,
+          ),
+          AlertDialog(
+            backgroundColor: Colors.white,
+            alignment: Alignment.center,
+            title: Text(
+              "Tip",
+              style: TextStyle(color: Colors.black),
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(
+                    "Please explore the match making page.\n\nAdd your favourite users and start your first chat here.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
               ),
-              Text(
-                "Please explore the matchmaking function(Dog icon)!\n\nAdd your favourite users and start your first chat here.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 4 * SizeConfig.textMultiplier!,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+            ),
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    child: Text(
+                      'OK',
+                      // textAlign: TextAlign.center,
+                      style: TextStyle(color: CustomColors.pawrange),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
               ),
             ],
           ),
-        )
+        ],
+      ),
     ) :
     ListView.builder(
         itemCount: favouriteUserInfoList!.length,
