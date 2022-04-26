@@ -1,4 +1,4 @@
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:pawgo/assets/custom_colors.dart';
 import 'package:pawgo/size_config.dart';
@@ -11,8 +11,8 @@ class SupportPage extends StatefulWidget {
 }
 
 class _SupportPageState extends State<SupportPage> {
-  AudioCache player = AudioCache();
-  AudioPlayer audioPlayer = AudioPlayer();
+  // AudioCache player = AudioCache();
+  // AudioPlayer audioPlayer = AudioPlayer();
 
   @override
   void initState() {

@@ -82,7 +82,6 @@ class CardProvider extends ChangeNotifier {
   CardStatus? getStatus({bool force = false}) {
     final x = _position.dx;
     final y = _position.dy;
-    final forceSuperLike = x.abs() < 20;
 
     if (force) {
       final delta = 100;
