@@ -320,17 +320,24 @@ class _TinderCardState extends State<TinderCard> {
             mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      SizedBox(width: 45 * SizeConfig.widthMultiplier!),
-                      SizedBox(height: 10 * SizeConfig.heightMultiplier!),
+                      // SizedBox(width: 45 * SizeConfig.widthMultiplier!),
+                      SizedBox(height: 12 * SizeConfig.heightMultiplier!),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            cardUser.dog.dogName,
-                            style: TextStyle(fontSize: 25, color: Colors.white),
-                            // textAlign: TextAlign.justify,
+                          SizedBox(
+                            width: 42 * SizeConfig.widthMultiplier!,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  cardUser.dog.dogName,
+                                  textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 30, color: Colors.white),
+                                          // textAlign: TextAlign.justify,
+                                        ),
+                              ),
                           ),
                           // const SizedBox(width: 8),
                           Text(
@@ -340,6 +347,7 @@ class _TinderCardState extends State<TinderCard> {
                           ),
                         ],
                       ),
+                      SizedBox(width: 3 * SizeConfig.widthMultiplier!),
                     ],
                 ),
               ],
@@ -348,30 +356,37 @@ class _TinderCardState extends State<TinderCard> {
   Widget buildName() =>
       Container(
         height: 80 * SizeConfig.heightMultiplier!,
-        width: 44 * SizeConfig.widthMultiplier!,
+        width: 45 * SizeConfig.widthMultiplier!,
         child: Column(
          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-              Text(
+            SizedBox(
+              width: 42 * SizeConfig.widthMultiplier!,
+              child: FittedBox(
+              fit: BoxFit.scaleDown,
+               child: Text(
                 cardUser.userName,
                 // widget.user.name,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 32,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
+               ),
               ),
-              const SizedBox(width: 8),
-              Text(
-                userAge,
-                // '${widget.user.age}',
-                style: TextStyle(
-                  fontSize: 32,
-                  color: Colors.white,
-                ),
+            ),
+              // SizedBox(width: 8 * SizeConfig.widthMultiplier!),
+            Text(
+              userAge,
+              // '${widget.user.age}',
+              style: TextStyle(
+                fontSize: 32,
+                color: Colors.white,
               ),
-              SizedBox(height: 2 * SizeConfig.heightMultiplier!),
-            ],
+            ),
+            SizedBox(height: 2 * SizeConfig.heightMultiplier!),
+          ],
         ),
       );
 }
