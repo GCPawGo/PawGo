@@ -32,3 +32,44 @@ Team:</br>
 |      Express       |    Node.js Web server    |                                                |
 |      MongoDB       |  Non-relational database |             https://www.mongodb.com/           |
 |      Heroku        | Call server cloud platform |             https://www.heroku.com/            |
+
+# Screenshots
+<br>
+Meet new people with the same interests..Interest in dogs! 
+<br><br>
+<p align="center">
+  <img src="Screenshots/1.png" width=250></img>
+</p>
+<br>
+Setup your Profile page however you like!
+<br><br>
+<p align="center">
+  <img src="Screenshots/2.png" width=250></img>
+  <img src="Screenshots/3.png" width=250></img>
+  <img src="Screenshots/4.png" width=250></img>
+</p>
+<br>
+Setup your dog's profile page and go out for an adventure!
+<br><br>
+<p align="center">
+  <img src="Screenshots/5.png" width=250></img>
+  <img src="Screenshots/6.png" width=250></img>
+  <img src="Screenshots/7.png" width=250></img>
+</p>
+<br>
+Search for a dog's breed of your choice!
+<br><br>
+<p align="center">
+  <img src="Screenshots/8.png" width=250></img>
+  <img src="Screenshots/9.png" width=250></img>
+  <img src="Screenshots/13.png" width=250></img>
+</p>
+<br>
+Use the match page to like other users!
+<br><br>
+<p align="center">
+  <img src="Screenshots/10.png" width=250></img>
+  <img src="Screenshots/11.png" width=250></img>
+  <img src="Screenshots/12.png" width=250></img>
+</p>
+<br>
