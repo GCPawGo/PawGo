@@ -48,7 +48,7 @@ class _SupportPageState extends State<SupportPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(8 * SizeConfig.heightMultiplier!),
+                                padding: EdgeInsets.all(4 * SizeConfig.heightMultiplier!),
                                 child: GestureDetector(
                                   onTap: () {
                                     Navigator.of(context).pop();
@@ -56,6 +56,10 @@ class _SupportPageState extends State<SupportPage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
+                                      DefaultTextStyle(style: TextStyle(fontStyle: FontStyle.italic, color: Colors.white70, fontSize: 4 * SizeConfig.textMultiplier!),
+                                          child: Text("In Memory of Smokey", textAlign: TextAlign.center)
+                                      ),
+                                      SizedBox(height: 5 * SizeConfig.heightMultiplier!),
                                       DefaultTextStyle(style: TextStyle(decoration: TextDecoration.underline, color: Colors.white70, fontSize: 3 * SizeConfig.textMultiplier!),
                                           child: Text("Developed by:", textAlign: TextAlign.center)
                                       ),
